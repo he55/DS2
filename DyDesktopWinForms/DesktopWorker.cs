@@ -6,13 +6,8 @@ namespace DyDesktopWinForms
     {
         public static IntPtr GetWorkerWindowHandle()
         {
-
-
-
             // Fetch the Progman window
             IntPtr progman = PInvoke.FindWindow("Progman", null);
-
-            IntPtr result = IntPtr.Zero;
 
             // Send 0x052C to Progman. This message directs Progman to spawn a 
             // WorkerW behind the desktop icons. If it is already there, nothing 
@@ -23,11 +18,8 @@ namespace DyDesktopWinForms
                                    IntPtr.Zero,
                                    0,
                                    1000,
-                                   out result);
+                                   out _);
 
-
-            //PrintVisibleWindowHandles(2);
-            // The output will look something like this
             // .....
             // 0x00010190 "" WorkerW
             //   ...
@@ -60,8 +52,8 @@ namespace DyDesktopWinForms
 
                 return true;
             }, IntPtr.Zero);
-            return workerw;
 
+            return workerw;
         }
     }
 }
