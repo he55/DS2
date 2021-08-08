@@ -28,6 +28,7 @@ namespace DyDesktopWinForms
             {
                 meth();
                 videoWindow.Source = new Uri(openFileDialog.FileName, UriKind.Absolute);
+                videoWindow.Play();
             }
         }
 
