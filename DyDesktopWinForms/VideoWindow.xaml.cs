@@ -24,6 +24,24 @@ namespace DyDesktopWinForms
             InitializeComponent();
         }
 
+        public Uri Source
+        {
+            get => mediaElement.Source;
+            set => mediaElement.Source = value;
+        }
+
+        public double Volume
+        {
+            get => mediaElement.Volume;
+            set => mediaElement.Volume = value;
+        }
+
+        public bool IsMuted
+        {
+            get => mediaElement.IsMuted;
+            set => mediaElement.IsMuted = value;
+        }
+
         private void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
             mediaElement.Position = TimeSpan.Zero;
