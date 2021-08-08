@@ -52,7 +52,13 @@ namespace DyDesktopWinForms
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            trackBar1.Enabled = !checkBox1.Checked;
             videoWindow.IsMuted = checkBox1.Checked;
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            videoWindow.Volume = trackBar1.Value / 10.0;
         }
     }
 }
