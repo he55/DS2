@@ -42,6 +42,26 @@ namespace DyDesktopWinForms
             set => mediaElement.IsMuted = value;
         }
 
+        public void Play()
+        {
+            mediaElement.Play();
+        }
+
+        public void Pause()
+        {
+            mediaElement.Pause();
+        }
+
+        public void FullScreen()
+        {
+            this.WindowStyle = WindowStyle.None;
+            this.ResizeMode = ResizeMode.NoResize;
+            this.Left = 0;
+            this.Top = 0;
+            this.Width = SystemParameters.PrimaryScreenWidth;
+            this.Height = SystemParameters.PrimaryScreenHeight;
+        }
+
         private void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
             mediaElement.Position = TimeSpan.Zero;
