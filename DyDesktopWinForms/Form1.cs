@@ -13,6 +13,7 @@ namespace DyDesktopWinForms
     public partial class Form1 : Form
     {
         private VideoWindow videoWindow;
+
         public Form1()
         {
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace DyDesktopWinForms
         {
             button1.Enabled = false;
             videoWindow = new VideoWindow();
+            videoWindow.FullScreen();
             videoWindow.Show();
 
             IntPtr workerWindowHandle = DesktopWorker.GetWorkerWindowHandle();
@@ -31,6 +33,7 @@ namespace DyDesktopWinForms
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "MP4 Files (*.mp4)|*.mp4";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 videoWindow.Source = new Uri(openFileDialog.FileName, UriKind.Absolute);
