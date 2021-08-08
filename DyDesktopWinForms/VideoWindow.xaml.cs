@@ -23,5 +23,11 @@ namespace DyDesktopWinForms
         {
             InitializeComponent();
         }
+
+        private void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            mediaElement.Position = TimeSpan.Zero;
+            mediaElement.Play();
+        }
     }
 }
