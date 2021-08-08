@@ -62,6 +62,7 @@ namespace DyDesktopWinForms
             // 
             // button3
             // 
+            this.button3.Enabled = false;
             this.button3.Location = new System.Drawing.Point(24, 132);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
@@ -72,6 +73,7 @@ namespace DyDesktopWinForms
             // 
             // button4
             // 
+            this.button4.Enabled = false;
             this.button4.Location = new System.Drawing.Point(131, 132);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
@@ -83,6 +85,7 @@ namespace DyDesktopWinForms
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(24, 178);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(48, 16);
@@ -101,17 +104,20 @@ namespace DyDesktopWinForms
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Location = new System.Drawing.Point(37, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(233, 308);
+            this.groupBox1.Size = new System.Drawing.Size(233, 234);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "播放设置";
             // 
             // trackBar1
             // 
+            this.trackBar1.Enabled = false;
+            this.trackBar1.LargeChange = 1;
             this.trackBar1.Location = new System.Drawing.Point(78, 175);
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(128, 45);
             this.trackBar1.TabIndex = 5;
+            this.trackBar1.Value = 5;
             // 
             // Form1
             // 
