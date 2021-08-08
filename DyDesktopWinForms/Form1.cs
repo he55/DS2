@@ -13,21 +13,11 @@ namespace DyDesktopWinForms
     public partial class Form1 : Form
     {
         private VideoWindow videoWindow;
+        private bool bf;
 
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            button1.Enabled = false;
-            videoWindow = new VideoWindow();
-            videoWindow.FullScreen();
-            videoWindow.Show();
-
-            IntPtr workerWindowHandle = DesktopWorker.GetWorkerWindowHandle();
-            PInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -36,6 +26,7 @@ namespace DyDesktopWinForms
             openFileDialog.Filter = "MP4 Files (*.mp4)|*.mp4";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                meth();
                 videoWindow.Source = new Uri(openFileDialog.FileName, UriKind.Absolute);
             }
         }
@@ -59,6 +50,26 @@ namespace DyDesktopWinForms
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             videoWindow.Volume = trackBar1.Value / 10.0;
+        }
+
+        private void meth()
+        {
+            if (!bf)
+            {
+                bf = true;
+
+                videoWindow = new VideoWindow();
+                videoWindow.FullScreen();
+                videoWindow.Show();
+
+                IntPtr workerWindowHandle = DesktopWorker.GetWorkerWindowHandle();
+                PInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
+
+                button3.Enabled = true;
+                button4.Enabled = true;
+                checkBox1.Enabled = true;
+                trackBar1.Enabled = true;
+            }
         }
     }
 }
