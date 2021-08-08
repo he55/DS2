@@ -12,6 +12,7 @@ namespace DyDesktopWinForms
 {
     public partial class Form1 : Form
     {
+        private VideoWindow videoWindow;
         public Form1()
         {
             InitializeComponent();
@@ -19,27 +20,36 @@ namespace DyDesktopWinForms
 
         private void button1_Click(object sender, EventArgs e)
         {
+            button1.Enabled = false;
+            videoWindow = new VideoWindow();
+            videoWindow.Show();
 
+            IntPtr workerWindowHandle = DesktopWorker.GetWorkerWindowHandle();
+            PInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                videoWindow.Source = new Uri(openFileDialog.FileName, UriKind.Absolute);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            videoWindow.Play();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            videoWindow.Pause();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-
+            videoWindow.IsMuted = checkBox1.Checked;
         }
     }
 }

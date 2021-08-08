@@ -60,7 +60,7 @@ namespace DyDesktopWinForms
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(130, 132);
+            this.button3.Location = new System.Drawing.Point(24, 132);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
@@ -70,7 +70,7 @@ namespace DyDesktopWinForms
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(24, 132);
+            this.button4.Location = new System.Drawing.Point(131, 132);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
