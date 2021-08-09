@@ -18,6 +18,7 @@ namespace DyDesktopWinForms
         public Form1()
         {
             InitializeComponent();
+            this.MaximumSize = this.MinimumSize = this.Size;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -71,6 +72,12 @@ namespace DyDesktopWinForms
                 checkBox1.Enabled = true;
                 trackBar1.Enabled = true;
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            videoWindow.Close();
+            videoWindow = null;
         }
     }
 }
