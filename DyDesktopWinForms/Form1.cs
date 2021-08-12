@@ -13,6 +13,7 @@ namespace DyDesktopWinForms
     public partial class Form1 : Form
     {
         private VideoWindow videoWindow;
+        private bool _isPlaying;
 
         public Form1()
         {
@@ -25,13 +26,14 @@ namespace DyDesktopWinForms
             if (videoWindow == null)
             {
                 videoWindow = new VideoWindow();
+                videoWindow.IsMuted = checkBox1.Checked;
+                videoWindow.Volume = trackBar1.Value / 10.0;
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
                 IntPtr workerWindowHandle = DesktopWorker.GetWorkerWindowHandle();
                 PInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
 
-                button3.Enabled = true;
                 button4.Enabled = true;
                 button5.Enabled = true;
                 checkBox1.Enabled = true;
@@ -46,19 +48,29 @@ namespace DyDesktopWinForms
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 CreateVideoWindow();
+
                 videoWindow.Source = new Uri(openFileDialog.FileName, UriKind.Absolute);
                 videoWindow.Play();
-            }
-        }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            videoWindow.Play();
+                _isPlaying = true;
+                button4.Text = "暂停";
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            videoWindow.Pause();
+            if (_isPlaying)
+            {
+                _isPlaying = false;
+                videoWindow.Pause();
+                button4.Text = "播放";
+            }
+            else
+            {
+                _isPlaying = true;
+                videoWindow.Play();
+                button4.Text = "暂停";
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -77,7 +89,9 @@ namespace DyDesktopWinForms
             videoWindow.Close();
             videoWindow = null;
 
-            button3.Enabled = false;
+            _isPlaying = false;
+            button4.Text = "播放";
+
             button4.Enabled = false;
             button5.Enabled = false;
             checkBox1.Enabled = false;
