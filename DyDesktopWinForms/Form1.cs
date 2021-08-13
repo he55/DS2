@@ -59,6 +59,9 @@ namespace DyDesktopWinForms
                 button5.Enabled = true;
                 checkBox1.Enabled = true;
                 trackBar1.Enabled = true;
+
+                toolStripMenuItem2.Enabled = true;
+                toolStripMenuItem3.Enabled = true;
             }
         }
 
@@ -75,28 +78,37 @@ namespace DyDesktopWinForms
 
                 _isPlaying = true;
                 button4.Text = "暂停";
+                toolStripMenuItem2.Text = "暂停";
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void play()
         {
             if (_isPlaying)
             {
                 _isPlaying = false;
                 videoWindow.Pause();
                 button4.Text = "播放";
+                toolStripMenuItem2.Text = "播放";
             }
             else
             {
                 _isPlaying = true;
                 videoWindow.Play();
                 button4.Text = "暂停";
+                toolStripMenuItem2.Text = "暂停";
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            play();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             trackBar1.Enabled = !checkBox1.Checked;
+            toolStripMenuItem3.Checked = checkBox1.Checked;
             videoWindow.IsMuted = checkBox1.Checked;
         }
 
@@ -112,11 +124,15 @@ namespace DyDesktopWinForms
 
             _isPlaying = false;
             button4.Text = "播放";
+            toolStripMenuItem2.Text = "播放";
 
             button4.Enabled = false;
             button5.Enabled = false;
             checkBox1.Enabled = false;
             trackBar1.Enabled = false;
+
+            toolStripMenuItem2.Enabled = false;
+            toolStripMenuItem3.Enabled = false;
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -126,12 +142,14 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-
+            play();
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-
+            toolStripMenuItem3.Checked = !toolStripMenuItem3.Checked;
+            checkBox1.Checked = toolStripMenuItem3.Checked;
+            videoWindow.IsMuted = toolStripMenuItem3.Checked;
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
