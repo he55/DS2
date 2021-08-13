@@ -20,6 +20,7 @@ namespace DyDesktopWinForms
         public Form1()
         {
             InitializeComponent();
+            notifyIcon1.Icon = this.Icon;
             this.MaximumSize = this.MinimumSize = this.Size;
         }
 
@@ -118,6 +119,24 @@ namespace DyDesktopWinForms
             trackBar1.Enabled = false;
         }
 
-       
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
