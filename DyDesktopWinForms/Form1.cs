@@ -14,11 +14,23 @@ namespace DyDesktopWinForms
     {
         private VideoWindow videoWindow;
         private bool _isPlaying;
+       private IntPtr workerWindowHandle ;
+
 
         public Form1()
         {
             InitializeComponent();
             this.MaximumSize = this.MinimumSize = this.Size;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+             workerWindowHandle = DesktopWorker.GetWorkerWindowHandle();
+            if (workerWindowHandle==IntPtr.Zero)
+            {
+                button2.Enabled = false;
+                label1.Visible = true;
+            }
         }
 
         private void CreateVideoWindow()
@@ -31,7 +43,6 @@ namespace DyDesktopWinForms
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
-                IntPtr workerWindowHandle = DesktopWorker.GetWorkerWindowHandle();
                 PInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
 
                 button4.Enabled = true;
@@ -97,5 +108,7 @@ namespace DyDesktopWinForms
             checkBox1.Enabled = false;
             trackBar1.Enabled = false;
         }
+
+      
     }
 }
