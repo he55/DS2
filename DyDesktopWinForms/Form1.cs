@@ -33,6 +33,15 @@ namespace DyDesktopWinForms
             }
         }
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                this.Hide();
+            }
+        }
+
         private void CreateVideoWindow()
         {
             if (videoWindow == null)
@@ -109,6 +118,6 @@ namespace DyDesktopWinForms
             trackBar1.Enabled = false;
         }
 
-      
+       
     }
 }
