@@ -107,9 +107,9 @@ namespace DyDesktopWinForms
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(632, 145);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.Size = new System.Drawing.Size(101, 12);
             this.label1.TabIndex = 8;
-            this.label1.Text = "label1";
+            this.label1.Text = "获取桌面句柄失败";
             this.label1.Visible = false;
             // 
             // notifyIcon1
@@ -127,25 +127,25 @@ namespace DyDesktopWinForms
             this.toolStripSeparator1,
             this.toolStripMenuItem4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(193, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(110, 98);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 22);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
+            this.toolStripMenuItem1.Text = "设置...";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(192, 22);
-            this.toolStripMenuItem2.Text = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(109, 22);
+            this.toolStripMenuItem2.Text = "播放";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(192, 22);
-            this.toolStripMenuItem3.Text = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(109, 22);
+            this.toolStripMenuItem3.Text = "静音";
             // 
             // toolStripSeparator1
             // 
@@ -155,8 +155,8 @@ namespace DyDesktopWinForms
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(192, 22);
-            this.toolStripMenuItem4.Text = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(109, 22);
+            this.toolStripMenuItem4.Text = "退出";
             // 
             // Form1
             // 
