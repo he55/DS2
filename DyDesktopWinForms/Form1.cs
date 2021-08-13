@@ -121,6 +121,7 @@ namespace DyDesktopWinForms
         {
             videoWindow.Close();
             videoWindow = null;
+            GC.Collect();
 
             _isPlaying = false;
             button4.Text = "播放";
@@ -147,9 +148,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            toolStripMenuItem3.Checked = !toolStripMenuItem3.Checked;
-            checkBox1.Checked = toolStripMenuItem3.Checked;
-            videoWindow.IsMuted = toolStripMenuItem3.Checked;
+            checkBox1.Checked = !toolStripMenuItem3.Checked;
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
