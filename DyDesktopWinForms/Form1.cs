@@ -44,7 +44,7 @@ namespace DyDesktopWinForms
 
                 if (!File.Exists(".firstRun"))
                 {
-                    notifyIcon1.ShowBalloonTip(1000, "DyDesktopWinForms", "窗口已隐藏到托盘", ToolTipIcon.Info);
+                    notifyIcon1.ShowBalloonTip(1000, "", "窗口已经隐藏到托盘，下次不再提醒", ToolTipIcon.None);
                     File.WriteAllText(".firstRun", "");
                 }
             }
