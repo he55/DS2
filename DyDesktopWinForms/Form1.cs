@@ -69,6 +69,7 @@ namespace DyDesktopWinForms
 
                 toolStripMenuItem2.Enabled = true;
                 toolStripMenuItem3.Enabled = true;
+                toolStripMenuItem5.Enabled = true;
             }
         }
 
@@ -89,7 +90,7 @@ namespace DyDesktopWinForms
             }
         }
 
-        private void play()
+        private void button4_Click(object sender, EventArgs e)
         {
             if (_isPlaying)
             {
@@ -105,11 +106,6 @@ namespace DyDesktopWinForms
                 button4.Text = "暂停";
                 toolStripMenuItem2.Text = "暂停";
             }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            play();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -141,6 +137,7 @@ namespace DyDesktopWinForms
 
             toolStripMenuItem2.Enabled = false;
             toolStripMenuItem3.Enabled = false;
+            toolStripMenuItem5.Enabled = false;
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -155,7 +152,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            play();
+            button4_Click(null, null);
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -166,6 +163,11 @@ namespace DyDesktopWinForms
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            button5_Click(null, null);
         }
     }
 }
