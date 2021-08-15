@@ -136,6 +136,11 @@ namespace DyDesktopWinForms
             toolStripMenuItem3.Enabled = false;
         }
 
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+        }
+
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Show();
