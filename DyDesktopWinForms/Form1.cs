@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,12 @@ namespace DyDesktopWinForms
             {
                 e.Cancel = true;
                 this.Hide();
+
+                if (!File.Exists(".firstRun"))
+                {
+                    notifyIcon1.ShowBalloonTip(1000, "DyDesktopWinForms", "窗口已隐藏到托盘", ToolTipIcon.Info);
+                    File.WriteAllText(".firstRun", "");
+                }
             }
         }
 
