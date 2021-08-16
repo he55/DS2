@@ -33,6 +33,12 @@ namespace DyDesktopWinForms
                 button2.Enabled = false;
                 label1.Visible = true;
             }
+
+            if (File.Exists(".autoPlay"))
+            {
+                checkBox2.Checked = true;
+                toolStripMenuItem6.Checked = true;
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -44,7 +50,7 @@ namespace DyDesktopWinForms
 
                 if (!File.Exists(".firstRun"))
                 {
-                    notifyIcon1.ShowBalloonTip(1000, "", "窗口已经隐藏到托盘，下次不再提醒", ToolTipIcon.None);
+                    notifyIcon1.ShowBalloonTip(1000, "", "窗口已经隐藏到托盘", ToolTipIcon.None);
                     File.WriteAllText(".firstRun", "");
                 }
             }
@@ -73,20 +79,25 @@ namespace DyDesktopWinForms
             }
         }
 
+        private void openFile(string path)
+        {
+            CreateVideoWindow();
+
+            videoWindow.Source = new Uri(path, UriKind.Absolute);
+            videoWindow.Play();
+
+            _isPlaying = true;
+            button4.Text = "暂停";
+            toolStripMenuItem2.Text = "暂停";
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "MP4 Files (*.mp4)|*.mp4";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                CreateVideoWindow();
-
-                videoWindow.Source = new Uri(openFileDialog.FileName, UriKind.Absolute);
-                videoWindow.Play();
-
-                _isPlaying = true;
-                button4.Text = "暂停";
-                toolStripMenuItem2.Text = "暂停";
+                openFile(openFileDialog.FileName);
             }
         }
 
@@ -108,11 +119,25 @@ namespace DyDesktopWinForms
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void checkBox1_Click(object sender, EventArgs e)
         {
-            trackBar1.Enabled = !checkBox1.Checked;
             toolStripMenuItem3.Checked = checkBox1.Checked;
+            trackBar1.Enabled = !checkBox1.Checked;
             videoWindow.IsMuted = checkBox1.Checked;
+        }
+
+        private void checkBox2_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItem6.Checked = checkBox2.Checked;
+
+            if (checkBox2.Checked)
+            {
+                File.WriteAllText(".autoPlay", "");
+            }
+            else
+            {
+                File.Delete(".autoPlay");
+            }
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
@@ -157,7 +182,8 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            checkBox1.Checked = !toolStripMenuItem3.Checked;
+            checkBox1.Checked = !checkBox1.Checked;
+            checkBox1_Click(null, null);
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
@@ -168,6 +194,12 @@ namespace DyDesktopWinForms
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             button5_Click(null, null);
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            checkBox2.Checked = !checkBox2.Checked;
+            checkBox2_Click(null, null);
         }
     }
 }
