@@ -236,5 +236,30 @@ namespace DyDesktopWinForms
             checkBox2.Checked = !checkBox2.Checked;
             checkBox2_Click(null, null);
         }
+
+        private void toolStripMenuItem7_DropDownOpening(object sender, EventArgs e)
+        {
+            toolStripMenuItem7.DropDownItems.Clear();
+            foreach (string item in _recentFiles)
+            {
+                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(item);
+                toolStripMenuItem.Click += ToolStripMenuItem_Click;
+                toolStripMenuItem7.DropDownItems.Add(toolStripMenuItem);
+            }
+
+            toolStripMenuItem8.Enabled = _recentFiles.Count != 0;
+            toolStripMenuItem7.DropDownItems.Add(toolStripMenuItem8);
+        }
+
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openFile(((ToolStripMenuItem)sender).Text);
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+            _recentFiles.Clear();
+            File.WriteAllText(_recentPath, "");
+        }
     }
 }
