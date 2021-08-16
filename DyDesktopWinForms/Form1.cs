@@ -16,6 +16,8 @@ namespace DyDesktopWinForms
         private VideoWindow videoWindow;
         private bool _isPlaying;
        private IntPtr workerWindowHandle ;
+        private string _recentPath;
+        private List<string> _recentFiles;
 
 
         public Form1()
@@ -34,10 +36,25 @@ namespace DyDesktopWinForms
                 label1.Visible = true;
             }
 
+            
+            _recentFiles = new List<string>();
+            //_recentPath = Path.Combine(Application.UserAppDataPath, "recent.txt");
+            _recentPath = "recent.txt";
+            if (File.Exists(_recentPath))
+            {
+                string[] paths = File.ReadAllLines(_recentPath);
+                _recentFiles.AddRange(paths);
+            }
+
             if (File.Exists(".autoPlay"))
             {
                 checkBox2.Checked = true;
                 toolStripMenuItem6.Checked = true;
+
+                if (_recentFiles.Count!=0&&File.Exists(_recentFiles[0]))
+                {
+                    openFile(_recentFiles[0]);
+                }
             }
         }
 
@@ -79,8 +96,26 @@ namespace DyDesktopWinForms
             }
         }
 
+        private void saveRecent(string filePath)
+        {
+            if (_recentFiles.Count!=0&&_recentFiles[0]==filePath)
+            {
+                return;
+            }
+
+            if (_recentFiles.Contains(filePath))
+            {
+                _recentFiles.Remove(filePath);
+            }
+            _recentFiles.Insert(0, filePath);
+
+            File.WriteAllLines(_recentPath, _recentFiles);
+        }
+
         private void openFile(string path)
         {
+            saveRecent(path);
+
             CreateVideoWindow();
 
             videoWindow.Source = new Uri(path, UriKind.Absolute);
