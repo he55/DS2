@@ -261,5 +261,10 @@ namespace DyDesktopWinForms
             _recentFiles.Clear();
             File.WriteAllText(_recentPath, "");
         }
+
+        private void toolStripMenuItem9_Click(object sender, EventArgs e)
+        {
+            button2_Click(null, null);
+        }
     }
 }
