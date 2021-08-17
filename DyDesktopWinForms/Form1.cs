@@ -180,6 +180,22 @@ namespace DyDesktopWinForms
             videoWindow.Volume = trackBar1.Value / 10.0;
         }
 
+        private void restoreDesktop()
+        {
+            IDesktopWallpaper desktopWallpaper = (IDesktopWallpaper)new DesktopWallpaper();
+            desktopWallpaper.GetWallpaper(null, out StringBuilder wallpaper);
+
+            if (wallpaper.Length!=0)
+            {
+                desktopWallpaper.SetWallpaper(null, wallpaper.ToString());
+            }
+            else
+            {
+                desktopWallpaper.GetBackgroundColor(out uint c);
+                desktopWallpaper.SetBackgroundColor(c);
+            }
+        }
+
         private void button5_Click(object sender, EventArgs e)
         {
             videoWindow.Close();
@@ -198,6 +214,8 @@ namespace DyDesktopWinForms
             toolStripMenuItem2.Enabled = false;
             toolStripMenuItem3.Enabled = false;
             toolStripMenuItem5.Enabled = false;
+
+            restoreDesktop();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -223,6 +241,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
+            restoreDesktop();
             Application.Exit();
         }
 
