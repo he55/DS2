@@ -71,6 +71,10 @@ namespace DyDesktopWinForms
                     File.WriteAllText(".firstRun", "");
                 }
             }
+            else
+            {
+                restoreDesktop();
+            }
         }
 
         private void CreateVideoWindow()
