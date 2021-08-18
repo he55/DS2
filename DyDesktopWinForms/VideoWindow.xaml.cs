@@ -72,6 +72,16 @@ namespace DyDesktopWinForms
             this.Height = SystemParameters.PrimaryScreenHeight;
         }
 
+        public void SetScreen(int x,int y,int w,int h)
+        {
+            this.WindowStyle = WindowStyle.None;
+            this.ResizeMode = ResizeMode.NoResize;
+            this.Left = x;
+            this.Top = y;
+            this.Width = w;
+            this.Height = h;
+        }
+
         private void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
             mediaElement.Position = TimeSpan.Zero;

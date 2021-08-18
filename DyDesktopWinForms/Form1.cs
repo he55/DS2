@@ -314,6 +314,13 @@ namespace DyDesktopWinForms
             }
 
             idx = (int)((ToolStripMenuItem)sender).Tag;
+
+            Screen[] allScreens = Screen.AllScreens;
+            if (allScreens.Length>idx)
+            {
+                Rectangle bounds = allScreens[idx].Bounds;
+                videoWindow.SetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            }
         }
     }
 }
