@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net5.0-windows;net6.0-windows;net472</TargetFrameworks>
-    <!--<TargetFramework>net472</TargetFramework>-->
+    <!--<TargetFrameworks>net5.0-windows;net6.0-windows;net472</TargetFrameworks>-->
+    <TargetFramework>net472</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
 	  <UseWPF>true</UseWPF>
   </PropertyGroup>
