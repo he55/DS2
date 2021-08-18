@@ -245,7 +245,6 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
-            restoreDesktop();
             Application.Exit();
         }
 
