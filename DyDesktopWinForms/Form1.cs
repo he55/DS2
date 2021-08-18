@@ -67,7 +67,7 @@ namespace DyDesktopWinForms
 
                 if (!File.Exists(".firstRun"))
                 {
-                    notifyIcon1.ShowBalloonTip(1000, "", "窗口已经隐藏到托盘", ToolTipIcon.None);
+                    notifyIcon1.ShowBalloonTip(1000, "","程序正在后台运行", ToolTipIcon.None);
                     File.WriteAllText(".firstRun", "");
                 }
             }
@@ -318,6 +318,8 @@ namespace DyDesktopWinForms
             Screen[] allScreens = Screen.AllScreens;
             if (allScreens.Length>idx)
             {
+                restoreDesktop();
+
                 Rectangle bounds = allScreens[idx].Bounds;
                 videoWindow.SetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
             }
