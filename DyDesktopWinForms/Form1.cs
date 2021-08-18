@@ -289,5 +289,31 @@ namespace DyDesktopWinForms
         {
             button2_Click(null, null);
         }
+
+        int idx;
+        private void toolStripMenuItem10_DropDownOpening(object sender, EventArgs e)
+        {
+            toolStripMenuItem10.DropDownItems.Clear();
+
+            Screen[] allScreens = Screen.AllScreens;
+            for (int i = 0; i < allScreens.Length; i++)
+            {
+                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary?allScreens[i].DeviceName+ " - Primary" : allScreens[i].DeviceName);
+                toolStripMenuItem.Checked = idx == i;
+                toolStripMenuItem.Tag = i;
+                toolStripMenuItem.Click += ToolStripMenuItem2_Click;
+                toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
+            }
+        }
+
+        private void ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem item in toolStripMenuItem10.DropDownItems)
+            {
+                item.Checked = false;
+            }
+
+            idx = (int)((ToolStripMenuItem)sender).Tag;
+        }
     }
 }
