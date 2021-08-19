@@ -56,6 +56,8 @@ namespace DyDesktopWinForms
                     openFile(_recentFiles[0]);
                 }
             }
+
+            CheckStartOnBoot();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -323,6 +325,42 @@ namespace DyDesktopWinForms
                 Rectangle bounds = allScreens[idx].Bounds;
                 videoWindow.SetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
             }
+        }
+
+         const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
+
+         bool startOnBoot;
+
+        public  void CheckStartOnBoot()
+        {
+            Microsoft.Win32.RegistryKey startupKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(registryStartupLocation);
+            startOnBoot = startupKey.GetValue("DyDesktopWinForms") != null;
+            startupKey.Close();
+
+           toolStripMenuItem12.Checked = startOnBoot;
+        }
+
+        public  void ToggleStartOnBoot()
+        {
+            Microsoft.Win32.RegistryKey startupKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
+
+            if (!startOnBoot)
+            {
+                startupKey.SetValue("DyDesktopWinForms", Application.ExecutablePath);
+                startOnBoot = true;
+            }
+            else
+            {
+                startupKey.DeleteValue("DyDesktopWinForms");
+                startOnBoot = false;
+            }
+
+           toolStripMenuItem12.Checked = startOnBoot;
+        }
+
+        private void toolStripMenuItem12_Click(object sender, EventArgs e)
+        {
+            ToggleStartOnBoot();
         }
     }
 }
