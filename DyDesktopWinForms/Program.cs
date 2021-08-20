@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using static PInvoke.User32;
 using System.Windows.Forms;
+using System.IO;
 
 namespace DyDesktopWinForms
 {
@@ -22,6 +23,9 @@ namespace DyDesktopWinForms
                 SetForegroundWindow(h);
                 return;
             }
+
+            string path = Path.GetDirectoryName(Application.ExecutablePath);
+            Directory.SetCurrentDirectory(path);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
