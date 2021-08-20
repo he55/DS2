@@ -7,7 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static PInvoke.User32;
 using System.Windows.Forms;
+using System.Threading;
+using System.Diagnostics;
 
 namespace DyDesktopWinForms
 {
@@ -361,6 +364,43 @@ namespace DyDesktopWinForms
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
         {
             ToggleStartOnBoot();
+        }
+
+        private void toolStripMenuItem13_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItem13.Checked = !toolStripMenuItem13.Checked;
+            timer1.Enabled = toolStripMenuItem13.Checked;
+        }
+
+        int playCount;
+        int pauseCount;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            LASTINPUTINFO lii = LASTINPUTINFO.Create();
+            GetLastInputInfo(out lii);
+            long ti = Environment.TickCount - lii.dwTime;
+
+           bool pStatus = ti > 500;
+            if (pStatus)
+            {
+                pauseCount = 0;
+                ++playCount;
+            }
+            else
+            {
+                playCount = 0;
+                ++pauseCount;
+            }
+
+            if (playCount>9||pauseCount>1)
+            {
+                playCount = 0;
+                pauseCount = 0;
+                if (pStatus != _isPlaying)
+                {
+                    button4_Click(null, null);
+                }
+            }
         }
     }
 }
