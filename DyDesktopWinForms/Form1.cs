@@ -235,7 +235,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            this.Show();
+            notifyIcon1_MouseDoubleClick(null, null);
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
