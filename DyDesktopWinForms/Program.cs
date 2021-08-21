@@ -14,7 +14,7 @@ namespace DyDesktopWinForms
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             IntPtr h = FindWindow(null, "DyDesktopWinForms");
             if (h!=IntPtr.Zero)
@@ -29,7 +29,19 @@ namespace DyDesktopWinForms
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Form1 form1 = new Form1();
+            if (args.Length!=0&&args[0]=="-c")
+            {
+                form1.Show();
+                form1.Hide();
+            }
+            else
+            {
+                form1.Show();
+            }
+
+            Application.Run();
         }
     }
 }
