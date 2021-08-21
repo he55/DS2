@@ -370,6 +370,12 @@ namespace DyDesktopWinForms
         {
             toolStripMenuItem13.Checked = !toolStripMenuItem13.Checked;
             timer1.Enabled = toolStripMenuItem13.Checked;
+
+            if (!_isPlaying)
+            {
+                _isPlaying = true;
+                videoWindow.Play();
+            }
         }
 
         int playCount;
