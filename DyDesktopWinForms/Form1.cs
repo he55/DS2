@@ -381,11 +381,15 @@ namespace DyDesktopWinForms
         [DllImport("ProjectBr.dll")]
         static extern ulong getA();
 
+        [DllImport("ProjectBr.dll")]
+        static extern int getB();
+
         int playCount;
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
             ulong ti =getA();
+            int ttt = getB();
 
            bool pStatus = ti > 500;
             if (pStatus)
