@@ -11,6 +11,7 @@ using static PInvoke.User32;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace DyDesktopWinForms
 {
@@ -377,13 +378,14 @@ namespace DyDesktopWinForms
             }
         }
 
+        [DllImport("ProjectBr.dll")]
+        static extern ulong getA();
+
         int playCount;
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            LASTINPUTINFO lii = LASTINPUTINFO.Create();
-            GetLastInputInfo(out lii);
-            long ti = Environment.TickCount - lii.dwTime;
+            ulong ti =getA();
 
            bool pStatus = ti > 500;
             if (pStatus)
