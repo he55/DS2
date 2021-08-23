@@ -31,9 +31,12 @@ namespace DyDesktopWinForms
             this.MaximumSize = this.MinimumSize = this.Size;
         }
 
+        [DllImport("ProjectBr.dll")]
+        static extern IntPtr getC();
+
         private void Form1_Load(object sender, EventArgs e)
         {
-             workerWindowHandle = DesktopWorker.GetWorkerWindowHandle();
+             workerWindowHandle =getC();
             if (workerWindowHandle==IntPtr.Zero)
             {
                 button2.Enabled = false;

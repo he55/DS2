@@ -43,3 +43,25 @@ int getB(void) {
 	return ic;
 }
 
+
+HWND gc;
+BOOL CALLBACK pcWNDENUMPROC(HWND h, LPARAM l) {
+	HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
+	if (p) {
+		gc = FindWindowEx(NULL, h, "WorkerW", NULL);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+_declspec(dllexport)
+HWND getC(void) {
+	HWND ph = FindWindow("Progman", NULL);
+	SendMessageTimeout(ph,0x052c, NULL, NULL,SMTO_NORMAL, 1000, NULL);
+	EnumWindows(pcWNDENUMPROC, NULL);
+	return gc;
+}
+
+
+
+
