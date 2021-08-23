@@ -388,10 +388,18 @@ namespace DyDesktopWinForms
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            ulong ti =getA();
             int ttt = getB();
+            if (ttt==0)
+            {
+                if (_isPlaying)
+                {
+                    button4_Click(null, null);
+                }
+                return;
+            }
 
-           bool pStatus = ti > 500;
+            ulong ti = getA();
+            bool pStatus = ti > 500;
             if (pStatus)
             {
                 pauseCount = 0;
@@ -403,7 +411,7 @@ namespace DyDesktopWinForms
                 ++pauseCount;
             }
 
-            if (playCount>9||pauseCount>1)
+            if (playCount>4||pauseCount>1)
             {
                 playCount = 0;
                 pauseCount = 0;
