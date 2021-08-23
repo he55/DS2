@@ -138,7 +138,7 @@ namespace DyDesktopWinForms
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "MP4 Files (*.mp4)|*.mp4";
+            openFileDialog.Filter = "Video Files (*.mp4;*.mov)|*.mp4;*.mov";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 openFile(openFileDialog.FileName);
@@ -373,8 +373,7 @@ namespace DyDesktopWinForms
 
             if (!_isPlaying)
             {
-                _isPlaying = true;
-                videoWindow.Play();
+                button4_Click(null, null);
             }
         }
 
