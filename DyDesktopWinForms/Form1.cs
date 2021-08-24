@@ -22,7 +22,7 @@ namespace DyDesktopWinForms
        private IntPtr workerWindowHandle ;
         private string _recentPath;
         private List<string> _recentFiles;
-
+        PerformanceCounter cpu;
 
         public Form1()
         {
@@ -36,7 +36,9 @@ namespace DyDesktopWinForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-             workerWindowHandle =getC();
+            cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+
+            workerWindowHandle =getC();
             if (workerWindowHandle==IntPtr.Zero)
             {
                 button2.Enabled = false;
@@ -192,6 +194,9 @@ namespace DyDesktopWinForms
         {
             videoWindow.Volume = trackBar1.Value / 10.0;
         }
+
+        [DllImport("ProjectBr.dll")]
+        static extern ulong getD();
 
         private void restoreDesktop()
         {
@@ -391,6 +396,12 @@ namespace DyDesktopWinForms
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
+            float val = cpu.NextValue();
+            if (val>20.0)
+            {
+
+            }
+
             int ttt = getB();
             if (ttt==0)
             {
