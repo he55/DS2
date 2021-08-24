@@ -1,6 +1,7 @@
-#include <stdlib.h>
 #include <Windows.h>
+#include <ShlObj.h>
 
+extern "C"
 _declspec(dllexport)
 ULONGLONG getA(void) {
 	LASTINPUTINFO lii = { sizeof(LASTINPUTINFO),0 };
@@ -19,6 +20,7 @@ BOOL CALLBACK pbWNDENUMPROC(HWND h, LPARAM l) {
 	return TRUE;
 }
 
+extern "C"
 _declspec(dllexport)
 int getB(void) {
 	EnumWindows(pbWNDENUMPROC,NULL);
@@ -54,6 +56,7 @@ BOOL CALLBACK pcWNDENUMPROC(HWND h, LPARAM l) {
 	return TRUE;
 }
 
+extern "C"
 _declspec(dllexport)
 HWND getC(void) {
 	HWND ph = FindWindow("Progman", NULL);
