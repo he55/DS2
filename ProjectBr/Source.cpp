@@ -65,6 +65,31 @@ HWND getC(void) {
 	return gc;
 }
 
+extern "C"
+_declspec(dllexport)
+void getD(void) {
+	HRESULT nRet = CoInitialize(NULL);
+	if (SUCCEEDED(nRet)) {
+		IDesktopWallpaper* p;
+		nRet = CoCreateInstance(CLSID_DesktopWallpaper, 0, CLSCTX_LOCAL_SERVER, IID_IDesktopWallpaper, (void**)&p);
+		if (SUCCEEDED(nRet)) {
+			LPWSTR str;
+			p->GetWallpaper(NULL, &str);
+			if (wcslen(str)) {
+				p->SetWallpaper(NULL, str);
+			}
+			else {
+				COLORREF c;
+				p->GetBackgroundColor(&c);
+				p->SetBackgroundColor(c);
+			}
+			p->Release();
+		}
+
+		CoUninitialize();
+	}
+}
+
 
 
 
