@@ -200,6 +200,9 @@ namespace DyDesktopWinForms
 
         private void restoreDesktop()
         {
+            getD();
+            return;
+
             IDesktopWallpaper desktopWallpaper = (IDesktopWallpaper)new DesktopWallpaper();
             desktopWallpaper.GetWallpaper(null, out StringBuilder wallpaper);
 
