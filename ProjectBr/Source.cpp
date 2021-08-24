@@ -23,7 +23,9 @@ BOOL CALLBACK pbWNDENUMPROC(HWND h, LPARAM l) {
 extern "C"
 _declspec(dllexport)
 int getB(void) {
-	EnumWindows(pbWNDENUMPROC,NULL);
+	if (!gg) {
+		EnumWindows(pbWNDENUMPROC, NULL);
+	}
 
 	int ic = 0;
 	int w=1919;
