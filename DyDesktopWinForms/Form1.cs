@@ -381,19 +381,45 @@ namespace DyDesktopWinForms
         [DllImport("ProjectBr.dll")]
         static extern int getB();
 
+        int cplayCount;
+        int cpauseCount;
         int playCount;
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            float val = cpu.NextValue();
-            if (val>20.0)
-            {
-
-            }
-
             int ttt = getB();
             if (ttt==0)
             {
+                cplayCount = 0;
+                cpauseCount = 0;
+                playCount = 0;
+                pauseCount = 0;
+                if (_isPlaying)
+                {
+                    button4_Click(null, null);
+                }
+                return;
+            }
+
+            float val = cpu.NextValue();
+            bool cpStatus =val>15.0;
+            if (cpStatus)
+            {
+                cplayCount = 0;
+                ++cpauseCount;
+            }
+            else
+            {
+                cpauseCount = 0;
+                ++cplayCount;
+            }
+
+            if (cpauseCount > 4)
+            {
+                cplayCount = 0;
+                cpauseCount = 0;
+                playCount = 0;
+                pauseCount = 0;
                 if (_isPlaying)
                 {
                     button4_Click(null, null);
@@ -414,11 +440,26 @@ namespace DyDesktopWinForms
                 ++pauseCount;
             }
 
-            if (playCount>4||pauseCount>1)
+            if (pauseCount > 4)
             {
+                cplayCount = 0;
+                cpauseCount = 0;
                 playCount = 0;
                 pauseCount = 0;
-                if (pStatus != _isPlaying)
+                if (_isPlaying)
+                {
+                    button4_Click(null, null);
+                }
+                return;
+            }
+
+            if (cplayCount > 4|| playCount > 4)
+            {
+                cplayCount = 0;
+                cpauseCount = 0;
+                playCount = 0;
+                pauseCount = 0;
+                if (!_isPlaying)
                 {
                     button4_Click(null, null);
                 }
