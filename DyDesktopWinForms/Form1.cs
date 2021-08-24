@@ -98,7 +98,7 @@ namespace DyDesktopWinForms
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
-                PInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
+               SetParent(videoWindow.Handle, workerWindowHandle);
 
                 button4.Enabled = true;
                 button5.Enabled = true;
@@ -201,20 +201,6 @@ namespace DyDesktopWinForms
         private void restoreDesktop()
         {
             getD();
-            return;
-
-            IDesktopWallpaper desktopWallpaper = (IDesktopWallpaper)new DesktopWallpaper();
-            desktopWallpaper.GetWallpaper(null, out StringBuilder wallpaper);
-
-            if (wallpaper.Length!=0)
-            {
-                desktopWallpaper.SetWallpaper(null, wallpaper.ToString());
-            }
-            else
-            {
-                desktopWallpaper.GetBackgroundColor(out uint c);
-                desktopWallpaper.SetBackgroundColor(c);
-            }
         }
 
         private void button5_Click(object sender, EventArgs e)
