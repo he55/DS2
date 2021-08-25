@@ -30,6 +30,7 @@ namespace DyDesktopWinForms
             public bool FirstRun { get; set; }
             public bool AutoPlay { get; set; }
             public bool AutoPause { get; set; }
+            public bool IsMuted { get; set; }
             public int Volume { get; set; } = 7;
         }
 
@@ -40,6 +41,8 @@ namespace DyDesktopWinForms
             this.MaximumSize = this.MinimumSize = this.Size;
             trackBar1.Value = settings.Volume;
             toolStripMenuItem13.Checked = settings.AutoPause;
+            checkBox1.Checked = settings.IsMuted;
+            toolStripMenuItem3.Checked = settings.IsMuted;
         }
 
         [DllImport("ProjectBr.dll")]
@@ -104,7 +107,7 @@ namespace DyDesktopWinForms
             if (videoWindow == null)
             {
                 videoWindow = new VideoWindow();
-                videoWindow.IsMuted = checkBox1.Checked;
+                videoWindow.IsMuted =settings.IsMuted;
                 videoWindow.Volume =settings.Volume / 10.0;
                 videoWindow.FullScreen();
                 videoWindow.Show();
@@ -182,15 +185,16 @@ namespace DyDesktopWinForms
 
         private void checkBox1_Click(object sender, EventArgs e)
         {
-            toolStripMenuItem3.Checked = checkBox1.Checked;
-            trackBar1.Enabled = !checkBox1.Checked;
-            videoWindow.IsMuted = checkBox1.Checked;
+            settings.IsMuted = checkBox1.Checked;
+            toolStripMenuItem3.Checked =settings.IsMuted;
+            trackBar1.Enabled = !settings.IsMuted;
+            videoWindow.IsMuted = settings.IsMuted;
         }
 
         private void checkBox2_Click(object sender, EventArgs e)
         {
-            toolStripMenuItem6.Checked = checkBox2.Checked;
             settings.AutoPlay = checkBox2.Checked;
+            toolStripMenuItem6.Checked =settings.AutoPlay;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -370,9 +374,9 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
         {
-            toolStripMenuItem13.Checked = !toolStripMenuItem13.Checked;
-            timer1.Enabled = toolStripMenuItem13.Checked;
-           settings.AutoPause = toolStripMenuItem13.Checked;
+           settings.AutoPause = !toolStripMenuItem13.Checked;
+            toolStripMenuItem13.Checked = settings.AutoPause;
+            timer1.Enabled = settings.AutoPause;
 
             if (!_isPlaying)
             {
