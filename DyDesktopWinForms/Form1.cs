@@ -143,6 +143,7 @@ namespace DyDesktopWinForms
 
         private void openFile(string path)
         {
+            timer1.Enabled = false;
             saveRecent(path);
 
             CreateVideoWindow();
@@ -153,6 +154,7 @@ namespace DyDesktopWinForms
             _isPlaying = true;
             button4.Text = "暂停";
             toolStripMenuItem2.Text = "暂停";
+            timer1.Enabled = settings.AutoPause;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -181,6 +183,8 @@ namespace DyDesktopWinForms
                 button4.Text = "暂停";
                 toolStripMenuItem2.Text = "暂停";
             }
+
+            timer1.Enabled = settings.AutoPause && _isPlaying;
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -381,6 +385,10 @@ namespace DyDesktopWinForms
             if (!_isPlaying)
             {
                 button4_Click(null, null);
+            }
+            else
+            {
+                timer1.Enabled = false;
             }
         }
 
