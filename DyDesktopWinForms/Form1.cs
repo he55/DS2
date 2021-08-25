@@ -25,27 +25,6 @@ namespace DyDesktopWinForms
        private PerformanceCounter cpu;
        private MySettings settings=MySettings.Load();
 
-       public class MySettings
-        {
-            private static MySettings mySettings = new MySettings();
-
-            public static MySettings Load()
-            {
-                return mySettings;
-            }
-
-            public static void Save()
-            {
-
-            }
-
-            public bool FirstRun { get; set; }
-            public bool AutoPlay { get; set; }
-            public bool AutoPause { get; set; }
-            public bool IsMuted { get; set; }
-            public int Volume { get; set; } = 3;
-        }
-
         public Form1()
         {
             InitializeComponent();
