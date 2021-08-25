@@ -184,7 +184,10 @@ namespace DyDesktopWinForms
                 toolStripMenuItem2.Text = "暂停";
             }
 
-            timer1.Enabled = settings.AutoPause && _isPlaying;
+            if (sender != null)
+            {
+                timer1.Enabled = settings.AutoPause && _isPlaying;
+            }
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -217,6 +220,7 @@ namespace DyDesktopWinForms
 
         private void button5_Click(object sender, EventArgs e)
         {
+            timer1.Enabled = false;
             videoWindow.Close();
             videoWindow = null;
             GC.Collect();
@@ -250,7 +254,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            button4_Click(null, null);
+            button4_Click(sender, null);
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -388,7 +392,7 @@ namespace DyDesktopWinForms
             }
             else
             {
-                timer1.Enabled = false;
+                timer1.Enabled = true;
             }
         }
 
