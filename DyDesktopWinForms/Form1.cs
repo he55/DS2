@@ -23,12 +23,23 @@ namespace DyDesktopWinForms
         private string _recentPath;
         private List<string> _recentFiles;
         PerformanceCounter cpu;
+        MySettings settings=new MySettings();
+
+        class MySettings
+        {
+            public bool FirstRun { get; set; }
+            public bool AutoPlay { get; set; }
+            public bool AutoPause { get; set; }
+            public int Volume { get; set; } = 7;
+        }
 
         public Form1()
         {
             InitializeComponent();
             notifyIcon1.Icon = this.Icon;
             this.MaximumSize = this.MinimumSize = this.Size;
+            trackBar1.Value = settings.Volume;
+            toolStripMenuItem13.Checked = settings.AutoPause;
         }
 
         [DllImport("ProjectBr.dll")]
@@ -55,7 +66,7 @@ namespace DyDesktopWinForms
                 _recentFiles.AddRange(paths);
             }
 
-            if (File.Exists(".autoPlay"))
+            if (settings.AutoPlay)
             {
                 checkBox2.Checked = true;
                 toolStripMenuItem6.Checked = true;
@@ -94,7 +105,7 @@ namespace DyDesktopWinForms
             {
                 videoWindow = new VideoWindow();
                 videoWindow.IsMuted = checkBox1.Checked;
-                videoWindow.Volume = trackBar1.Value / 10.0;
+                videoWindow.Volume =settings.Volume / 10.0;
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
@@ -179,22 +190,15 @@ namespace DyDesktopWinForms
         private void checkBox2_Click(object sender, EventArgs e)
         {
             toolStripMenuItem6.Checked = checkBox2.Checked;
-
-            if (checkBox2.Checked)
-            {
-                File.WriteAllText(".autoPlay", "");
-            }
-            else
-            {
-                File.Delete(".autoPlay");
-            }
+            settings.AutoPlay = checkBox2.Checked;
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            videoWindow.Volume = trackBar1.Value / 10.0;
+            settings.Volume = trackBar1.Value;
+            videoWindow.Volume = settings.Volume / 10.0;
         }
-
+     
         [DllImport("ProjectBr.dll")]
         static extern ulong getD();
 
@@ -368,6 +372,7 @@ namespace DyDesktopWinForms
         {
             toolStripMenuItem13.Checked = !toolStripMenuItem13.Checked;
             timer1.Enabled = toolStripMenuItem13.Checked;
+           settings.AutoPause = toolStripMenuItem13.Checked;
 
             if (!_isPlaying)
             {
@@ -465,5 +470,7 @@ namespace DyDesktopWinForms
                 }
             }
         }
+
+      
     }
 }
