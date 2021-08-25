@@ -453,7 +453,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            if (cplayCount > 4|| playCount > 4)
+            if (cplayCount > 4&& playCount > 4)
             {
                 cplayCount = 0;
                 cpauseCount = 0;
