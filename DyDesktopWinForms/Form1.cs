@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PInvoke.User32;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
@@ -104,7 +103,7 @@ namespace DyDesktopWinForms
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
-               SetParent(videoWindow.Handle, workerWindowHandle);
+               PInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
 
                 button4.Enabled = true;
                 button5.Enabled = true;
