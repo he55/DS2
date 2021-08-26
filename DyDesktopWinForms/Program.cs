@@ -16,9 +16,7 @@ namespace DyDesktopWinForms
         [STAThread]
         static void Main(string[] args)
         {
-            Mutex _singleInstanceMutex;
-            bool isNew;
-            _singleInstanceMutex = new Mutex(true, "DyDesktopWinForms", out isNew);
+           Mutex _singleInstanceMutex = new Mutex(true, "DyDesktopWinForms", out bool isNew);
             if (!isNew)
                 return;
 
