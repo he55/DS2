@@ -30,9 +30,11 @@ namespace DyDesktopWinForms
             {
                 if (File.Exists(filepath))
                 {
-                    FileStream fileStream = File.OpenRead(filepath);
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(MySettings));
-                    mySettings = (MySettings)xmlSerializer.Deserialize(fileStream);
+                    using (FileStream fileStream = File.OpenRead(filepath))
+                    {
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(MySettings));
+                        mySettings = (MySettings)xmlSerializer.Deserialize(fileStream);
+                    }
                 }
                 else
                 {
