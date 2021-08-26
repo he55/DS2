@@ -17,7 +17,7 @@ namespace DyDesktopWinForms
 
         }
 
-        public bool FirstRun { get; set; }
+        public bool FirstRun { get; set; } = true;
         public bool AutoPlay { get; set; }
         public bool AutoPause { get; set; }
         public bool IsMuted { get; set; }
