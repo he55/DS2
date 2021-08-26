@@ -80,10 +80,10 @@ namespace DyDesktopWinForms
                 e.Cancel = true;
                 this.Hide();
 
-                if (!File.Exists(".firstRun"))
+                if (settings.FirstRun)
                 {
                     notifyIcon1.ShowBalloonTip(1000, "","程序正在后台运行", ToolTipIcon.None);
-                    File.WriteAllText(".firstRun", "");
+                    settings.FirstRun = false;
                 }
             }
             else
