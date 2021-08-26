@@ -46,7 +46,11 @@ namespace DyDesktopWinForms
 
         public static void Save()
         {
-
+            using (FileStream fileStream = File.Create(filepath))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(MySettings));
+                xmlSerializer.Serialize(fileStream, mySettings);
+            }
         }
     }
 }
