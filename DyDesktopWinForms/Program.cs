@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using static PInvoke.User32;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace DyDesktopWinForms
 {
@@ -16,13 +17,11 @@ namespace DyDesktopWinForms
         [STAThread]
         static void Main(string[] args)
         {
-            IntPtr h = FindWindow(null, "DyDesktopWinForms");
-            if (h!=IntPtr.Zero)
-            {
-                ShowWindow(h, WindowShowStyle.SW_RESTORE);
-                SetForegroundWindow(h);
+            Mutex _singleInstanceMutex;
+            bool isNew;
+            _singleInstanceMutex = new Mutex(true, "DyDesktopWinForms", out isNew);
+            if (!isNew)
                 return;
-            }
 
             string path = Path.GetDirectoryName(Application.ExecutablePath);
             Directory.SetCurrentDirectory(path);
