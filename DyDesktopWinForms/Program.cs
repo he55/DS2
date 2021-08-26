@@ -29,16 +29,13 @@ namespace DyDesktopWinForms
             Application.SetCompatibleTextRenderingDefault(false);
 
             Form1 form1 = new Form1();
+            form1.Show();
+
             if (args.Length!=0&&args[0]=="-c")
             {
-                form1.Show();
                 form1.Hide();
             }
-            else
-            {
-                form1.Show();
-            }
-
+         
             Application.Run();
         }
     }
