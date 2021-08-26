@@ -33,6 +33,7 @@ namespace DyDesktopWinForms
             toolStripMenuItem13.Checked = settings.AutoPause;
             checkBox1.Checked = settings.IsMuted;
             toolStripMenuItem3.Checked = settings.IsMuted;
+           trackBar1.Enabled = !settings.IsMuted;
         }
 
         [DllImport("ProjectBr.dll")]
@@ -108,7 +109,6 @@ namespace DyDesktopWinForms
                 button4.Enabled = true;
                 button5.Enabled = true;
                 checkBox1.Enabled = true;
-                trackBar1.Enabled = true;
 
                 toolStripMenuItem2.Enabled = true;
                 toolStripMenuItem3.Enabled = true;
