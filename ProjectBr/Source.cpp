@@ -10,21 +10,21 @@ ULONGLONG getA(void) {
 	return v - lii.dwTime;
 }
 
-HWND gg;
-BOOL CALLBACK pbWNDENUMPROC(HWND h, LPARAM l) {
-	HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
-	if (p) {
-		gg = FindWindowEx(p, NULL, "SysListView32", NULL);
-		return FALSE;
-	}
-	return TRUE;
-}
 
 extern "C"
 _declspec(dllexport)
 int getB(void) {
+	static HWND gg;
+
 	if (!gg) {
-		EnumWindows(pbWNDENUMPROC, NULL);
+		EnumWindows([](HWND h, LPARAM l) {
+			HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
+			if (p) {
+				gg = FindWindowEx(p, NULL, "SysListView32", NULL);
+				return FALSE;
+			}
+			return TRUE;
+			}, NULL);
 	}
 
 	int ic = 0;
@@ -48,22 +48,21 @@ int getB(void) {
 }
 
 
-HWND gc;
-BOOL CALLBACK pcWNDENUMPROC(HWND h, LPARAM l) {
-	HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
-	if (p) {
-		gc = FindWindowEx(NULL, h, "WorkerW", NULL);
-		return FALSE;
-	}
-	return TRUE;
-}
-
 extern "C"
 _declspec(dllexport)
 HWND getC(void) {
+	static HWND gc;
+
 	HWND ph = FindWindow("Progman", NULL);
 	SendMessageTimeout(ph,0x052c, NULL, NULL,SMTO_NORMAL, 1000, NULL);
-	EnumWindows(pcWNDENUMPROC, NULL);
+	EnumWindows([](HWND h, LPARAM l) {
+		HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
+		if (p) {
+			gc = FindWindowEx(NULL, h, "WorkerW", NULL);
+			return FALSE;
+		}
+		return TRUE;
+		}, NULL);
 	return gc;
 }
 
