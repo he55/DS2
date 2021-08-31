@@ -36,14 +36,11 @@ namespace DyDesktopWinForms
            trackBar1.Enabled = !settings.IsMuted;
         }
 
-        [DllImport("ProjectBr.dll")]
-        static extern IntPtr getC();
-
         private void Form1_Load(object sender, EventArgs e)
         {
             cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
-            workerWindowHandle =getC();
+            workerWindowHandle =PClass1.getC();
             if (workerWindowHandle==IntPtr.Zero)
             {
                 button2.Enabled = false;
@@ -201,12 +198,9 @@ namespace DyDesktopWinForms
             videoWindow.Volume = settings.Volume / 10.0;
         }
      
-        [DllImport("ProjectBr.dll")]
-        static extern ulong getD();
-
         private void restoreDesktop()
         {
-            getD();
+            PClass1.getD();
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -387,19 +381,13 @@ namespace DyDesktopWinForms
             }
         }
 
-        [DllImport("ProjectBr.dll")]
-        static extern ulong getA();
-
-        [DllImport("ProjectBr.dll")]
-        static extern int getB();
-
         int cplayCount;
         int cpauseCount;
         int playCount;
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int ttt = getB();
+            int ttt = PClass1.getB();
             if (ttt==0)
             {
                 cplayCount = 0;
@@ -439,7 +427,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            ulong ti = getA();
+            ulong ti = PClass1.getA();
             bool pStatus = ti > 500;
             if (pStatus)
             {
