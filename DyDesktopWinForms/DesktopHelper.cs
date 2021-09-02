@@ -28,7 +28,7 @@ namespace DyDesktopWinForms
 
             if (!startOnBoot)
             {
-                startupKey.SetValue("DyDesktopWinForms", Application.ExecutablePath);
+                startupKey.SetValue("DyDesktopWinForms", Application.ExecutablePath+" -c");
                 startOnBoot = true;
             }
             else
