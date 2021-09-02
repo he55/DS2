@@ -101,7 +101,7 @@ namespace DyDesktopWinForms
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
-               PInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
+               PClass1.SetParent(videoWindow.Handle, workerWindowHandle);
 
                 button4.Enabled = true;
                 button5.Enabled = true;

@@ -10,7 +10,7 @@ namespace DyDesktopWinForms
     public static class PClass1
     {
 
-        [DllImport(nameof(User32), SetLastError = true)]
+        [DllImport("User32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("ProjectBr.dll")]
