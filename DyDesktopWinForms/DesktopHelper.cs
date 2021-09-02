@@ -8,21 +8,21 @@ using System.Windows.Forms;
 
 namespace WinDynamicDesktop
 {
-    class DesktopHelper 
+  public static  class DesktopHelper 
     {
         private const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
         private static bool startOnBoot;
 
-        public static void CheckStartOnBoot()
+        public static bool CheckStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation);
             startOnBoot = startupKey.GetValue("WinDynamicDesktop") != null;
             startupKey.Close();
-
+            return startOnBoot;
         }
 
-        public static void ToggleStartOnBoot()
+        public static bool ToggleStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
 
@@ -36,7 +36,8 @@ namespace WinDynamicDesktop
                 startupKey.DeleteValue("WinDynamicDesktop");
                 startOnBoot = false;
             }
-
+            startupKey.Close();
+            return startOnBoot;
         }
     }
 }
