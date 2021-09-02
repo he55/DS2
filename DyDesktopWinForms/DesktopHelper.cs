@@ -6,9 +6,9 @@ using Microsoft.Win32;
 using System.IO;
 using System.Windows.Forms;
 
-namespace WinDynamicDesktop
+namespace DyDesktopWinForms
 {
-  public static  class DesktopHelper 
+    public static class DesktopHelper
     {
         private const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
@@ -17,7 +17,7 @@ namespace WinDynamicDesktop
         public static bool CheckStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation);
-            startOnBoot = startupKey.GetValue("WinDynamicDesktop") != null;
+            startOnBoot = startupKey.GetValue("DyDesktopWinForms") != null;
             startupKey.Close();
             return startOnBoot;
         }
@@ -28,12 +28,12 @@ namespace WinDynamicDesktop
 
             if (!startOnBoot)
             {
-                startupKey.SetValue("WinDynamicDesktop", Application.ExecutablePath);
+                startupKey.SetValue("DyDesktopWinForms", Application.ExecutablePath);
                 startOnBoot = true;
             }
             else
             {
-                startupKey.DeleteValue("WinDynamicDesktop");
+                startupKey.DeleteValue("DyDesktopWinForms");
                 startOnBoot = false;
             }
             startupKey.Close();
