@@ -38,7 +38,9 @@ namespace DyDesktopWinForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            Task.Run(() => {
+                cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            });
 
             workerWindowHandle =PClass1.getC();
             if (workerWindowHandle==IntPtr.Zero)
@@ -47,7 +49,6 @@ namespace DyDesktopWinForms
                 label1.Visible = true;
             }
 
-            
             _recentFiles = new List<string>();
             //_recentPath = Path.Combine(Application.UserAppDataPath, "recent.txt");
             _recentPath = "recent.txt";
@@ -370,7 +371,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            float val = cpu.NextValue();
+            float val = cpu?.NextValue()??0;
             bool cpStatus =val>15.0;
             if (cpStatus)
             {
