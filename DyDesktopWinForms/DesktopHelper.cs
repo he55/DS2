@@ -1,18 +1,12 @@
-﻿// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-using Microsoft.Win32;
-using System.IO;
+﻿using Microsoft.Win32;
 using System.Windows.Forms;
 
 namespace DyDesktopWinForms
 {
     public static class DesktopHelper
     {
-        private const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
-
-        private static bool startOnBoot;
+        const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        static bool startOnBoot;
 
         public static bool CheckStartOnBoot()
         {
@@ -28,7 +22,7 @@ namespace DyDesktopWinForms
 
             if (!startOnBoot)
             {
-                startupKey.SetValue("DyDesktopWinForms", Application.ExecutablePath+" -c");
+                startupKey.SetValue("DyDesktopWinForms", Application.ExecutablePath + " -c");
                 startOnBoot = true;
             }
             else

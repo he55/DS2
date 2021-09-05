@@ -5,7 +5,7 @@ namespace DyDesktopWinForms
 {
     public class MySettings
     {
-        private static MySettings mySettings;
+        static MySettings mySettings;
 
         private MySettings()
         {
