@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace DyDesktopWinForms
 {
@@ -18,11 +12,11 @@ namespace DyDesktopWinForms
     {
         private VideoWindow videoWindow;
         private bool _isPlaying;
-       private IntPtr workerWindowHandle ;
+        private IntPtr workerWindowHandle;
         private string _recentPath;
         private List<string> _recentFiles;
-       private PerformanceCounter cpu;
-       private MySettings settings=MySettings.Load();
+        private PerformanceCounter cpu;
+        private MySettings settings = MySettings.Load();
 
         public Form1()
         {
@@ -33,17 +27,18 @@ namespace DyDesktopWinForms
             toolStripMenuItem13.Checked = settings.AutoPause;
             checkBox1.Checked = settings.IsMuted;
             toolStripMenuItem3.Checked = settings.IsMuted;
-           trackBar1.Enabled = !settings.IsMuted;
+            trackBar1.Enabled = !settings.IsMuted;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             });
 
-            workerWindowHandle =PClass1.getC();
-            if (workerWindowHandle==IntPtr.Zero)
+            workerWindowHandle = PClass1.getC();
+            if (workerWindowHandle == IntPtr.Zero)
             {
                 button2.Enabled = false;
                 label1.Visible = true;
@@ -63,7 +58,7 @@ namespace DyDesktopWinForms
                 checkBox2.Checked = true;
                 toolStripMenuItem6.Checked = true;
 
-                if (_recentFiles.Count!=0&&File.Exists(_recentFiles[0]))
+                if (_recentFiles.Count != 0 && File.Exists(_recentFiles[0]))
                 {
                     openFile(_recentFiles[0]);
                 }
@@ -81,7 +76,7 @@ namespace DyDesktopWinForms
 
                 if (settings.FirstRun)
                 {
-                    notifyIcon1.ShowBalloonTip(1000, "","程序正在后台运行", ToolTipIcon.None);
+                    notifyIcon1.ShowBalloonTip(1000, "", "程序正在后台运行", ToolTipIcon.None);
                     settings.FirstRun = false;
                 }
             }
@@ -97,12 +92,12 @@ namespace DyDesktopWinForms
             if (videoWindow == null)
             {
                 videoWindow = new VideoWindow();
-                videoWindow.IsMuted =settings.IsMuted;
-                videoWindow.Volume =settings.Volume / 10.0;
+                videoWindow.IsMuted = settings.IsMuted;
+                videoWindow.Volume = settings.Volume / 10.0;
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
-               PClass1.SetParent(videoWindow.Handle, workerWindowHandle);
+                PClass1.SetParent(videoWindow.Handle, workerWindowHandle);
 
                 button4.Enabled = true;
                 button5.Enabled = true;
@@ -116,7 +111,7 @@ namespace DyDesktopWinForms
 
         private void saveRecent(string filePath)
         {
-            if (_recentFiles.Count!=0&&_recentFiles[0]==filePath)
+            if (_recentFiles.Count != 0 && _recentFiles[0] == filePath)
             {
                 return;
             }
@@ -182,7 +177,7 @@ namespace DyDesktopWinForms
         private void checkBox1_Click(object sender, EventArgs e)
         {
             settings.IsMuted = checkBox1.Checked;
-            toolStripMenuItem3.Checked =settings.IsMuted;
+            toolStripMenuItem3.Checked = settings.IsMuted;
             trackBar1.Enabled = !settings.IsMuted;
             videoWindow.IsMuted = settings.IsMuted;
         }
@@ -190,7 +185,7 @@ namespace DyDesktopWinForms
         private void checkBox2_Click(object sender, EventArgs e)
         {
             settings.AutoPlay = checkBox2.Checked;
-            toolStripMenuItem6.Checked =settings.AutoPlay;
+            toolStripMenuItem6.Checked = settings.AutoPlay;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -198,7 +193,7 @@ namespace DyDesktopWinForms
             settings.Volume = trackBar1.Value;
             videoWindow.Volume = settings.Volume / 10.0;
         }
-     
+
         private void restoreDesktop()
         {
             PClass1.getD();
@@ -303,7 +298,7 @@ namespace DyDesktopWinForms
             Screen[] allScreens = Screen.AllScreens;
             for (int i = 0; i < allScreens.Length; i++)
             {
-                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary?allScreens[i].DeviceName+ " - Primary" : allScreens[i].DeviceName);
+                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary ? allScreens[i].DeviceName + " - Primary" : allScreens[i].DeviceName);
                 toolStripMenuItem.Checked = idx == i;
                 toolStripMenuItem.Tag = i;
                 toolStripMenuItem.Click += ToolStripMenuItem2_Click;
@@ -321,7 +316,7 @@ namespace DyDesktopWinForms
             idx = (int)((ToolStripMenuItem)sender).Tag;
 
             Screen[] allScreens = Screen.AllScreens;
-            if (allScreens.Length>idx)
+            if (allScreens.Length > idx)
             {
                 restoreDesktop();
 
@@ -337,7 +332,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
         {
-           settings.AutoPause = !toolStripMenuItem13.Checked;
+            settings.AutoPause = !toolStripMenuItem13.Checked;
             toolStripMenuItem13.Checked = settings.AutoPause;
             timer1.Enabled = settings.AutoPause;
 
@@ -358,7 +353,7 @@ namespace DyDesktopWinForms
         private void timer1_Tick(object sender, EventArgs e)
         {
             int ttt = PClass1.getB();
-            if (ttt==0)
+            if (ttt == 0)
             {
                 cplayCount = 0;
                 cpauseCount = 0;
@@ -371,8 +366,8 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            float val = cpu?.NextValue()??0;
-            bool cpStatus =val>15.0;
+            float val = cpu?.NextValue() ?? 0;
+            bool cpStatus = val > 15.0;
             if (cpStatus)
             {
                 cplayCount = 0;
@@ -423,7 +418,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            if (cplayCount > 4&& playCount > 4)
+            if (cplayCount > 4 && playCount > 4)
             {
                 cplayCount = 0;
                 cpauseCount = 0;
@@ -435,7 +430,5 @@ namespace DyDesktopWinForms
                 }
             }
         }
-
-      
     }
 }

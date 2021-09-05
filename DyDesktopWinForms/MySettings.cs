@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Xml.Serialization;
 
 namespace DyDesktopWinForms
 {
     public class MySettings
     {
-        private static MySettings mySettings ;
+        private static MySettings mySettings;
 
         private MySettings()
         {
-
         }
 
         public bool FirstRun { get; set; } = true;
@@ -26,7 +20,7 @@ namespace DyDesktopWinForms
         const string filepath = "settings.xml";
         public static MySettings Load()
         {
-            if (mySettings==null)
+            if (mySettings == null)
             {
                 if (File.Exists(filepath))
                 {

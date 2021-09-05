@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
@@ -16,7 +13,7 @@ namespace DyDesktopWinForms
         [STAThread]
         static void Main(string[] args)
         {
-           Mutex _singleInstanceMutex = new Mutex(true, "DyDesktopWinForms", out bool isNew);
+            Mutex _singleInstanceMutex = new Mutex(true, "DyDesktopWinForms", out bool isNew);
             if (!isNew)
                 return;
 
@@ -29,11 +26,11 @@ namespace DyDesktopWinForms
             Form1 form1 = new Form1();
             form1.Show();
 
-            if (args.Length!=0&&args[0]=="-c")
+            if (args.Length != 0 && args[0] == "-c")
             {
                 form1.Hide();
             }
-         
+
             Application.Run();
         }
     }

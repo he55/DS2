@@ -14,7 +14,7 @@ namespace DyDesktopWinForms
             t.Height = SystemParameters.PrimaryScreenHeight;
         }
 
-        public static void SetScreen(this Window t,int x, int y, int w, int h)
+        public static void SetScreen(this Window t, int x, int y, int w, int h)
         {
             t.WindowStyle = WindowStyle.None;
             t.ResizeMode = ResizeMode.NoResize;
@@ -23,6 +23,5 @@ namespace DyDesktopWinForms
             t.Width = w;
             t.Height = h;
         }
-
     }
 }
