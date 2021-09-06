@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace DyDesktopWinForms
 {
-    public partial class Form1 : Form
+    public partial class DSMainForm : Form
     {
         VideoWindow videoWindow;
         bool _isPlaying;
@@ -18,7 +18,7 @@ namespace DyDesktopWinForms
         PerformanceCounter cpu;
         DSSettings settings = DSSettings.Load();
 
-        public Form1()
+        public DSMainForm()
         {
             InitializeComponent();
             notifyIcon1.Icon = this.Icon;

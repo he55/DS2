@@ -23,7 +23,7 @@ namespace DyDesktopWinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Form1 form1 = new Form1();
+            DSMainForm form1 = new DSMainForm();
             form1.Show();
 
             if (args.Length != 0 && args[0] == "-c")

@@ -1,7 +1,7 @@
 ﻿
 namespace DyDesktopWinForms
 {
-    partial class Form1
+    partial class DSMainForm
     {
         /// <summary>
         ///  Required designer variable.
