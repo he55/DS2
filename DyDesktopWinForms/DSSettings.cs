@@ -5,7 +5,8 @@ namespace DyDesktopWinForms
 {
     public class DSSettings
     {
-        static DSSettings mySettings;
+        const string filepath = "settings.xml";
+        static DSSettings s_settings;
 
         private DSSettings()
         {
@@ -17,25 +18,24 @@ namespace DyDesktopWinForms
         public bool IsMuted { get; set; }
         public int Volume { get; set; } = 3;
 
-        const string filepath = "settings.xml";
         public static DSSettings Load()
         {
-            if (mySettings == null)
+            if (s_settings == null)
             {
                 if (File.Exists(filepath))
                 {
                     using (FileStream fileStream = File.OpenRead(filepath))
                     {
                         XmlSerializer xmlSerializer = new XmlSerializer(typeof(DSSettings));
-                        mySettings = (DSSettings)xmlSerializer.Deserialize(fileStream);
+                        s_settings = (DSSettings)xmlSerializer.Deserialize(fileStream);
                     }
                 }
                 else
                 {
-                    mySettings = new DSSettings();
+                    s_settings = new DSSettings();
                 }
             }
-            return mySettings;
+            return s_settings;
         }
 
         public static void Save()
@@ -43,7 +43,7 @@ namespace DyDesktopWinForms
             using (FileStream fileStream = File.Create(filepath))
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(DSSettings));
-                xmlSerializer.Serialize(fileStream, mySettings);
+                xmlSerializer.Serialize(fileStream, s_settings);
             }
         }
     }
