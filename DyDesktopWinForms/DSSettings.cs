@@ -3,11 +3,11 @@ using System.Xml.Serialization;
 
 namespace DyDesktopWinForms
 {
-    public class MySettings
+    public class DSSettings
     {
-        static MySettings mySettings;
+        static DSSettings mySettings;
 
-        private MySettings()
+        private DSSettings()
         {
         }
 
@@ -18,7 +18,7 @@ namespace DyDesktopWinForms
         public int Volume { get; set; } = 3;
 
         const string filepath = "settings.xml";
-        public static MySettings Load()
+        public static DSSettings Load()
         {
             if (mySettings == null)
             {
@@ -26,13 +26,13 @@ namespace DyDesktopWinForms
                 {
                     using (FileStream fileStream = File.OpenRead(filepath))
                     {
-                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(MySettings));
-                        mySettings = (MySettings)xmlSerializer.Deserialize(fileStream);
+                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(DSSettings));
+                        mySettings = (DSSettings)xmlSerializer.Deserialize(fileStream);
                     }
                 }
                 else
                 {
-                    mySettings = new MySettings();
+                    mySettings = new DSSettings();
                 }
             }
             return mySettings;
@@ -42,7 +42,7 @@ namespace DyDesktopWinForms
         {
             using (FileStream fileStream = File.Create(filepath))
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(MySettings));
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(DSSettings));
                 xmlSerializer.Serialize(fileStream, mySettings);
             }
         }

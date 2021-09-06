@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace DyDesktopWinForms
 {
-    public static class PClass1
+    public static class DSPInvoke
     {
         [DllImport("User32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);

@@ -16,7 +16,7 @@ namespace DyDesktopWinForms
         string _recentPath;
         List<string> _recentFiles;
         PerformanceCounter cpu;
-        MySettings settings = MySettings.Load();
+        DSSettings settings = DSSettings.Load();
 
         public Form1()
         {
@@ -41,7 +41,7 @@ namespace DyDesktopWinForms
                 cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             });
 
-            workerWindowHandle = PClass1.getC();
+            workerWindowHandle = DSPInvoke.getC();
             if (workerWindowHandle == IntPtr.Zero)
             {
                 button2.Enabled = false;
@@ -68,7 +68,7 @@ namespace DyDesktopWinForms
                 }
             }
 
-            toolStripMenuItem12.Checked = DesktopHelper.CheckStartOnBoot();
+            toolStripMenuItem12.Checked = DSHelper.CheckStartOnBoot();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -86,8 +86,8 @@ namespace DyDesktopWinForms
             }
             else
             {
-                MySettings.Save();
-                PClass1.getD();
+                DSSettings.Save();
+                DSPInvoke.getD();
             }
         }
 
@@ -101,7 +101,7 @@ namespace DyDesktopWinForms
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
-                PClass1.SetParent(videoWindow.Handle, workerWindowHandle);
+                DSPInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
 
                 button4.Enabled = true;
                 button5.Enabled = true;
@@ -218,7 +218,7 @@ namespace DyDesktopWinForms
             toolStripMenuItem3.Enabled = false;
             toolStripMenuItem5.Enabled = false;
 
-            PClass1.getD();
+            DSPInvoke.getD();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -317,7 +317,7 @@ namespace DyDesktopWinForms
             Screen[] allScreens = Screen.AllScreens;
             if (allScreens.Length > idx)
             {
-                PClass1.getD();
+                DSPInvoke.getD();
 
                 Rectangle bounds = allScreens[idx].Bounds;
                 videoWindow.SetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
@@ -326,7 +326,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
         {
-            toolStripMenuItem12.Checked = DesktopHelper.ToggleStartOnBoot();
+            toolStripMenuItem12.Checked = DSHelper.ToggleStartOnBoot();
         }
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
@@ -351,7 +351,7 @@ namespace DyDesktopWinForms
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (PClass1.getB() == 0)
+            if (DSPInvoke.getB() == 0)
             {
                 cplayCount = 0;
                 cpauseCount = 0;
@@ -389,7 +389,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            if (PClass1.getA() > 500)
+            if (DSPInvoke.getA() > 500)
             {
                 pauseCount = 0;
                 ++playCount;

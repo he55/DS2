@@ -2,7 +2,7 @@
 
 namespace DyDesktopWinForms
 {
-    public static class MyWindowExClass
+    public static class DSWindowExtensions
     {
         public static void FullScreen(this Window t)
         {

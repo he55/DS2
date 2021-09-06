@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace DyDesktopWinForms
 {
-    public static class DesktopHelper
+    public static class DSHelper
     {
         const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
         static bool startOnBoot;
