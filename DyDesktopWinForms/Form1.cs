@@ -87,7 +87,7 @@ namespace DyDesktopWinForms
             else
             {
                 MySettings.Save();
-                restoreDesktop();
+                PClass1.getD();
             }
         }
 
@@ -198,11 +198,6 @@ namespace DyDesktopWinForms
             videoWindow.Volume = settings.Volume / 10.0;
         }
 
-        private void restoreDesktop()
-        {
-            PClass1.getD();
-        }
-
         private void button5_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
@@ -223,7 +218,7 @@ namespace DyDesktopWinForms
             toolStripMenuItem3.Enabled = false;
             toolStripMenuItem5.Enabled = false;
 
-            restoreDesktop();
+            PClass1.getD();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -322,7 +317,7 @@ namespace DyDesktopWinForms
             Screen[] allScreens = Screen.AllScreens;
             if (allScreens.Length > idx)
             {
-                restoreDesktop();
+                PClass1.getD();
 
                 Rectangle bounds = allScreens[idx].Bounds;
                 videoWindow.SetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
@@ -356,8 +351,7 @@ namespace DyDesktopWinForms
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int ttt = PClass1.getB();
-            if (ttt == 0)
+            if (PClass1.getB() == 0)
             {
                 cplayCount = 0;
                 cpauseCount = 0;
@@ -371,8 +365,7 @@ namespace DyDesktopWinForms
             }
 
             float val = cpu?.NextValue() ?? 0;
-            bool cpStatus = val > 15.0;
-            if (cpStatus)
+            if (val > 15.0)
             {
                 cplayCount = 0;
                 ++cpauseCount;
@@ -396,9 +389,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            ulong ti = PClass1.getA();
-            bool pStatus = ti > 500;
-            if (pStatus)
+            if (PClass1.getA() > 500)
             {
                 pauseCount = 0;
                 ++playCount;
