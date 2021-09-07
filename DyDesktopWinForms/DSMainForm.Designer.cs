@@ -116,7 +116,6 @@ namespace DyDesktopWinForms
             this.button5.TabIndex = 7;
             this.button5.Text = "关闭";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // label1
@@ -259,7 +258,6 @@ namespace DyDesktopWinForms
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(198, 22);
             this.toolStripMenuItem5.Text = "关闭";
-            this.toolStripMenuItem5.Visible = false;
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // toolStripSeparator1

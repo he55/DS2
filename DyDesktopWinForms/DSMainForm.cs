@@ -28,10 +28,6 @@ namespace DyDesktopWinForms
             checkBox1.Checked = _settings.IsMuted;
             toolStripMenuItem3.Checked = _settings.IsMuted;
             trackBar1.Enabled = !_settings.IsMuted;
-#if DEBUG
-            button5.Visible = true;
-            toolStripMenuItem5.Visible = true;
-#endif
         }
 
         private void Form1_Load(object sender, EventArgs e)
