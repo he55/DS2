@@ -5,7 +5,7 @@ namespace DyDesktopWinForms
 {
     public class DSSettings
     {
-        const string filepath = "settings.xml";
+        const string settingsFilePath = "settings.xml";
         static DSSettings s_settings;
 
         private DSSettings()
@@ -22,9 +22,9 @@ namespace DyDesktopWinForms
         {
             if (s_settings == null)
             {
-                if (File.Exists(filepath))
+                if (File.Exists(settingsFilePath))
                 {
-                    using (FileStream fileStream = File.OpenRead(filepath))
+                    using (FileStream fileStream = File.OpenRead(settingsFilePath))
                     {
                         XmlSerializer xmlSerializer = new XmlSerializer(typeof(DSSettings));
                         s_settings = (DSSettings)xmlSerializer.Deserialize(fileStream);
@@ -40,7 +40,7 @@ namespace DyDesktopWinForms
 
         public static void Save()
         {
-            using (FileStream fileStream = File.Create(filepath))
+            using (FileStream fileStream = File.Create(settingsFilePath))
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(DSSettings));
                 xmlSerializer.Serialize(fileStream, s_settings);
