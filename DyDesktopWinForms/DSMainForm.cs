@@ -15,19 +15,19 @@ namespace DyDesktopWinForms
         IntPtr workerWindowHandle;
         string _recentPath;
         List<string> _recentFiles;
-        PerformanceCounter cpu;
-        DSSettings settings = DSSettings.Load();
+        PerformanceCounter _performanceCounter;
+        DSSettings _settings = DSSettings.Load();
 
         public DSMainForm()
         {
             InitializeComponent();
             notifyIcon1.Icon = this.Icon;
             this.MaximumSize = this.MinimumSize = this.Size;
-            trackBar1.Value = settings.Volume;
-            toolStripMenuItem13.Checked = settings.AutoPause;
-            checkBox1.Checked = settings.IsMuted;
-            toolStripMenuItem3.Checked = settings.IsMuted;
-            trackBar1.Enabled = !settings.IsMuted;
+            trackBar1.Value = _settings.Volume;
+            toolStripMenuItem13.Checked = _settings.AutoPause;
+            checkBox1.Checked = _settings.IsMuted;
+            toolStripMenuItem3.Checked = _settings.IsMuted;
+            trackBar1.Enabled = !_settings.IsMuted;
 #if DEBUG
             button5.Visible = true;
             toolStripMenuItem5.Visible = true;
@@ -38,7 +38,7 @@ namespace DyDesktopWinForms
         {
             Task.Run(() =>
             {
-                cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+                _performanceCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             });
 
             workerWindowHandle = DSPInvoke.getC();
@@ -57,7 +57,7 @@ namespace DyDesktopWinForms
                 _recentFiles.AddRange(paths);
             }
 
-            if (settings.AutoPlay)
+            if (_settings.AutoPlay)
             {
                 checkBox2.Checked = true;
                 toolStripMenuItem6.Checked = true;
@@ -78,10 +78,10 @@ namespace DyDesktopWinForms
                 e.Cancel = true;
                 this.Hide();
 
-                if (settings.FirstRun)
+                if (_settings.FirstRun)
                 {
                     notifyIcon1.ShowBalloonTip(1000, "", "程序正在后台运行", ToolTipIcon.None);
-                    settings.FirstRun = false;
+                    _settings.FirstRun = false;
                 }
             }
             else
@@ -96,8 +96,8 @@ namespace DyDesktopWinForms
             if (videoWindow == null)
             {
                 videoWindow = new VideoWindow();
-                videoWindow.IsMuted = settings.IsMuted;
-                videoWindow.Volume = settings.Volume / 10.0;
+                videoWindow.IsMuted = _settings.IsMuted;
+                videoWindow.Volume = _settings.Volume / 10.0;
                 videoWindow.FullScreen();
                 videoWindow.Show();
 
@@ -142,7 +142,7 @@ namespace DyDesktopWinForms
             _isPlaying = true;
             button4.Text = "暂停";
             toolStripMenuItem2.Text = "暂停";
-            timer1.Enabled = settings.AutoPause;
+            timer1.Enabled = _settings.AutoPause;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -174,28 +174,28 @@ namespace DyDesktopWinForms
 
             if (sender != null)
             {
-                timer1.Enabled = settings.AutoPause && _isPlaying;
+                timer1.Enabled = _settings.AutoPause && _isPlaying;
             }
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
         {
-            settings.IsMuted = checkBox1.Checked;
-            toolStripMenuItem3.Checked = settings.IsMuted;
-            trackBar1.Enabled = !settings.IsMuted;
-            videoWindow.IsMuted = settings.IsMuted;
+            _settings.IsMuted = checkBox1.Checked;
+            toolStripMenuItem3.Checked = _settings.IsMuted;
+            trackBar1.Enabled = !_settings.IsMuted;
+            videoWindow.IsMuted = _settings.IsMuted;
         }
 
         private void checkBox2_Click(object sender, EventArgs e)
         {
-            settings.AutoPlay = checkBox2.Checked;
-            toolStripMenuItem6.Checked = settings.AutoPlay;
+            _settings.AutoPlay = checkBox2.Checked;
+            toolStripMenuItem6.Checked = _settings.AutoPlay;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            settings.Volume = trackBar1.Value;
-            videoWindow.Volume = settings.Volume / 10.0;
+            _settings.Volume = trackBar1.Value;
+            videoWindow.Volume = _settings.Volume / 10.0;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -331,9 +331,9 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
         {
-            settings.AutoPause = !toolStripMenuItem13.Checked;
-            toolStripMenuItem13.Checked = settings.AutoPause;
-            timer1.Enabled = settings.AutoPause;
+            _settings.AutoPause = !toolStripMenuItem13.Checked;
+            toolStripMenuItem13.Checked = _settings.AutoPause;
+            timer1.Enabled = _settings.AutoPause;
 
             if (!_isPlaying)
             {
@@ -364,7 +364,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            float val = cpu?.NextValue() ?? 0;
+            float val = _performanceCounter?.NextValue() ?? 0;
             if (val > 15.0)
             {
                 cplayCount = 0;
