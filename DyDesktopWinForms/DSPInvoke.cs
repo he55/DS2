@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace DyDesktopWinForms
@@ -19,5 +20,11 @@ namespace DyDesktopWinForms
 
         [DllImport("ProjectBr.dll")]
         public static extern ulong getD();
+
+        [DllImport("ProjectBr.dll")]
+        public static extern int setPos(IntPtr ptr, Rectangle r);
+
+        [DllImport("ProjectBr.dll")]
+        public static extern int reLastPos();
     }
 }
