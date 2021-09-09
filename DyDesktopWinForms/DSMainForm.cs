@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace DyDesktopWinForms
 {
@@ -315,8 +315,7 @@ namespace DyDesktopWinForms
             {
                 DSPInvoke.getD();
 
-                Rectangle bounds = allScreens[idx].Bounds;
-                videoWindow.SetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+                videoWindow.SetPosition(allScreens[idx].Bounds);
             }
         }
 

@@ -1,27 +1,28 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
 
 namespace DyDesktopWinForms
 {
     public static class DSWindowExtensions
     {
-        public static void FullScreen(this Window t)
+        public static void FullScreen(this Window @this)
         {
-            t.WindowStyle = WindowStyle.None;
-            t.ResizeMode = ResizeMode.NoResize;
-            t.Left = 0;
-            t.Top = 0;
-            t.Width = SystemParameters.PrimaryScreenWidth;
-            t.Height = SystemParameters.PrimaryScreenHeight;
+            @this.WindowStyle = WindowStyle.None;
+            @this.ResizeMode = ResizeMode.NoResize;
+            @this.Left = 0;
+            @this.Top = 0;
+            @this.Width = SystemParameters.PrimaryScreenWidth;
+            @this.Height = SystemParameters.PrimaryScreenHeight;
         }
 
-        public static void SetScreen(this Window t, int x, int y, int w, int h)
+        public static void SetPosition(this Window @this, Rectangle rect)
         {
-            t.WindowStyle = WindowStyle.None;
-            t.ResizeMode = ResizeMode.NoResize;
-            t.Left = x;
-            t.Top = y;
-            t.Width = w;
-            t.Height = h;
+            @this.WindowStyle = WindowStyle.None;
+            @this.ResizeMode = ResizeMode.NoResize;
+            @this.Left = rect.Left;
+            @this.Top = rect.Top;
+            @this.Width = rect.Width;
+            @this.Height = rect.Height;
         }
     }
 }

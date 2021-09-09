@@ -1,7 +1,7 @@
 using System;
-using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace DyDesktopWinForms
 {
@@ -13,22 +13,24 @@ namespace DyDesktopWinForms
         [STAThread]
         static void Main(string[] args)
         {
-            Mutex _singleInstanceMutex = new Mutex(true, "DyDesktopWinForms", out bool isNew);
+            _ = new Mutex(true, "DyDesktopWinForms", out bool isNew);
             if (!isNew)
+            {
                 return;
+            }
 
-            string path = Path.GetDirectoryName(Application.ExecutablePath);
-            Directory.SetCurrentDirectory(path);
+            string appPath = Path.GetDirectoryName(Application.ExecutablePath);
+            Directory.SetCurrentDirectory(appPath);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            DSMainForm form1 = new DSMainForm();
-            form1.Show();
+            DSMainForm mainForm = new DSMainForm();
+            mainForm.Show();
 
             if (args.Length != 0 && args[0] == "-c")
             {
-                form1.Hide();
+                mainForm.Hide();
             }
 
             Application.Run();
