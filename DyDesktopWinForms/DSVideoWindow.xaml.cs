@@ -41,15 +41,9 @@ namespace DyDesktopWinForms
             set => mediaElement.IsMuted = value;
         }
 
-        public void Play()
-        {
-            mediaElement.Play();
-        }
+        public void Play() => mediaElement.Play();
 
-        public void Pause()
-        {
-            mediaElement.Pause();
-        }
+        public void Pause() => mediaElement.Pause();
 
         private void mediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
