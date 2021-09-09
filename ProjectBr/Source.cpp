@@ -92,5 +92,46 @@ void getD(void) {
 }
 
 
+typedef struct MyStruct
+{
+    HWND hw;
+    RECT rc;
+    LONG st;
+} MyStruct;
+
+MyStruct mys;
+
+extern "C"
+_declspec(dllexport)
+BOOL setPos(HWND hw, RECT rc) {
+    if (IsWindow(hw)) {
+        RECT orc;
+        GetWindowRect(hw, &orc);
+        LONG st = GetWindowLong(hw, GWL_STYLE);
+        mys = { hw,orc,st };
+
+        SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
+        SetWindowPos(hw, HWND_TOP, rc.left, rc.top, rc.right, rc.bottom, SWP_SHOWWINDOW);
+        return TRUE;
+    }
+    mys = { 0 };
+    return FALSE;
+}
+
+
+extern "C"
+_declspec(dllexport)
+BOOL reLastPos() {
+    if (mys.hw && IsWindow(mys.hw)) {
+        SetWindowLong(mys.hw, GWL_STYLE, mys.st);
+        SetWindowPos(mys.hw, HWND_TOP, mys.rc.left, mys.rc.top, mys.rc.right, mys.rc.bottom, SWP_SHOWWINDOW);
+        mys = { 0 };
+        return TRUE;
+    }
+    mys = { 0 };
+    return FALSE;
+}
+
+
 
 
