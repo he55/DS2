@@ -10,7 +10,7 @@ namespace DyDesktopWinForms
 {
     public partial class DSMainForm : Form
     {
-        VideoWindow videoWindow;
+        DSVideoWindow videoWindow;
         bool _isPlaying;
         IntPtr workerWindowHandle;
         string _recentPath;
@@ -91,7 +91,7 @@ namespace DyDesktopWinForms
         {
             if (videoWindow == null)
             {
-                videoWindow = new VideoWindow();
+                videoWindow = new DSVideoWindow();
                 videoWindow.IsMuted = _settings.IsMuted;
                 videoWindow.Volume = _settings.Volume / 10.0;
                 videoWindow.FullScreen();
