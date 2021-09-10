@@ -423,13 +423,13 @@ namespace DyDesktopWinForms
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            toolStripMenuItem103_DropDownOpening(null, null);
         }
 
         int idx0;
         private void toolStripMenuItem103_DropDownOpening(object sender, EventArgs e)
         {
-            toolStripMenuItem10.DropDownItems.Clear();
+            toolStripMenuItem16.DropDownItems.Clear();
 
             string v = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             string v1 = Path.Combine(v, ".DyDesktopWinForms");
@@ -443,14 +443,14 @@ namespace DyDesktopWinForms
                     toolStripMenuItem.Checked = idx0 == res;
                     toolStripMenuItem.Tag = res;
                     toolStripMenuItem.Click += ToolStripMenuItem23_Click;
-                    toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
+                    toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem);
                 }
             }
         }
 
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
-            foreach (ToolStripMenuItem item in toolStripMenuItem10.DropDownItems)
+            foreach (ToolStripMenuItem item in toolStripMenuItem16.DropDownItems)
             {
                 item.Checked = false;
             }
@@ -458,11 +458,10 @@ namespace DyDesktopWinForms
             idx0 = (int)((ToolStripMenuItem)sender).Tag;
 
             Screen[] allScreens = Screen.AllScreens;
-            if (allScreens.Length > idx0)
+            if (allScreens.Length > idx)
             {
-                DSPInvoke.getD();
-
-                videoWindow.SetPosition(allScreens[idx0].Bounds);
+                DSPInvoke.reLastPos();
+                DSPInvoke.setPos((IntPtr)idx0, allScreens[idx].Bounds);
             }
         }
     }
