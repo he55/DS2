@@ -19,8 +19,14 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            string appPath = Path.GetDirectoryName(Application.ExecutablePath);
-            Directory.SetCurrentDirectory(appPath);
+            string v = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string v1 = Path.Combine(v, ".DyDesktopWinForms");
+            if (!Directory.Exists(v1))
+            {
+                Directory.CreateDirectory(v1);
+            }
+
+            Directory.SetCurrentDirectory(Application.StartupPath);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
