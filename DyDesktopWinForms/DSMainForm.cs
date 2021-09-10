@@ -420,5 +420,44 @@ namespace DyDesktopWinForms
                 }
             }
         }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        int idx0;
+        private void toolStripMenuItem103_DropDownOpening(object sender, EventArgs e)
+        {
+            toolStripMenuItem10.DropDownItems.Clear();
+
+            Screen[] allScreens = Screen.AllScreens;
+            for (int i = 0; i < allScreens.Length; i++)
+            {
+                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary ? allScreens[i].DeviceName + " - Primary" : allScreens[i].DeviceName);
+                toolStripMenuItem.Checked = idx0 == i;
+                toolStripMenuItem.Tag = i;
+                toolStripMenuItem.Click += ToolStripMenuItem23_Click;
+                toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
+            }
+        }
+
+        private void ToolStripMenuItem23_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem item in toolStripMenuItem10.DropDownItems)
+            {
+                item.Checked = false;
+            }
+
+            idx0 = (int)((ToolStripMenuItem)sender).Tag;
+
+            Screen[] allScreens = Screen.AllScreens;
+            if (allScreens.Length > idx0)
+            {
+                DSPInvoke.getD();
+
+                videoWindow.SetPosition(allScreens[idx0].Bounds);
+            }
+        }
     }
 }
