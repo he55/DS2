@@ -3,7 +3,7 @@
 
 extern "C"
 _declspec(dllexport)
-ULONGLONG getA(void) {
+ULONGLONG __stdcall getA(void) {
 	LASTINPUTINFO lii = { sizeof(LASTINPUTINFO),0 };
 	GetLastInputInfo(&lii);
 	ULONGLONG v= GetTickCount64();
@@ -13,7 +13,7 @@ ULONGLONG getA(void) {
 
 extern "C"
 _declspec(dllexport)
-int getB(void) {
+int __stdcall getB(void) {
 	static HWND gg;
 
 	if (!gg) {
@@ -50,7 +50,7 @@ int getB(void) {
 
 extern "C"
 _declspec(dllexport)
-HWND getC(void) {
+HWND __stdcall getC(void) {
 	static HWND gc;
 
 	HWND ph = FindWindow("Progman", NULL);
@@ -68,7 +68,7 @@ HWND getC(void) {
 
 extern "C"
 _declspec(dllexport)
-void getD(void) {
+void __stdcall getD(void) {
 	HRESULT nRet = CoInitialize(NULL);
 	if (SUCCEEDED(nRet)) {
 		IDesktopWallpaper* p;
@@ -95,6 +95,7 @@ void getD(void) {
 typedef struct MyStruct
 {
     HWND hw;
+    HWND pa;
     RECT rc;
     LONG st;
 } MyStruct;
@@ -103,28 +104,29 @@ MyStruct mys;
 
 extern "C"
 _declspec(dllexport)
-BOOL setPos(HWND hw, RECT rc) {
+BOOL __stdcall setPos(HWND hw, RECT rc) {
     if (IsWindow(hw)) {
         RECT orc;
         GetWindowRect(hw, &orc);
         LONG st = GetWindowLong(hw, GWL_STYLE);
-        mys = { hw,orc,st };
+        HWND pa = GetParent(hw);
+        mys = { hw,pa,orc,st };
 
         SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
         SetWindowPos(hw, HWND_TOP, rc.left, rc.top, rc.right, rc.bottom, SWP_SHOWWINDOW);
         return TRUE;
     }
-    mys = { 0 };
     return FALSE;
 }
 
 
 extern "C"
 _declspec(dllexport)
-BOOL reLastPos() {
+BOOL __stdcall reLastPos() {
     if (mys.hw && IsWindow(mys.hw)) {
         SetWindowLong(mys.hw, GWL_STYLE, mys.st);
         SetWindowPos(mys.hw, HWND_TOP, mys.rc.left, mys.rc.top, mys.rc.right, mys.rc.bottom, SWP_SHOWWINDOW);
+        SetParent(mys.hw, mys.pa);
         mys = { 0 };
         return TRUE;
     }
