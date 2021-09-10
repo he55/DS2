@@ -431,14 +431,20 @@ namespace DyDesktopWinForms
         {
             toolStripMenuItem10.DropDownItems.Clear();
 
-            Screen[] allScreens = Screen.AllScreens;
-            for (int i = 0; i < allScreens.Length; i++)
+            string v = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string v1 = Path.Combine(v, ".DyDesktopWinForms");
+            string[] vs = Directory.GetFiles(v1);
+            foreach (string item in vs)
             {
-                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary ? allScreens[i].DeviceName + " - Primary" : allScreens[i].DeviceName);
-                toolStripMenuItem.Checked = idx0 == i;
-                toolStripMenuItem.Tag = i;
-                toolStripMenuItem.Click += ToolStripMenuItem23_Click;
-                toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
+                string[] vs1 = item.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+                if(int.TryParse(vs1[0],out int res))
+                {
+                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1]);
+                    toolStripMenuItem.Checked = idx0 == res;
+                    toolStripMenuItem.Tag = res;
+                    toolStripMenuItem.Click += ToolStripMenuItem23_Click;
+                    toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
+                }
             }
         }
 
