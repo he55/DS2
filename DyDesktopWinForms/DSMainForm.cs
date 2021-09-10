@@ -83,6 +83,7 @@ namespace DyDesktopWinForms
             else
             {
                 DSSettings.Save();
+                DSPInvoke.reLastPos();
                 DSPInvoke.getD();
             }
         }
