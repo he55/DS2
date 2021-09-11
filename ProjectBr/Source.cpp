@@ -50,6 +50,43 @@ int __stdcall getB(void) {
 
 extern "C"
 _declspec(dllexport)
+int __stdcall getB2(RECT rc) {
+    static HWND gg;
+
+    if (!gg) {
+        EnumWindows([](HWND h, LPARAM l) {
+            HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
+            if (p) {
+                gg = FindWindowEx(p, NULL, "SysListView32", NULL);
+                return FALSE;
+            }
+            return TRUE;
+            }, NULL);
+    }
+
+    int ic = 0;
+    int w = 1919;
+    int h = 900;
+    POINT ps[9] = {
+        {0,0},{w / 2,0},{w,0},
+        {0,h / 2},{w / 2,h / 2},{w,h / 2},
+        {0,h},{w / 2,h},{w,h}
+    };
+
+    for (size_t i = 0; i < 9; i++)
+    {
+        HWND ww = WindowFromPoint(ps[i]);
+        if (ww == gg) {
+            ++ic;
+        }
+    }
+
+    return ic;
+}
+
+
+extern "C"
+_declspec(dllexport)
 HWND __stdcall getC(void) {
 	static HWND gc;
 
