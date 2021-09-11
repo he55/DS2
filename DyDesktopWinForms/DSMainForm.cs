@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -437,8 +436,9 @@ namespace DyDesktopWinForms
             string[] vs = Directory.GetFiles(v1);
             foreach (string item in vs)
             {
-                string[] vs1 = item.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
-                if(int.TryParse(vs1[0],out int res))
+                string v2 = Path.GetFileName(item);
+                string[] vs1 = v2.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+                if (int.TryParse(vs1[0], out int res))
                 {
                     ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1]);
                     toolStripMenuItem.Checked = idx0 == res;
@@ -447,22 +447,31 @@ namespace DyDesktopWinForms
                     toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem);
                 }
             }
+            toolStripMenuItem16.Visible = toolStripMenuItem16.DropDownItems.Count != 0;
         }
 
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
-            foreach (ToolStripMenuItem item in toolStripMenuItem16.DropDownItems)
+            int hw = (int)((ToolStripMenuItem)sender).Tag;
+            if (idx0 != hw)
             {
-                item.Checked = false;
+                idx0 = hw;
+
+                foreach (ToolStripMenuItem item in toolStripMenuItem16.DropDownItems)
+                {
+                    item.Checked = false;
+                }
+
+                Screen[] allScreens = Screen.AllScreens;
+                if (allScreens.Length > idx)
+                {
+                    DSPInvoke.reLastPos();
+                    DSPInvoke.setPos((IntPtr)idx0, allScreens[idx].Bounds);
+                }
             }
-
-            idx0 = (int)((ToolStripMenuItem)sender).Tag;
-
-            Screen[] allScreens = Screen.AllScreens;
-            if (allScreens.Length > idx)
+            else
             {
                 DSPInvoke.reLastPos();
-                DSPInvoke.setPos((IntPtr)idx0, allScreens[idx].Bounds);
             }
         }
     }
