@@ -143,10 +143,12 @@ extern "C"
 _declspec(dllexport)
 BOOL __stdcall setPos(HWND hw, RECT rc) {
     if (IsWindow(hw)) {
+        ShowWindow(hw, SW_RESTORE);
+
+        HWND pa = GetParent(hw);
         RECT orc;
         GetWindowRect(hw, &orc);
         LONG st = GetWindowLong(hw, GWL_STYLE);
-        HWND pa = GetParent(hw);
         mys = { hw,pa,orc,st };
 
         SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
