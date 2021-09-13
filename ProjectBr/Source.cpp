@@ -70,9 +70,9 @@ int __stdcall getB2(RECT rc) {
     int w = rc.right;
     int h = rc.bottom;
     POINT ps[9] = {
-        {0,0},{w / 2,0},{w,0},
-        {0,h / 2},{w / 2,h / 2},{w,h / 2},
-        {0,h},{w / 2,h},{w,h}
+        {x,y},      {x+(w/2),y},      {x+w,y},
+        {x,y+(h/2)},{x+(w/2),y+(h/2)},{x+w,y+(h/2)},
+        {x,y+h},    {x+(w/2),y+h},    {x+w,y+h}
     };
 
     for (size_t i = 0; i < 9; i++)
