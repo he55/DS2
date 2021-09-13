@@ -16,6 +16,9 @@ namespace DyDesktopWinForms
         public static extern int getB();
 
         [DllImport("ProjectBr.dll")]
+        public static extern int getB2(Rectangle rc);
+
+        [DllImport("ProjectBr.dll")]
         public static extern IntPtr getC();
 
         [DllImport("ProjectBr.dll")]
