@@ -65,8 +65,10 @@ int __stdcall getB2(RECT rc) {
     }
 
     int ic = 0;
-    int w = 1919;
-    int h = 900;
+    int x = rc.left;
+    int y = rc.top;
+    int w = rc.right;
+    int h = rc.bottom;
     POINT ps[9] = {
         {0,0},{w / 2,0},{w,0},
         {0,h / 2},{w / 2,h / 2},{w,h / 2},
