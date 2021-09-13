@@ -16,6 +16,7 @@ namespace DyDesktopWinForms
         List<string> _recentFiles;
         PerformanceCounter _performanceCounter;
         DSSettings _settings = DSSettings.Load();
+        Screen _screen = Screen.PrimaryScreen;
 
         public DSMainForm()
         {
@@ -94,7 +95,7 @@ namespace DyDesktopWinForms
                 videoWindow = new DSVideoWindow();
                 videoWindow.IsMuted = _settings.IsMuted;
                 videoWindow.Volume = _settings.Volume / 10.0;
-                videoWindow.FullScreen();
+                videoWindow.SetPosition(_screen.Bounds);
                 videoWindow.Show();
 
                 DSPInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
@@ -309,14 +310,10 @@ namespace DyDesktopWinForms
             }
 
             idx = (int)((ToolStripMenuItem)sender).Tag;
+            _screen = Screen.AllScreens[idx];
 
-            Screen[] allScreens = Screen.AllScreens;
-            if (allScreens.Length > idx)
-            {
-                DSPInvoke.getD();
-
-                videoWindow.SetPosition(allScreens[idx].Bounds);
-            }
+            DSPInvoke.getD();
+            videoWindow.SetPosition(_screen.Bounds);
         }
 
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
@@ -346,7 +343,7 @@ namespace DyDesktopWinForms
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (DSPInvoke.getB() == 0)
+            if (DSPInvoke.getB2(_screen.WorkingArea) == 0)
             {
                 cplayCount = 0;
                 cpauseCount = 0;
@@ -423,6 +420,7 @@ namespace DyDesktopWinForms
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            toolStripMenuItem10_DropDownOpening(null, null);
             toolStripMenuItem103_DropDownOpening(null, null);
         }
 
@@ -462,13 +460,9 @@ namespace DyDesktopWinForms
                     item.Checked = false;
                 }
 
-                Screen[] allScreens = Screen.AllScreens;
-                if (allScreens.Length > idx)
-                {
-                    DSPInvoke.reLastPos();
-                    IntPtr ptr = (IntPtr)idx0;
-                    DSPInvoke.setPos(ptr, allScreens[idx].Bounds);
-                }
+                DSPInvoke.reLastPos();
+                IntPtr ptr = (IntPtr)idx0;
+                DSPInvoke.setPos(ptr, _screen.Bounds);
             }
             else
             {
