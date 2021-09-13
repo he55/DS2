@@ -466,11 +466,13 @@ namespace DyDesktopWinForms
                 if (allScreens.Length > idx)
                 {
                     DSPInvoke.reLastPos();
-                    DSPInvoke.setPos((IntPtr)idx0, allScreens[idx].Bounds);
+                    IntPtr ptr = (IntPtr)idx0;
+                    DSPInvoke.setPos(ptr, allScreens[idx].Bounds);
                 }
             }
             else
             {
+                idx0 = 0;
                 DSPInvoke.reLastPos();
             }
         }
