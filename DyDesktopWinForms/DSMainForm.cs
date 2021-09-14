@@ -84,7 +84,7 @@ namespace DyDesktopWinForms
             {
                 DSSettings.Save();
                 DSPInvoke.reLastPos();
-                DSPInvoke.getD();
+                DSPInvoke.reWall();
             }
         }
 
@@ -215,7 +215,7 @@ namespace DyDesktopWinForms
             toolStripMenuItem3.Enabled = false;
             toolStripMenuItem5.Enabled = false;
 
-            DSPInvoke.getD();
+            DSPInvoke.reWall();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -312,8 +312,8 @@ namespace DyDesktopWinForms
             idx = (int)((ToolStripMenuItem)sender).Tag;
             _screen = Screen.AllScreens[idx];
 
-            DSPInvoke.getD();
-            videoWindow.SetPosition(_screen.Bounds);
+            DSPInvoke.reWall();
+            videoWindow?.SetPosition(_screen.Bounds);
         }
 
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
