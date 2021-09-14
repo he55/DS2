@@ -321,7 +321,15 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
         {
-            toolStripMenuItem12.Checked = DSHelper.ToggleStartOnBoot();
+            toolStripMenuItem12.Checked = !toolStripMenuItem12.Checked;
+            if (toolStripMenuItem12.Checked)
+            {
+                DSHelper.StToggleStartOnBoot();
+            }
+            else
+            {
+                DSHelper.DelToggleStartOnBoot();
+            }
         }
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
