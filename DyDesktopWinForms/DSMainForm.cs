@@ -432,8 +432,7 @@ namespace DyDesktopWinForms
         {
             toolStripMenuItem16.DropDownItems.Clear();
 
-            string v1 =DSHelper.met();
-            string[] vs = Directory.GetFiles(v1);
+            string[] vs = Directory.GetFiles(DSHelper.met());
             foreach (string item in vs)
             {
                 string v2 = Path.GetFileName(item);

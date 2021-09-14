@@ -15,9 +15,7 @@ namespace DyDesktopWinForms
         {
             if (str == null)
             {
-                string v = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-                string v1 = Path.Combine(v, ".DyDesktopWinForms");
-                str = v1;
+                str = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".DyDesktopWinForms");
             }
             return str;
         }
