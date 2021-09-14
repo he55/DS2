@@ -31,8 +31,8 @@ int __stdcall getB2(RECT rc) {
     int ic = 0;
     int x = rc.left+offset;
     int y = rc.top+offset;
-    int w = rc.right-offset;
-    int h = rc.bottom-offset;
+    int w = rc.right-offset*2;
+    int h = rc.bottom-offset*2;
     POINT ps[9] = {
         {x,y},      {x+(w/2),y},      {x+w,y},
         {x,y+(h/2)},{x+(w/2),y+(h/2)},{x+w,y+(h/2)},
