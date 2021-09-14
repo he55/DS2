@@ -19,9 +19,6 @@ namespace DyDesktopWinForms
         public static extern IntPtr getC();
 
         [DllImport("ProjectBr.dll")]
-        public static extern ulong getD();
-
-        [DllImport("ProjectBr.dll")]
         public static extern void reWall();
 
         [DllImport("ProjectBr.dll")]

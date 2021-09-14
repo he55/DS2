@@ -82,9 +82,12 @@ namespace DyDesktopWinForms
             }
             else
             {
-                DSSettings.Save();
+                timer1.Enabled = false;
+                videoWindow?.Close();
                 DSPInvoke.reLastPos();
                 DSPInvoke.reWall();
+
+                DSSettings.Save();
             }
         }
 
