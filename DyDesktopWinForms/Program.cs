@@ -19,8 +19,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            string v = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string v1 = Path.Combine(v, ".DyDesktopWinForms");
+            string v1 = DSHelper.met();
             if (!Directory.Exists(v1))
             {
                 Directory.CreateDirectory(v1);

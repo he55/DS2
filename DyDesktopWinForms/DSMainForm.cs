@@ -432,8 +432,7 @@ namespace DyDesktopWinForms
         {
             toolStripMenuItem16.DropDownItems.Clear();
 
-            string v = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string v1 = Path.Combine(v, ".DyDesktopWinForms");
+            string v1 =DSHelper.met();
             string[] vs = Directory.GetFiles(v1);
             foreach (string item in vs)
             {

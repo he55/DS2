@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.IO;
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace DyDesktopWinForms
@@ -7,6 +9,18 @@ namespace DyDesktopWinForms
     {
         const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
         static bool startOnBoot;
+        static string str;
+
+        public static string met()
+        {
+            if (str == null)
+            {
+                string v = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                string v1 = Path.Combine(v, ".DyDesktopWinForms");
+                str = v1;
+            }
+            return str;
+        }
 
         public static bool CheckStartOnBoot()
         {
