@@ -94,6 +94,15 @@ void __stdcall getD(void) {
 }
 
 
+extern "C"
+_declspec(dllexport)
+void reWall(void) {
+    char str[MAX_PATH+1] = { 0 };
+    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &str, 0);
+    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, str, 0);
+}
+
+
 typedef struct MyStruct
 {
     HWND hw;
