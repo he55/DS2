@@ -435,7 +435,7 @@ namespace DyDesktopWinForms
             toolStripMenuItem103_DropDownOpening(null, null);
         }
 
-        int idx0;
+        int hhw;
         private void toolStripMenuItem103_DropDownOpening(object sender, EventArgs e)
         {
             toolStripMenuItem16.DropDownItems.Clear();
@@ -445,11 +445,11 @@ namespace DyDesktopWinForms
             {
                 string v2 = Path.GetFileName(item);
                 string[] vs1 = v2.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
-                if (int.TryParse(vs1[0], out int res))
+                if (int.TryParse(vs1[0], System.Globalization.NumberStyles.HexNumber,null, out int val))
                 {
                     ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1]);
-                    toolStripMenuItem.Checked = idx0 == res;
-                    toolStripMenuItem.Tag = res;
+                    toolStripMenuItem.Checked = hhw == val;
+                    toolStripMenuItem.Tag = val;
                     toolStripMenuItem.Click += ToolStripMenuItem23_Click;
                     toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem);
                 }
@@ -460,9 +460,9 @@ namespace DyDesktopWinForms
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
             int hw = (int)((ToolStripMenuItem)sender).Tag;
-            if (idx0 != hw)
+            if (hhw != hw)
             {
-                idx0 = hw;
+                hhw = hw;
 
                 foreach (ToolStripMenuItem item in toolStripMenuItem16.DropDownItems)
                 {
@@ -470,12 +470,12 @@ namespace DyDesktopWinForms
                 }
 
                 DSPInvoke.reLastPos();
-                IntPtr ptr = (IntPtr)idx0;
+                IntPtr ptr = (IntPtr)hhw;
                 DSPInvoke.setPos(ptr, _screen.Bounds);
             }
             else
             {
-                idx0 = 0;
+                hhw = 0;
                 DSPInvoke.reLastPos();
             }
         }
