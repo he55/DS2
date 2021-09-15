@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DyDesktopWinForms
 {
-    class Class1
+   public static class Class1
     {
+        public static void mett()
+        {
+
+        }
     }
 }
