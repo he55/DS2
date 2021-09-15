@@ -1,10 +1,5 @@
-﻿// Copyright © .NET Foundation and Contributors. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-namespace PInvoke
+﻿namespace DyDesktopWinForms
 {
-    using System.Runtime.InteropServices;
-
     /// <summary>
     /// The RECT structure defines the coordinates of the upper-left and lower-right corners of a rectangle.
     /// </summary>
