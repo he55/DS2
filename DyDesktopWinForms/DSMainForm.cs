@@ -84,8 +84,7 @@ namespace DyDesktopWinForms
             {
                 timer1.Enabled = false;
                 videoWindow?.Close();
-                DSPInvoke.reLastPos();
-                DSPInvoke.reWall();
+                rrr();
 
                 DSSettings.Save();
             }
@@ -131,6 +130,7 @@ namespace DyDesktopWinForms
 
         private void openFile(string path)
         {
+            rrr();
             timer1.Enabled = false;
             saveRecent(path);
 
@@ -482,10 +482,15 @@ namespace DyDesktopWinForms
             }
             else
             {
-                hhw = 0;
-                DSPInvoke.reLastPos();
-                DSPInvoke.reWall();
+                rrr();
             }
+        }
+
+        private void rrr()
+        {
+            hhw = 0;
+            DSPInvoke.reLastPos();
+            DSPInvoke.reWall();
         }
     }
 }
