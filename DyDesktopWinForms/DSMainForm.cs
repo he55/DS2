@@ -447,7 +447,9 @@ namespace DyDesktopWinForms
                 string[] vs1 = v2.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
                 if (int.TryParse(vs1[0], System.Globalization.NumberStyles.HexNumber,null, out int val))
                 {
-                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1]);
+                    bool v = DSPInvoke.IsWindowVisible((IntPtr)val);
+                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1]+(v?"":" - "));
+                    toolStripMenuItem.Enabled = v;
                     toolStripMenuItem.Checked = hhw == val;
                     toolStripMenuItem.Tag = val;
                     toolStripMenuItem.Click += ToolStripMenuItem23_Click;
@@ -477,6 +479,7 @@ namespace DyDesktopWinForms
             {
                 hhw = 0;
                 DSPInvoke.reLastPos();
+                DSPInvoke.reWall();
             }
         }
     }
