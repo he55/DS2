@@ -461,6 +461,11 @@ namespace DyDesktopWinForms
 
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
+            if (videoWindow != null)
+            {
+                button5_Click(null, null);
+            }
+
             int hw = (int)((ToolStripMenuItem)sender).Tag;
             if (hhw != hw)
             {
