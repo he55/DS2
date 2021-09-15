@@ -17,7 +17,7 @@ namespace DyDesktopWinForms
         public static extern ulong getA();
 
         [DllImport("ProjectBr.dll")]
-        public static extern int getB2(Rectangle rc);
+        public static extern int getB2(RECT rc);
 
         [DllImport("ProjectBr.dll")]
         public static extern IntPtr getC();
@@ -26,7 +26,7 @@ namespace DyDesktopWinForms
         public static extern void reWall();
 
         [DllImport("ProjectBr.dll")]
-        public static extern int setPos(IntPtr ptr, Rectangle r);
+        public static extern int setPos(IntPtr ptr, RECT r);
 
         [DllImport("ProjectBr.dll")]
         public static extern int reLastPos();

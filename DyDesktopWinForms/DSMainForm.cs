@@ -354,7 +354,7 @@ namespace DyDesktopWinForms
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (DSPInvoke.getB2(_screen.WorkingArea) == 0)
+            if (DSPInvoke.getB2(_screen.WorkingArea.mett()) == 0)
             {
                 cplayCount = 0;
                 cpauseCount = 0;
@@ -473,7 +473,7 @@ namespace DyDesktopWinForms
 
                 DSPInvoke.reLastPos();
                 IntPtr ptr = (IntPtr)hhw;
-                DSPInvoke.setPos(ptr, _screen.Bounds);
+                DSPInvoke.setPos(ptr, _screen.Bounds.mett());
             }
             else
             {
