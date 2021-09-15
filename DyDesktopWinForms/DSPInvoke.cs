@@ -6,6 +6,10 @@ namespace DyDesktopWinForms
 {
     public static class DSPInvoke
     {
+ [DllImport("User32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWindowVisible(IntPtr hWnd);
+
         [DllImport("User32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
