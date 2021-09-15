@@ -95,15 +95,6 @@ void __stdcall getD(void) {
 }
 
 
-extern "C"
-_declspec(dllexport)
-void reWall(void) {
-    char str[MAX_PATH+1] = { 0 };
-    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &str, 0);
-    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, str, 0);
-}
-
-
 typedef struct MyStruct
 {
     HWND hw;
@@ -116,34 +107,34 @@ MyStruct mys;
 
 extern "C"
 _declspec(dllexport)
-BOOL __stdcall setPos(HWND hw, RECT rc) {
-    if (IsWindow(hw)) {
-        ShowWindow(hw, SW_RESTORE);
+void __stdcall setPos(HWND hw, RECT rc) {
+    HWND pa = GetParent(hw);
+    RECT orc;
+    GetWindowRect(hw, &orc);
+    LONG st = GetWindowLong(hw, GWL_STYLE);
+    mys = { hw,pa,orc,st };
 
-        HWND pa = GetParent(hw);
-        RECT orc;
-        GetWindowRect(hw, &orc);
-        LONG st = GetWindowLong(hw, GWL_STYLE);
-        mys = { hw,pa,orc,st };
-
-        SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
-        SetWindowPos(hw, HWND_TOP, rc.left, rc.top, rc.right, rc.bottom, SWP_SHOWWINDOW);
-        return TRUE;
-    }
-    return FALSE;
+    SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
+    SetWindowPos(hw, HWND_TOP, rc.left, rc.top, rc.right, rc.bottom, SWP_SHOWWINDOW);
 }
 
 
 extern "C"
 _declspec(dllexport)
-BOOL __stdcall reLastPos() {
-    if (mys.hw && IsWindow(mys.hw)) {
+void __stdcall reLastPos() {
+    if (mys.hw) {
         SetWindowLong(mys.hw, GWL_STYLE, mys.st);
         SetWindowPos(mys.hw, HWND_TOP, mys.rc.left, mys.rc.top, mys.rc.right, mys.rc.bottom, SWP_SHOWWINDOW);
         SetParent(mys.hw, mys.pa);
-        mys = { 0 };
-        return TRUE;
     }
     mys = { 0 };
-    return FALSE;
+}
+
+
+extern "C"
+_declspec(dllexport)
+void __stdcall reWall() {
+    char str[MAX_PATH + 1] = { 0 };
+    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &str, 0);
+    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, str, 0);
 }
