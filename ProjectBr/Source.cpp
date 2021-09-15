@@ -31,8 +31,8 @@ int __stdcall getB2(RECT rc) {
     int ic = 0;
     int x = rc.left+offset;
     int y = rc.top+offset;
-    int w = rc.right-offset*2;
-    int h = rc.bottom-offset*2;
+    int w = rc.right-rc.left-offset*2;
+    int h = rc.bottom-rc.top-offset*2;
     POINT ps[9] = {
         {x,y},      {x+(w/2),y},      {x+w,y},
         {x,y+(h/2)},{x+(w/2),y+(h/2)},{x+w,y+(h/2)},
@@ -115,7 +115,7 @@ void __stdcall setPos(HWND hw, RECT rc) {
     mys = { hw,pa,orc,st };
 
     SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
-    SetWindowPos(hw, HWND_TOP, rc.left, rc.top, rc.right, rc.bottom, SWP_SHOWWINDOW);
+    SetWindowPos(hw, HWND_TOP, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top, SWP_SHOWWINDOW);
 }
 
 
@@ -123,9 +123,9 @@ extern "C"
 _declspec(dllexport)
 void __stdcall reLastPos() {
     if (mys.hw) {
-        SetWindowLong(mys.hw, GWL_STYLE, mys.st);
-        SetWindowPos(mys.hw, HWND_TOP, mys.rc.left, mys.rc.top, mys.rc.right, mys.rc.bottom, SWP_SHOWWINDOW);
         SetParent(mys.hw, mys.pa);
+        SetWindowLong(mys.hw, GWL_STYLE, mys.st);
+        SetWindowPos(mys.hw, HWND_TOP, mys.rc.left, mys.rc.top, mys.rc.right-mys.rc.left, mys.rc.bottom-mys.rc.top, SWP_SHOWWINDOW);
     }
     mys = { 0 };
 }
