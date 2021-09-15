@@ -108,10 +108,12 @@ MyStruct mys;
 extern "C"
 _declspec(dllexport)
 void __stdcall setPos(HWND hw, RECT rc) {
-    HWND pa = GetParent(hw);
+    ShowWindow(hw, SW_RESTORE);
+
     RECT orc;
     GetWindowRect(hw, &orc);
     LONG st = GetWindowLong(hw, GWL_STYLE);
+    HWND pa = GetParent(hw);
     mys = { hw,pa,orc,st };
 
     SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
