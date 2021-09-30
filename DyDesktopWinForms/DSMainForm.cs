@@ -145,6 +145,13 @@ namespace DyDesktopWinForms
             timer1.Enabled = _settings.AutoPause;
         }
 
+        private void rrr()
+        {
+            hhw = 0;
+            DSPInvoke.reLastPos();
+            DSPInvoke.reWall();
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -292,36 +299,6 @@ namespace DyDesktopWinForms
             button2_Click(null, null);
         }
 
-        int idx;
-        private void toolStripMenuItem10_DropDownOpening(object sender, EventArgs e)
-        {
-            toolStripMenuItem10.DropDownItems.Clear();
-
-            Screen[] allScreens = Screen.AllScreens;
-            for (int i = 0; i < allScreens.Length; i++)
-            {
-                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary ? allScreens[i].DeviceName + " - Primary" : allScreens[i].DeviceName);
-                toolStripMenuItem.Checked = idx == i;
-                toolStripMenuItem.Tag = i;
-                toolStripMenuItem.Click += ToolStripMenuItem2_Click;
-                toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
-            }
-        }
-
-        private void ToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            foreach (ToolStripMenuItem item in toolStripMenuItem10.DropDownItems)
-            {
-                item.Checked = false;
-            }
-
-            idx = (int)((ToolStripMenuItem)sender).Tag;
-            _screen = Screen.AllScreens[idx];
-
-            DSPInvoke.reWall();
-            videoWindow?.SetPosition(_screen.Bounds);
-        }
-
         private void toolStripMenuItem12_Click(object sender, EventArgs e)
         {
             toolStripMenuItem12.Checked = !toolStripMenuItem12.Checked;
@@ -432,14 +409,43 @@ namespace DyDesktopWinForms
             }
         }
 
-        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        int idx;
+        private void toolStripMenuItem10_DropDownOpening(object sender, EventArgs e)
         {
-            toolStripMenuItem10_DropDownOpening(null, null);
-            toolStripMenuItem103_DropDownOpening(null, null);
+            toolStripMenuItem10.DropDownItems.Clear();
+
+            Screen[] allScreens = Screen.AllScreens;
+            for (int i = 0; i < allScreens.Length; i++)
+            {
+                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary ? allScreens[i].DeviceName + " - Primary" : allScreens[i].DeviceName);
+                toolStripMenuItem.Checked = idx == i;
+                toolStripMenuItem.Tag = i;
+                toolStripMenuItem.Click += ToolStripMenuItem2_Click;
+                toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
+            }
+
+            if (allScreens.Length == 0)
+            {
+                toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem11);
+            }
+        }
+
+        private void ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem item in toolStripMenuItem10.DropDownItems)
+            {
+                item.Checked = false;
+            }
+
+            idx = (int)((ToolStripMenuItem)sender).Tag;
+            _screen = Screen.AllScreens[idx];
+
+            DSPInvoke.reWall();
+            videoWindow?.SetPosition(_screen.Bounds);
         }
 
         int hhw;
-        private void toolStripMenuItem103_DropDownOpening(object sender, EventArgs e)
+        private void toolStripMenuItem16_DropDownOpening(object sender, EventArgs e)
         {
             toolStripMenuItem16.DropDownItems.Clear();
 
@@ -459,7 +465,11 @@ namespace DyDesktopWinForms
                     toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem);
                 }
             }
-            toolStripMenuItem16.Visible = toolStripMenuItem16.DropDownItems.Count != 0;
+
+            if (vs.Length == 0)
+            {
+                toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem17);
+            }
         }
 
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
@@ -490,11 +500,5 @@ namespace DyDesktopWinForms
             }
         }
 
-        private void rrr()
-        {
-            hhw = 0;
-            DSPInvoke.reLastPos();
-            DSPInvoke.reWall();
-        }
     }
 }
