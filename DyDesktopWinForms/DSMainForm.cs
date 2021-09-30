@@ -262,9 +262,12 @@ namespace DyDesktopWinForms
         private void toolStripMenuItem7_DropDownOpening(object sender, EventArgs e)
         {
             toolStripMenuItem7.DropDownItems.Clear();
-            foreach (string item in _recentFiles)
+            for (int i = 0; i < _recentFiles.Count; i++)
             {
-                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(item);
+                string item = _recentFiles[i];
+                string v = Path.GetFileName(item);
+                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem($"{i + 1}. {v}");
+                toolStripMenuItem.Tag = item;
                 toolStripMenuItem.Click += ToolStripMenuItem_Click;
                 toolStripMenuItem7.DropDownItems.Add(toolStripMenuItem);
             }
@@ -275,7 +278,7 @@ namespace DyDesktopWinForms
 
         private void ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFile(((ToolStripMenuItem)sender).Text);
+            openFile((string)((ToolStripMenuItem)sender).Tag);
         }
 
         private void toolStripMenuItem8_Click(object sender, EventArgs e)
@@ -445,10 +448,10 @@ namespace DyDesktopWinForms
             {
                 string v2 = Path.GetFileName(item);
                 string[] vs1 = v2.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
-                if (int.TryParse(vs1[0], System.Globalization.NumberStyles.HexNumber,null, out int val))
+                if (int.TryParse(vs1[0], System.Globalization.NumberStyles.HexNumber, null, out int val))
                 {
                     bool v = DSPInvoke.IsWindowVisible((IntPtr)val);
-                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1]+(v?"":" - "));
+                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1] + (v ? "" : " (Invalidate)"));
                     toolStripMenuItem.Enabled = v;
                     toolStripMenuItem.Checked = hhw == val;
                     toolStripMenuItem.Tag = val;
@@ -479,6 +482,7 @@ namespace DyDesktopWinForms
                 DSPInvoke.reLastPos();
                 IntPtr ptr = (IntPtr)hhw;
                 DSPInvoke.setPos(ptr, _screen.Bounds.mett());
+                DSPInvoke.SetParent(ptr, workerWindowHandle);
             }
             else
             {
