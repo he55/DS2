@@ -29,66 +29,6 @@ namespace DyDesktopWinForms
             toolStripMenuItem3.Checked = _settings.IsMuted;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Task.Run(() =>
-            {
-                _performanceCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-            });
-
-            workerWindowHandle = DSPInvoke.getC();
-            if (workerWindowHandle == IntPtr.Zero)
-            {
-                button2.Enabled = false;
-                label1.Visible = true;
-            }
-
-            _recentFiles = new List<string>();
-            //_recentPath = Path.Combine(Application.UserAppDataPath, "recent.txt");
-            _recentPath = "recent.txt";
-            if (File.Exists(_recentPath))
-            {
-                string[] paths = File.ReadAllLines(_recentPath);
-                _recentFiles.AddRange(paths);
-            }
-
-            if (_settings.AutoPlay)
-            {
-                checkBox2.Checked = true;
-                toolStripMenuItem6.Checked = true;
-
-                if (_recentFiles.Count != 0 && File.Exists(_recentFiles[0]))
-                {
-                    openFile(_recentFiles[0]);
-                }
-            }
-
-            toolStripMenuItem12.Checked = DSHelper.CheckStartOnBoot();
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                this.Hide();
-
-                if (_settings.FirstRun)
-                {
-                    notifyIcon1.ShowBalloonTip(1000, "", "程序正在后台运行", ToolTipIcon.None);
-                    _settings.FirstRun = false;
-                }
-            }
-            else
-            {
-                timer1.Enabled = false;
-                videoWindow?.Close();
-                rrr();
-
-                DSSettings.Save();
-            }
-        }
-
         private void CreateVideoWindow()
         {
             if (videoWindow == null)
@@ -191,6 +131,66 @@ namespace DyDesktopWinForms
             hhw = 0;
             DSPInvoke.reLastPos();
             DSPInvoke.reWall();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Task.Run(() =>
+            {
+                _performanceCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            });
+
+            workerWindowHandle = DSPInvoke.getC();
+            if (workerWindowHandle == IntPtr.Zero)
+            {
+                button2.Enabled = false;
+                label1.Visible = true;
+            }
+
+            _recentFiles = new List<string>();
+            //_recentPath = Path.Combine(Application.UserAppDataPath, "recent.txt");
+            _recentPath = "recent.txt";
+            if (File.Exists(_recentPath))
+            {
+                string[] paths = File.ReadAllLines(_recentPath);
+                _recentFiles.AddRange(paths);
+            }
+
+            if (_settings.AutoPlay)
+            {
+                checkBox2.Checked = true;
+                toolStripMenuItem6.Checked = true;
+
+                if (_recentFiles.Count != 0 && File.Exists(_recentFiles[0]))
+                {
+                    openFile(_recentFiles[0]);
+                }
+            }
+
+            toolStripMenuItem12.Checked = DSHelper.CheckStartOnBoot();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                this.Hide();
+
+                if (_settings.FirstRun)
+                {
+                    notifyIcon1.ShowBalloonTip(1000, "", "程序正在后台运行", ToolTipIcon.None);
+                    _settings.FirstRun = false;
+                }
+            }
+            else
+            {
+                timer1.Enabled = false;
+                videoWindow?.Close();
+                rrr();
+
+                DSSettings.Save();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
