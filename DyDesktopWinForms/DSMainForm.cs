@@ -95,18 +95,16 @@ namespace DyDesktopWinForms
 
         private void SaveRecent(string path)
         {
-            if (_recentFiles.Count != 0 && _recentFiles[0] == path)
+            if (_recentFiles.Count == 0 || _recentFiles[0] != path)
             {
-                return;
-            }
+                if (_recentFiles.Contains(path))
+                {
+                    _recentFiles.Remove(path);
+                }
+                _recentFiles.Insert(0, path);
 
-            if (_recentFiles.Contains(path))
-            {
-                _recentFiles.Remove(path);
+                File.WriteAllLines(_recentPath, _recentFiles);
             }
-            _recentFiles.Insert(0, path);
-
-            File.WriteAllLines(_recentPath, _recentFiles);
         }
 
         private void OpenFile(string path)
