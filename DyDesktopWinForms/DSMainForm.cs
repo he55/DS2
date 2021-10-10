@@ -27,7 +27,6 @@ namespace DyDesktopWinForms
             toolStripMenuItem13.Checked = _settings.AutoPause;
             checkBox1.Checked = _settings.IsMuted;
             toolStripMenuItem3.Checked = _settings.IsMuted;
-            trackBar1.Enabled = !_settings.IsMuted;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -105,6 +104,7 @@ namespace DyDesktopWinForms
                 button4.Enabled = true;
                 button5.Enabled = true;
                 checkBox1.Enabled = true;
+                trackBar1.Enabled = !_settings.IsMuted;
 
                 toolStripMenuItem2.Enabled = true;
                 toolStripMenuItem3.Enabled = true;
@@ -164,6 +164,12 @@ namespace DyDesktopWinForms
 
         private void button4_Click(object sender, EventArgs e)
         {
+            playMethod();
+            timer1.Enabled = _settings.AutoPause && _isPlaying;
+        }
+
+        private void playMethod()
+        {
             if (_isPlaying)
             {
                 _isPlaying = false;
@@ -177,11 +183,6 @@ namespace DyDesktopWinForms
                 videoWindow.Play();
                 button4.Text = "暂停";
                 toolStripMenuItem2.Text = "暂停";
-            }
-
-            if (sender != null)
-            {
-                timer1.Enabled = _settings.AutoPause && _isPlaying;
             }
         }
 
@@ -206,6 +207,11 @@ namespace DyDesktopWinForms
         }
 
         private void button5_Click(object sender, EventArgs e)
+        {
+            closeMethod();
+        }
+
+        private void closeMethod()
         {
             timer1.Enabled = false;
             videoWindow.Close();
@@ -241,7 +247,8 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            button4_Click(sender, null);
+            playMethod();
+            timer1.Enabled = _settings.AutoPause && _isPlaying;
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -257,7 +264,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
-            button5_Click(null, null);
+            closeMethod();
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -320,7 +327,7 @@ namespace DyDesktopWinForms
 
             if (!_isPlaying)
             {
-                button4_Click(null, null);
+                playMethod();
             }
             else
             {
@@ -336,14 +343,7 @@ namespace DyDesktopWinForms
         {
             if (DSPInvoke.getB2(_screen.WorkingArea.mett()) == 0)
             {
-                cplayCount = 0;
-                cpauseCount = 0;
-                playCount = 0;
-                pauseCount = 0;
-                if (_isPlaying)
-                {
-                    button4_Click(null, null);
-                }
+                xplayMethod();
                 return;
             }
 
@@ -361,14 +361,7 @@ namespace DyDesktopWinForms
 
             if (cpauseCount > 4)
             {
-                cplayCount = 0;
-                cpauseCount = 0;
-                playCount = 0;
-                pauseCount = 0;
-                if (_isPlaying)
-                {
-                    button4_Click(null, null);
-                }
+                xplayMethod();
                 return;
             }
 
@@ -385,27 +378,25 @@ namespace DyDesktopWinForms
 
             if (pauseCount > 4)
             {
-                cplayCount = 0;
-                cpauseCount = 0;
-                playCount = 0;
-                pauseCount = 0;
-                if (_isPlaying)
-                {
-                    button4_Click(null, null);
-                }
+                xplayMethod();
                 return;
             }
 
             if (cplayCount > 4 && playCount > 4)
             {
-                cplayCount = 0;
-                cpauseCount = 0;
-                playCount = 0;
-                pauseCount = 0;
-                if (!_isPlaying)
-                {
-                    button4_Click(null, null);
-                }
+                xplayMethod();
+            }
+        }
+
+        private void xplayMethod()
+        {
+            cplayCount = 0;
+            cpauseCount = 0;
+            playCount = 0;
+            pauseCount = 0;
+            if (!_isPlaying)
+            {
+                playMethod();
             }
         }
 
@@ -476,7 +467,7 @@ namespace DyDesktopWinForms
         {
             if (videoWindow != null)
             {
-                button5_Click(null, null);
+                closeMethod();
             }
 
             int hw = (int)((ToolStripMenuItem)sender).Tag;
