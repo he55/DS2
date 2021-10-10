@@ -26,9 +26,9 @@ namespace DyDesktopWinForms
         public static extern void reWall();
 
         [DllImport("ProjectBr.dll")]
-        public static extern int setPos(IntPtr ptr, RECT r);
+        public static extern void setPos(IntPtr ptr, RECT r);
 
         [DllImport("ProjectBr.dll")]
-        public static extern int reLastPos();
+        public static extern void reLastPos();
     }
 }
