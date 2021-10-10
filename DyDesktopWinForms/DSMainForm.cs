@@ -112,6 +112,47 @@ namespace DyDesktopWinForms
             }
         }
 
+        private void playMethod()
+        {
+            if (_isPlaying)
+            {
+                _isPlaying = false;
+                videoWindow.Pause();
+                button4.Text = "播放";
+                toolStripMenuItem2.Text = "播放";
+            }
+            else
+            {
+                _isPlaying = true;
+                videoWindow.Play();
+                button4.Text = "暂停";
+                toolStripMenuItem2.Text = "暂停";
+            }
+        }
+
+        private void closeMethod()
+        {
+            timer1.Enabled = false;
+            videoWindow.Close();
+            videoWindow = null;
+            GC.Collect();
+
+            _isPlaying = false;
+            button4.Text = "播放";
+            toolStripMenuItem2.Text = "播放";
+
+            button4.Enabled = false;
+            button5.Enabled = false;
+            checkBox1.Enabled = false;
+            trackBar1.Enabled = false;
+
+            toolStripMenuItem2.Enabled = false;
+            toolStripMenuItem3.Enabled = false;
+            toolStripMenuItem5.Enabled = false;
+
+            DSPInvoke.reWall();
+        }
+
         private void saveRecent(string filePath)
         {
             if (_recentFiles.Count != 0 && _recentFiles[0] == filePath)
@@ -168,24 +209,6 @@ namespace DyDesktopWinForms
             timer1.Enabled = _settings.AutoPause && _isPlaying;
         }
 
-        private void playMethod()
-        {
-            if (_isPlaying)
-            {
-                _isPlaying = false;
-                videoWindow.Pause();
-                button4.Text = "播放";
-                toolStripMenuItem2.Text = "播放";
-            }
-            else
-            {
-                _isPlaying = true;
-                videoWindow.Play();
-                button4.Text = "暂停";
-                toolStripMenuItem2.Text = "暂停";
-            }
-        }
-
         private void checkBox1_Click(object sender, EventArgs e)
         {
             _settings.IsMuted = checkBox1.Checked;
@@ -209,29 +232,6 @@ namespace DyDesktopWinForms
         private void button5_Click(object sender, EventArgs e)
         {
             closeMethod();
-        }
-
-        private void closeMethod()
-        {
-            timer1.Enabled = false;
-            videoWindow.Close();
-            videoWindow = null;
-            GC.Collect();
-
-            _isPlaying = false;
-            button4.Text = "播放";
-            toolStripMenuItem2.Text = "播放";
-
-            button4.Enabled = false;
-            button5.Enabled = false;
-            checkBox1.Enabled = false;
-            trackBar1.Enabled = false;
-
-            toolStripMenuItem2.Enabled = false;
-            toolStripMenuItem3.Enabled = false;
-            toolStripMenuItem5.Enabled = false;
-
-            DSPInvoke.reWall();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
