@@ -52,7 +52,7 @@ namespace DyDesktopWinForms
             }
         }
 
-        private void playMethod()
+        private void PlayOrPauseVideo()
         {
             if (_isPlaying)
             {
@@ -70,7 +70,7 @@ namespace DyDesktopWinForms
             }
         }
 
-        private void closeMethod()
+        private void CloseVideo()
         {
             timer1.Enabled = false;
             videoWindow.Close();
@@ -93,27 +93,27 @@ namespace DyDesktopWinForms
             DSPInvoke.reWall();
         }
 
-        private void saveRecent(string filePath)
+        private void SaveRecent(string path)
         {
-            if (_recentFiles.Count != 0 && _recentFiles[0] == filePath)
+            if (_recentFiles.Count != 0 && _recentFiles[0] == path)
             {
                 return;
             }
 
-            if (_recentFiles.Contains(filePath))
+            if (_recentFiles.Contains(path))
             {
-                _recentFiles.Remove(filePath);
+                _recentFiles.Remove(path);
             }
-            _recentFiles.Insert(0, filePath);
+            _recentFiles.Insert(0, path);
 
             File.WriteAllLines(_recentPath, _recentFiles);
         }
 
-        private void openFile(string path)
+        private void OpenFile(string path)
         {
-            rrr();
+            RestoreDesktop();
             timer1.Enabled = false;
-            saveRecent(path);
+            SaveRecent(path);
 
             CreateVideoWindow();
 
@@ -126,7 +126,7 @@ namespace DyDesktopWinForms
             timer1.Enabled = _settings.AutoPause;
         }
 
-        private void rrr()
+        private void RestoreDesktop()
         {
             hhw = 0;
             DSPInvoke.reLastPos();
@@ -163,7 +163,7 @@ namespace DyDesktopWinForms
 
                 if (_recentFiles.Count != 0 && File.Exists(_recentFiles[0]))
                 {
-                    openFile(_recentFiles[0]);
+                    OpenFile(_recentFiles[0]);
                 }
             }
 
@@ -187,7 +187,7 @@ namespace DyDesktopWinForms
             {
                 timer1.Enabled = false;
                 videoWindow?.Close();
-                rrr();
+                RestoreDesktop();
 
                 DSSettings.Save();
             }
@@ -199,13 +199,13 @@ namespace DyDesktopWinForms
             openFileDialog.Filter = "Video Files (*.mp4;*.mov)|*.mp4;*.mov";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                openFile(openFileDialog.FileName);
+                OpenFile(openFileDialog.FileName);
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            playMethod();
+            PlayOrPauseVideo();
             timer1.Enabled = _settings.AutoPause && _isPlaying;
         }
 
@@ -231,7 +231,7 @@ namespace DyDesktopWinForms
 
         private void button5_Click(object sender, EventArgs e)
         {
-            closeMethod();
+            CloseVideo();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -247,7 +247,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            playMethod();
+            PlayOrPauseVideo();
             timer1.Enabled = _settings.AutoPause && _isPlaying;
         }
 
@@ -264,7 +264,7 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
-            closeMethod();
+            CloseVideo();
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -292,7 +292,7 @@ namespace DyDesktopWinForms
 
         private void ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFile((string)((ToolStripMenuItem)sender).Tag);
+            OpenFile((string)((ToolStripMenuItem)sender).Tag);
         }
 
         private void toolStripMenuItem8_Click(object sender, EventArgs e)
@@ -327,7 +327,7 @@ namespace DyDesktopWinForms
 
             if (!_isPlaying)
             {
-                playMethod();
+                PlayOrPauseVideo();
             }
             else
             {
@@ -396,7 +396,7 @@ namespace DyDesktopWinForms
             pauseCount = 0;
             if (!_isPlaying)
             {
-                playMethod();
+                PlayOrPauseVideo();
             }
         }
 
@@ -467,7 +467,7 @@ namespace DyDesktopWinForms
         {
             if (videoWindow != null)
             {
-                closeMethod();
+                CloseVideo();
             }
 
             int hw = (int)((ToolStripMenuItem)sender).Tag;
@@ -487,7 +487,7 @@ namespace DyDesktopWinForms
             }
             else
             {
-                rrr();
+                RestoreDesktop();
             }
         }
 
