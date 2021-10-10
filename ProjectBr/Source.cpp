@@ -95,6 +95,15 @@ void __stdcall getD(void) {
 }
 
 
+extern "C"
+_declspec(dllexport)
+void __stdcall reWall() {
+    char str[MAX_PATH + 1] = { 0 };
+    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &str, 0);
+    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, str, 0);
+}
+
+
 typedef struct MyStruct
 {
     HWND hw;
@@ -130,13 +139,4 @@ void __stdcall reLastPos() {
         SetWindowPos(mys.hw, HWND_TOP, mys.rc.left, mys.rc.top, mys.rc.right-mys.rc.left, mys.rc.bottom-mys.rc.top, SWP_SHOWWINDOW);
     }
     mys = { 0 };
-}
-
-
-extern "C"
-_declspec(dllexport)
-void __stdcall reWall() {
-    char str[MAX_PATH + 1] = { 0 };
-    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &str, 0);
-    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, str, 0);
 }
