@@ -29,6 +29,9 @@ namespace DyDesktopWinForms
             toolStripMenuItem3.Checked = _settings.IsMuted;
         }
 
+
+        #region MyRegion
+
         private void CreateVideoWindow()
         {
             if (videoWindow == null)
@@ -131,6 +134,11 @@ namespace DyDesktopWinForms
             DSPInvoke.reWall();
         }
 
+        #endregion
+
+
+        #region MyRegion
+
         private void Form1_Load(object sender, EventArgs e)
         {
             Task.Run(() =>
@@ -191,6 +199,11 @@ namespace DyDesktopWinForms
             }
         }
 
+        #endregion
+
+
+        #region MyRegion
+
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -237,6 +250,11 @@ namespace DyDesktopWinForms
             this.Show();
             this.Activate();
         }
+
+        #endregion
+
+
+        #region MyRegion
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -430,6 +448,11 @@ namespace DyDesktopWinForms
             }
         }
 
+        #endregion
+
+
+        #region MyRegion
+
         int cplayCount;
         int cpauseCount;
         int playCount;
@@ -495,5 +518,6 @@ namespace DyDesktopWinForms
             }
         }
 
+        #endregion
     }
 }
