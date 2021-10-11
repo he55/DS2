@@ -160,7 +160,7 @@ namespace DyDesktopWinForms
             this.toolStripSeparator3,
             this.toolStripMenuItem4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(199, 336);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(199, 358);
             // 
             // toolStripMenuItem15
             // 
@@ -297,6 +297,7 @@ namespace DyDesktopWinForms
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
             this.toolStripMenuItem14.Size = new System.Drawing.Size(198, 22);
             this.toolStripMenuItem14.Text = "关于...";
+            this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
             // 
             // toolStripSeparator3
             // 
