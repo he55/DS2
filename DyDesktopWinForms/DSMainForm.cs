@@ -339,71 +339,6 @@ namespace DyDesktopWinForms
             form1.Show();
         }
 
-        int cplayCount;
-        int cpauseCount;
-        int playCount;
-        int pauseCount;
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (DSPInvoke.getB2(_screen.WorkingArea.mett()) == 0)
-            {
-                xplayMethod();
-                return;
-            }
-
-            float val = _performanceCounter?.NextValue() ?? 0;
-            if (val > 15.0)
-            {
-                cplayCount = 0;
-                ++cpauseCount;
-            }
-            else
-            {
-                cpauseCount = 0;
-                ++cplayCount;
-            }
-
-            if (cpauseCount > 4)
-            {
-                xplayMethod();
-                return;
-            }
-
-            if (DSPInvoke.getA() > 500)
-            {
-                pauseCount = 0;
-                ++playCount;
-            }
-            else
-            {
-                playCount = 0;
-                ++pauseCount;
-            }
-
-            if (pauseCount > 4)
-            {
-                xplayMethod();
-                return;
-            }
-
-            if (cplayCount > 4 && playCount > 4)
-            {
-                xplayMethod();
-            }
-        }
-
-        private void xplayMethod()
-        {
-            cplayCount = 0;
-            cpauseCount = 0;
-            playCount = 0;
-            pauseCount = 0;
-            if (!_isPlaying)
-            {
-                PlayOrPauseVideo();
-            }
-        }
-
         int idx;
         private void toolStripMenuItem10_DropDownOpening(object sender, EventArgs e)
         {
@@ -492,6 +427,71 @@ namespace DyDesktopWinForms
             else
             {
                 RestoreDesktop();
+            }
+        }
+
+        int cplayCount;
+        int cpauseCount;
+        int playCount;
+        int pauseCount;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (DSPInvoke.getB2(_screen.WorkingArea.mett()) == 0)
+            {
+                xplayMethod();
+                return;
+            }
+
+            float val = _performanceCounter?.NextValue() ?? 0;
+            if (val > 15.0)
+            {
+                cplayCount = 0;
+                ++cpauseCount;
+            }
+            else
+            {
+                cpauseCount = 0;
+                ++cplayCount;
+            }
+
+            if (cpauseCount > 4)
+            {
+                xplayMethod();
+                return;
+            }
+
+            if (DSPInvoke.getA() > 500)
+            {
+                pauseCount = 0;
+                ++playCount;
+            }
+            else
+            {
+                playCount = 0;
+                ++pauseCount;
+            }
+
+            if (pauseCount > 4)
+            {
+                xplayMethod();
+                return;
+            }
+
+            if (cplayCount > 4 && playCount > 4)
+            {
+                xplayMethod();
+            }
+        }
+
+        private void xplayMethod()
+        {
+            cplayCount = 0;
+            cpauseCount = 0;
+            playCount = 0;
+            pauseCount = 0;
+            if (!_isPlaying)
+            {
+                PlayOrPauseVideo();
             }
         }
 
