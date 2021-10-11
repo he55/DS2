@@ -333,6 +333,12 @@ namespace DyDesktopWinForms
             }
         }
 
+        private void toolStripMenuItem14_Click(object sender, EventArgs e)
+        {
+            Form1 form1 = new Form1();
+            form1.Show();
+        }
+
         int cplayCount;
         int cpauseCount;
         int playCount;
@@ -489,10 +495,5 @@ namespace DyDesktopWinForms
             }
         }
 
-        private void toolStripMenuItem14_Click(object sender, EventArgs e)
-        {
-            Form1 form1 = new Form1();
-            form1.Show();
-        }
     }
 }
