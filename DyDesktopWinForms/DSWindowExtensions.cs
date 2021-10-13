@@ -7,10 +7,9 @@ namespace DyDesktopWinForms
 {
     public static class DSWindowExtensions
     {
-
-        public static IntPtr GetHandle(this Window window)
+        public static IntPtr GetHandle(this Window @this)
         {
-            WindowInteropHelper windowInteropHelper = new WindowInteropHelper(window);
+            WindowInteropHelper windowInteropHelper = new WindowInteropHelper(@this);
             return windowInteropHelper.Handle;
         }
 

@@ -4,13 +4,13 @@ namespace DyDesktopWinForms
 {
     public static class Class1
     {
-        public static RECT mett(this Rectangle rc)
+        public static RECT ToRECT(this Rectangle @this)
         {
             RECT rect;
-            rect.left = rc.Left;
-            rect.top = rc.Top;
-            rect.right = rc.Right;
-            rect.bottom = rc.Bottom;
+            rect.left = @this.Left;
+            rect.top = @this.Top;
+            rect.right = @this.Right;
+            rect.bottom = @this.Bottom;
             return rect;
         }
     }
