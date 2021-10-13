@@ -42,7 +42,7 @@ namespace DyDesktopWinForms
                 videoWindow.SetPosition(_screen.Bounds);
                 videoWindow.Show();
 
-                DSPInvoke.SetParent(videoWindow.Handle, workerWindowHandle);
+                DSPInvoke.SetParent(videoWindow.GetHandle(), workerWindowHandle);
 
                 button4.Enabled = true;
                 button5.Enabled = true;

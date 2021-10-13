@@ -14,15 +14,6 @@ namespace DyDesktopWinForms
             InitializeComponent();
         }
 
-        public IntPtr Handle
-        {
-            get
-            {
-                WindowInteropHelper windowInteropHelper = new WindowInteropHelper(this);
-                return windowInteropHelper.Handle;
-            }
-        }
-
         public Uri Source
         {
             get => mediaElement.Source;

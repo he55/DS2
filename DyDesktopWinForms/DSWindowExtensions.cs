@@ -1,10 +1,19 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace DyDesktopWinForms
 {
     public static class DSWindowExtensions
     {
+
+        public static IntPtr GetHandle(this Window window)
+        {
+            WindowInteropHelper windowInteropHelper = new WindowInteropHelper(window);
+            return windowInteropHelper.Handle;
+        }
+
         public static void FullScreen(this Window @this)
         {
             @this.WindowStyle = WindowStyle.None;
