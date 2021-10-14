@@ -529,12 +529,12 @@ namespace DyDesktopWinForms
                 if (webWindow == null)
                 {
                     webWindow = new WebWindow();
-                    webWindow.Source = new Uri(form2.URL);
                     webWindow.SetPosition(_screen.Bounds);
                     webWindow.Show();
 
                     DSPInvoke.SetParent(webWindow.GetHandle(), workerWindowHandle);
                 }
+                webWindow.Source = new Uri(form2.URL);
             }
         }
     }
