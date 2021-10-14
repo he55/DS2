@@ -10,6 +10,7 @@ namespace DyDesktopWinForms
     public partial class DSMainForm : Form
     {
         DSVideoWindow videoWindow;
+        WebWindow webWindow;
         bool _isPlaying;
         IntPtr workerWindowHandle;
         string _recentPath;
@@ -525,7 +526,15 @@ namespace DyDesktopWinForms
             Form2 form2 = new Form2();
             if (form2.ShowDialog() == DialogResult.OK)
             {
+                if (webWindow == null)
+                {
+                    webWindow = new WebWindow();
+                    webWindow.Source = new Uri(form2.URL);
+                    webWindow.SetPosition(_screen.Bounds);
+                    webWindow.Show();
 
+                    DSPInvoke.SetParent(webWindow.GetHandle(), workerWindowHandle);
+                }
             }
         }
     }
