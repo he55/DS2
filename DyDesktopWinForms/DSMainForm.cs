@@ -194,6 +194,7 @@ namespace DyDesktopWinForms
             {
                 timer1.Enabled = false;
                 videoWindow?.Close();
+                webWindow?.Close();
                 RestoreDesktop();
 
                 DSSettings.Save();
@@ -526,6 +527,16 @@ namespace DyDesktopWinForms
             Form2 form2 = new Form2();
             if (form2.ShowDialog() == DialogResult.OK)
             {
+                if (videoWindow != null)
+                {
+                    CloseVideo();
+                }
+
+                if (hhw != 0)
+                {
+                    RestoreDesktop();
+                }
+
                 if (webWindow == null)
                 {
                     webWindow = new WebWindow();
