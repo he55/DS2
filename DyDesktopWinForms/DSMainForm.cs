@@ -523,7 +523,7 @@ namespace DyDesktopWinForms
         private void toolStripMenuItem18_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
-            if(form2.ShowDialog()== DialogResult.OK)
+            if (form2.ShowDialog() == DialogResult.OK)
             {
 
             }
