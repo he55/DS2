@@ -61,6 +61,7 @@ namespace DyDesktopWinForms
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -158,21 +159,22 @@ namespace DyDesktopWinForms
             this.toolStripMenuItem1,
             this.toolStripMenuItem14,
             this.toolStripSeparator3,
-            this.toolStripMenuItem4});
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem18});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(199, 358);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(200, 380);
             // 
             // toolStripMenuItem15
             // 
             this.toolStripMenuItem15.Enabled = false;
             this.toolStripMenuItem15.Name = "toolStripMenuItem15";
-            this.toolStripMenuItem15.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem15.Text = "DyDesktopWinForms";
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem9.Text = "打开文件...";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItem9_Click);
             // 
@@ -181,7 +183,7 @@ namespace DyDesktopWinForms
             this.toolStripMenuItem7.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem8});
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem7.Text = "最近打开";
             this.toolStripMenuItem7.DropDownOpening += new System.EventHandler(this.toolStripMenuItem7_DropDownOpening);
             // 
@@ -196,26 +198,26 @@ namespace DyDesktopWinForms
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(196, 6);
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem12.Text = "开机启动";
             this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem6.Text = "启动后自动播放";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // toolStripMenuItem13
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem13.Text = "有操作时暂停播放";
             this.toolStripMenuItem13.Click += new System.EventHandler(this.toolStripMenuItem13_Click);
             // 
@@ -224,7 +226,7 @@ namespace DyDesktopWinForms
             this.toolStripMenuItem10.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem11});
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem10.Text = "显示器";
             this.toolStripMenuItem10.DropDownOpening += new System.EventHandler(this.toolStripMenuItem10_DropDownOpening);
             // 
@@ -238,13 +240,13 @@ namespace DyDesktopWinForms
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(196, 6);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Enabled = false;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem2.Text = "播放";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -252,7 +254,7 @@ namespace DyDesktopWinForms
             // 
             this.toolStripMenuItem3.Enabled = false;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem3.Text = "静音";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -260,21 +262,21 @@ namespace DyDesktopWinForms
             // 
             this.toolStripMenuItem5.Enabled = false;
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem5.Text = "关闭";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(196, 6);
             // 
             // toolStripMenuItem16
             // 
             this.toolStripMenuItem16.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem17});
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem16.Text = "外部窗口";
             this.toolStripMenuItem16.DropDownOpening += new System.EventHandler(this.toolStripMenuItem16_DropDownOpening);
             // 
@@ -288,26 +290,26 @@ namespace DyDesktopWinForms
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem1.Text = "设置...";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItem14
             // 
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
-            this.toolStripMenuItem14.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem14.Text = "关于...";
             this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(196, 6);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(198, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem4.Text = "退出";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
@@ -326,6 +328,13 @@ namespace DyDesktopWinForms
             // 
             this.timer1.Interval = 2000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // toolStripMenuItem18
+            // 
+            this.toolStripMenuItem18.Name = "toolStripMenuItem18";
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(199, 22);
+            this.toolStripMenuItem18.Text = "toolStripMenuItem18";
+            this.toolStripMenuItem18.Click += new System.EventHandler(this.toolStripMenuItem18_Click);
             // 
             // DSMainForm
             // 
@@ -385,6 +394,7 @@ namespace DyDesktopWinForms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem17;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem18;
     }
 }
 
