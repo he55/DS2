@@ -19,13 +19,13 @@ namespace DreamScene2
                 return;
             }
 
+            Directory.SetCurrentDirectory(Application.StartupPath);
+
             string extPath = Helper.ExtPath();
             if (!Directory.Exists(extPath))
             {
                 Directory.CreateDirectory(extPath);
             }
-
-            Directory.SetCurrentDirectory(Application.StartupPath);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
