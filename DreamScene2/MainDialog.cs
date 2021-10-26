@@ -11,8 +11,8 @@ namespace DreamScene2
     {
         VideoWindow _videoWindow;
         WebWindow _webWindow;
-        bool _isPlaying;
         IntPtr _desktopWindowHandle;
+        bool _isPlaying;
         string _recentPath;
         List<string> _recentFiles;
         PerformanceCounter _performanceCounter;
