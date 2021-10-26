@@ -8,6 +8,7 @@ namespace DreamScene2
     public static class Helper
     {
         const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        const string keyname = "DreamScene2";
         static string str;
 
         public static string met()
@@ -16,7 +17,7 @@ namespace DreamScene2
             {
                 str = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                    ".DreamScene2");
+                   $".{keyname}");
             }
             return str;
         }
@@ -24,7 +25,7 @@ namespace DreamScene2
         public static bool CheckStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation);
-            bool startOnBoot = startupKey.GetValue("DreamScene2") != null;
+            bool startOnBoot = startupKey.GetValue(keyname) != null;
             startupKey.Close();
             return startOnBoot;
         }
@@ -32,14 +33,14 @@ namespace DreamScene2
         public static void StToggleStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
-            startupKey.SetValue("DreamScene2", Application.ExecutablePath + " -c");
+            startupKey.SetValue(keyname, Application.ExecutablePath + " -c");
             startupKey.Close();
         }
 
         public static void DelToggleStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
-            startupKey.DeleteValue("DreamScene2");
+            startupKey.DeleteValue(keyname);
             startupKey.Close();
         }
     }
