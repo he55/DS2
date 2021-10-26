@@ -7,6 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
 	  <UseWPF>true</UseWPF>
 	  <Platforms>x64;x86</Platforms>
+	  <ApplicationIcon>ico3.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
