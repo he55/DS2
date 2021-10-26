@@ -9,10 +9,10 @@ namespace DreamScene2
 {
     public partial class MainDialog : Form
     {
-        VideoWindow videoWindow;
-        WebWindow webWindow;
+        VideoWindow _videoWindow;
+        WebWindow _webWindow;
         bool _isPlaying;
-        IntPtr workerWindowHandle;
+        IntPtr _desktopWindowHandle;
         string _recentPath;
         List<string> _recentFiles;
         PerformanceCounter _performanceCounter;
@@ -34,15 +34,15 @@ namespace DreamScene2
 
         private void CreateVideoWindow()
         {
-            if (videoWindow == null)
+            if (_videoWindow == null)
             {
-                videoWindow = new VideoWindow();
-                videoWindow.IsMuted = _settings.IsMuted;
-                videoWindow.Volume = _settings.Volume / 10.0;
-                videoWindow.SetPosition(_screen.Bounds);
-                videoWindow.Show();
+                _videoWindow = new VideoWindow();
+                _videoWindow.IsMuted = _settings.IsMuted;
+                _videoWindow.Volume = _settings.Volume / 10.0;
+                _videoWindow.SetPosition(_screen.Bounds);
+                _videoWindow.Show();
 
-                PInvoke.SetParent(videoWindow.GetHandle(), workerWindowHandle);
+                PInvoke.SetParent(_videoWindow.GetHandle(), _desktopWindowHandle);
 
                 button4.Enabled = true;
                 button5.Enabled = true;
@@ -60,14 +60,14 @@ namespace DreamScene2
             if (_isPlaying)
             {
                 _isPlaying = false;
-                videoWindow.Pause();
+                _videoWindow.Pause();
                 button4.Text = "播放";
                 toolStripMenuItem2.Text = "播放";
             }
             else
             {
                 _isPlaying = true;
-                videoWindow.Play();
+                _videoWindow.Play();
                 button4.Text = "暂停";
                 toolStripMenuItem2.Text = "暂停";
             }
@@ -76,8 +76,8 @@ namespace DreamScene2
         private void CloseVideo()
         {
             timer1.Enabled = false;
-            videoWindow.Close();
-            videoWindow = null;
+            _videoWindow.Close();
+            _videoWindow = null;
             GC.Collect();
 
             _isPlaying = false;
@@ -118,8 +118,8 @@ namespace DreamScene2
 
             CreateVideoWindow();
 
-            videoWindow.Source = new Uri(path, UriKind.Absolute);
-            videoWindow.Play();
+            _videoWindow.Source = new Uri(path, UriKind.Absolute);
+            _videoWindow.Play();
 
             _isPlaying = true;
             button4.Text = "暂停";
@@ -146,8 +146,8 @@ namespace DreamScene2
                 _performanceCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             });
 
-            workerWindowHandle = PInvoke.getC();
-            if (workerWindowHandle == IntPtr.Zero)
+            _desktopWindowHandle = PInvoke.getC();
+            if (_desktopWindowHandle == IntPtr.Zero)
             {
                 button2.Enabled = false;
                 label1.Visible = true;
@@ -192,8 +192,8 @@ namespace DreamScene2
             else
             {
                 timer1.Enabled = false;
-                videoWindow?.Close();
-                webWindow?.Close();
+                _videoWindow?.Close();
+                _webWindow?.Close();
                 RestoreDesktop();
 
                 Settings.Save();
@@ -226,7 +226,7 @@ namespace DreamScene2
             _settings.IsMuted = checkBox1.Checked;
             toolStripMenuItem3.Checked = _settings.IsMuted;
             trackBar1.Enabled = !_settings.IsMuted;
-            videoWindow.IsMuted = _settings.IsMuted;
+            _videoWindow.IsMuted = _settings.IsMuted;
         }
 
         private void checkBox2_Click(object sender, EventArgs e)
@@ -238,7 +238,7 @@ namespace DreamScene2
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             _settings.Volume = trackBar1.Value;
-            videoWindow.Volume = _settings.Volume / 10.0;
+            _videoWindow.Volume = _settings.Volume / 10.0;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -390,7 +390,7 @@ namespace DreamScene2
             _screen = Screen.AllScreens[idx];
 
             PInvoke.reWall();
-            videoWindow?.SetPosition(_screen.Bounds);
+            _videoWindow?.SetPosition(_screen.Bounds);
         }
 
         int hhw;
@@ -423,7 +423,7 @@ namespace DreamScene2
 
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
-            if (videoWindow != null)
+            if (_videoWindow != null)
             {
                 CloseVideo();
             }
@@ -441,7 +441,7 @@ namespace DreamScene2
                 PInvoke.reLastPos();
                 IntPtr ptr = (IntPtr)hhw;
                 PInvoke.setPos(ptr, _screen.Bounds.ToRECT());
-                PInvoke.SetParent(ptr, workerWindowHandle);
+                PInvoke.SetParent(ptr, _desktopWindowHandle);
             }
             else
             {
@@ -526,7 +526,7 @@ namespace DreamScene2
             InputDialog inputDialog = new InputDialog();
             if (inputDialog.ShowDialog() == DialogResult.OK)
             {
-                if (videoWindow != null)
+                if (_videoWindow != null)
                 {
                     CloseVideo();
                 }
@@ -536,15 +536,15 @@ namespace DreamScene2
                     RestoreDesktop();
                 }
 
-                if (webWindow == null)
+                if (_webWindow == null)
                 {
-                    webWindow = new WebWindow();
-                    webWindow.SetPosition(_screen.Bounds);
-                    webWindow.Show();
+                    _webWindow = new WebWindow();
+                    _webWindow.SetPosition(_screen.Bounds);
+                    _webWindow.Show();
 
-                    PInvoke.SetParent(webWindow.GetHandle(), workerWindowHandle);
+                    PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
                 }
-                webWindow.Source = new Uri(inputDialog.URL);
+                _webWindow.Source = new Uri(inputDialog.URL);
             }
         }
     }
