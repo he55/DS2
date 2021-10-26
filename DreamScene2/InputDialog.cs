@@ -8,6 +8,7 @@ namespace DreamScene2
         public InputDialog()
         {
             InitializeComponent();
+            this.Icon = DreamScene2.Properties.Resources.ico3;
         }
 
         public string URL => textBox1.Text;
