@@ -33,7 +33,7 @@ namespace DreamScene2
             MainDialog mainDialog = new MainDialog();
             mainDialog.Show();
 
-            if (args.Length != 0 && args[0] == "-c")
+            if (args.Length != 0 && args[0] == Helper.cmd)
             {
                 mainDialog.Hide();
             }

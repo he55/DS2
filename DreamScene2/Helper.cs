@@ -9,6 +9,7 @@ namespace DreamScene2
     {
         const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
         const string projectName = "DreamScene2";
+        public const string cmd = "-c";
         static string s_extPath;
 
         public static string ExtPath()
@@ -33,7 +34,7 @@ namespace DreamScene2
         public static void StToggleStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
-            startupKey.SetValue(projectName, Application.ExecutablePath + " -c");
+            startupKey.SetValue(projectName, $"{Application.ExecutablePath} {cmd}");
             startupKey.Close();
         }
 
