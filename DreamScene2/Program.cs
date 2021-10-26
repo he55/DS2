@@ -19,10 +19,10 @@ namespace DreamScene2
                 return;
             }
 
-            string v1 = Helper.ExtPath();
-            if (!Directory.Exists(v1))
+            string extPath = Helper.ExtPath();
+            if (!Directory.Exists(extPath))
             {
-                Directory.CreateDirectory(v1);
+                Directory.CreateDirectory(extPath);
             }
 
             Directory.SetCurrentDirectory(Application.StartupPath);
