@@ -12,9 +12,9 @@ namespace DreamScene2
         VideoWindow _videoWindow;
         WebWindow _webWindow;
         IntPtr _desktopWindowHandle;
-        bool _isPlaying;
         string _recentPath;
         List<string> _recentFiles;
+        bool _isPlaying;
         PerformanceCounter _performanceCounter;
         Settings _settings = Settings.Load();
         Screen _screen = Screen.PrimaryScreen;
