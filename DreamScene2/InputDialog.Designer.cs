@@ -72,6 +72,7 @@ namespace DreamScene2
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InputDialog";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
             this.ResumeLayout(false);

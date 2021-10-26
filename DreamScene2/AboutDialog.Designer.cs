@@ -99,6 +99,7 @@ namespace DreamScene2
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutDialog";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "关于 DreamScene2";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
