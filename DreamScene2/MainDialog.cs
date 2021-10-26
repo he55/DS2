@@ -398,7 +398,7 @@ namespace DreamScene2
         {
             toolStripMenuItem16.DropDownItems.Clear();
 
-            string[] vs = Directory.GetFiles(Helper.met());
+            string[] vs = Directory.GetFiles(Helper.ExtPath());
             foreach (string item in vs)
             {
                 string v2 = Path.GetFileName(item);

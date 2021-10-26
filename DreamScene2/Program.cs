@@ -19,7 +19,7 @@ namespace DreamScene2
                 return;
             }
 
-            string v1 = Helper.met();
+            string v1 = Helper.ExtPath();
             if (!Directory.Exists(v1))
             {
                 Directory.CreateDirectory(v1);
