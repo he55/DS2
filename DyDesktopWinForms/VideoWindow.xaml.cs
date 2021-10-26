@@ -4,11 +4,11 @@ using System.Windows;
 namespace DyDesktopWinForms
 {
     /// <summary>
-    /// Interaction logic for DSVideoWindow.xaml
+    /// Interaction logic for VideoWindow.xaml
     /// </summary>
-    public partial class DSVideoWindow : Window
+    public partial class VideoWindow : Window
     {
-        public DSVideoWindow()
+        public VideoWindow()
         {
             InitializeComponent();
         }

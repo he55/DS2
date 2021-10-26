@@ -9,7 +9,7 @@ namespace DyDesktopWinForms
 {
     public partial class MainDialog : Form
     {
-        DSVideoWindow videoWindow;
+        VideoWindow videoWindow;
         WebWindow webWindow;
         bool _isPlaying;
         IntPtr workerWindowHandle;
@@ -36,7 +36,7 @@ namespace DyDesktopWinForms
         {
             if (videoWindow == null)
             {
-                videoWindow = new DSVideoWindow();
+                videoWindow = new VideoWindow();
                 videoWindow.IsMuted = _settings.IsMuted;
                 videoWindow.Volume = _settings.Volume / 10.0;
                 videoWindow.SetPosition(_screen.Bounds);
