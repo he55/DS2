@@ -1,4 +1,4 @@
-# DyDesktopWinForms
+# DreamScene2
  
 Win32 程序在启动时激活前一个启动程序的窗口
 https://blog.walterlv.com/post/show-previous-process-instance-window-when-startup.html

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     /// <summary>
     /// Interaction logic for WebWindow.xaml

@@ -1,5 +1,5 @@
 ﻿
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     partial class MainDialog
     {
@@ -135,7 +135,7 @@ namespace DyDesktopWinForms
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
-            this.notifyIcon1.Text = "DyDesktopWinForms";
+            this.notifyIcon1.Text = "DreamScene2";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
@@ -169,7 +169,7 @@ namespace DyDesktopWinForms
             this.toolStripMenuItem15.Enabled = false;
             this.toolStripMenuItem15.Name = "toolStripMenuItem15";
             this.toolStripMenuItem15.Size = new System.Drawing.Size(199, 22);
-            this.toolStripMenuItem15.Text = "DyDesktopWinForms";
+            this.toolStripMenuItem15.Text = "DreamScene2";
             // 
             // toolStripMenuItem9
             // 
@@ -353,7 +353,7 @@ namespace DyDesktopWinForms
             this.MinimizeBox = false;
             this.Name = "MainDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DyDesktopWinForms";
+            this.Text = "DreamScene2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();

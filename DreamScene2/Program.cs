@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     static class Program
     {
@@ -13,7 +13,7 @@ namespace DyDesktopWinForms
         [STAThread]
         static void Main(string[] args)
         {
-            _ = new Mutex(true, "DyDesktopWinForms", out bool isNew);
+            _ = new Mutex(true, "DreamScene2", out bool isNew);
             if (!isNew)
             {
                 return;

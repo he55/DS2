@@ -5,7 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     public partial class MainDialog : Form
     {

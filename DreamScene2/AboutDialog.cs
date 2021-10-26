@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     public partial class AboutDialog : Form
     {

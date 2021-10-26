@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     public static class RectangleExtensions
     {

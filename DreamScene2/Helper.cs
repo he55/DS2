@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     public static class Helper
     {
@@ -16,7 +16,7 @@ namespace DyDesktopWinForms
             {
                 str = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                    ".DyDesktopWinForms");
+                    ".DreamScene2");
             }
             return str;
         }
@@ -24,7 +24,7 @@ namespace DyDesktopWinForms
         public static bool CheckStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation);
-            bool startOnBoot = startupKey.GetValue("DyDesktopWinForms") != null;
+            bool startOnBoot = startupKey.GetValue("DreamScene2") != null;
             startupKey.Close();
             return startOnBoot;
         }
@@ -32,14 +32,14 @@ namespace DyDesktopWinForms
         public static void StToggleStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
-            startupKey.SetValue("DyDesktopWinForms", Application.ExecutablePath + " -c");
+            startupKey.SetValue("DreamScene2", Application.ExecutablePath + " -c");
             startupKey.Close();
         }
 
         public static void DelToggleStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
-            startupKey.DeleteValue("DyDesktopWinForms");
+            startupKey.DeleteValue("DreamScene2");
             startupKey.Close();
         }
     }

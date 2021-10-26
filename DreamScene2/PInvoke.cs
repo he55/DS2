@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     public static class PInvoke
     {

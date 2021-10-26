@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     public class Settings
     {

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace DyDesktopWinForms
+namespace DreamScene2
 {
     public static class WpfWindowExtensions
     {
