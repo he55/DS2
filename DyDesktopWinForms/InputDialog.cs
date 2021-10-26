@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace DyDesktopWinForms
 {
-    public partial class Form2 : Form
+    public partial class InputDialog : Form
     {
-        public Form2()
+        public InputDialog()
         {
             InitializeComponent();
         }

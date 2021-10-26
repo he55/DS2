@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace DyDesktopWinForms
 {
-    public partial class DSMainForm : Form
+    public partial class MainDialog : Form
     {
         DSVideoWindow videoWindow;
         WebWindow webWindow;
@@ -19,11 +19,10 @@ namespace DyDesktopWinForms
         DSSettings _settings = DSSettings.Load();
         Screen _screen = Screen.PrimaryScreen;
 
-        public DSMainForm()
+        public MainDialog()
         {
             InitializeComponent();
             notifyIcon1.Icon = this.Icon;
-            this.MaximumSize = this.MinimumSize = this.Size;
             trackBar1.Value = _settings.Volume;
             toolStripMenuItem13.Checked = _settings.AutoPause;
             checkBox1.Checked = _settings.IsMuted;
@@ -355,8 +354,8 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
-            form1.Show();
+            AboutDialog aboutDialog = new AboutDialog();
+            aboutDialog.Show();
         }
 
         int idx;
@@ -524,8 +523,8 @@ namespace DyDesktopWinForms
 
         private void toolStripMenuItem18_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
-            if (form2.ShowDialog() == DialogResult.OK)
+            InputDialog inputDialog = new InputDialog();
+            if (inputDialog.ShowDialog() == DialogResult.OK)
             {
                 if (videoWindow != null)
                 {
@@ -545,7 +544,7 @@ namespace DyDesktopWinForms
 
                     DSPInvoke.SetParent(webWindow.GetHandle(), workerWindowHandle);
                 }
-                webWindow.Source = new Uri(form2.URL);
+                webWindow.Source = new Uri(inputDialog.URL);
             }
         }
     }

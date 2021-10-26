@@ -30,12 +30,12 @@ namespace DyDesktopWinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            DSMainForm mainForm = new DSMainForm();
-            mainForm.Show();
+            MainDialog mainDialog = new MainDialog();
+            mainDialog.Show();
 
             if (args.Length != 0 && args[0] == "-c")
             {
-                mainForm.Hide();
+                mainDialog.Hide();
             }
 
             Application.Run();

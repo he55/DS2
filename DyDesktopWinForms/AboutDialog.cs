@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace DyDesktopWinForms
 {
-    public partial class Form1 : Form
+    public partial class AboutDialog : Form
     {
-        public Form1()
+        public AboutDialog()
         {
             InitializeComponent();
         }
