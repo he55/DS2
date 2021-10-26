@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace DyDesktopWinForms
 {
-    public static class DSPInvoke
+    public static class PInvoke
     {
         [DllImport("User32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

@@ -16,7 +16,7 @@ namespace DyDesktopWinForms
         string _recentPath;
         List<string> _recentFiles;
         PerformanceCounter _performanceCounter;
-        DSSettings _settings = DSSettings.Load();
+        Settings _settings = Settings.Load();
         Screen _screen = Screen.PrimaryScreen;
 
         public MainDialog()
@@ -42,7 +42,7 @@ namespace DyDesktopWinForms
                 videoWindow.SetPosition(_screen.Bounds);
                 videoWindow.Show();
 
-                DSPInvoke.SetParent(videoWindow.GetHandle(), workerWindowHandle);
+                PInvoke.SetParent(videoWindow.GetHandle(), workerWindowHandle);
 
                 button4.Enabled = true;
                 button5.Enabled = true;
@@ -93,7 +93,7 @@ namespace DyDesktopWinForms
             toolStripMenuItem3.Enabled = false;
             toolStripMenuItem5.Enabled = false;
 
-            DSPInvoke.reWall();
+            PInvoke.reWall();
         }
 
         private void SaveRecent(string path)
@@ -130,8 +130,8 @@ namespace DyDesktopWinForms
         private void RestoreDesktop()
         {
             hhw = 0;
-            DSPInvoke.reLastPos();
-            DSPInvoke.reWall();
+            PInvoke.reLastPos();
+            PInvoke.reWall();
         }
 
         #endregion
@@ -146,7 +146,7 @@ namespace DyDesktopWinForms
                 _performanceCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             });
 
-            workerWindowHandle = DSPInvoke.getC();
+            workerWindowHandle = PInvoke.getC();
             if (workerWindowHandle == IntPtr.Zero)
             {
                 button2.Enabled = false;
@@ -173,7 +173,7 @@ namespace DyDesktopWinForms
                 }
             }
 
-            toolStripMenuItem12.Checked = DSHelper.CheckStartOnBoot();
+            toolStripMenuItem12.Checked = Helper.CheckStartOnBoot();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -196,7 +196,7 @@ namespace DyDesktopWinForms
                 webWindow?.Close();
                 RestoreDesktop();
 
-                DSSettings.Save();
+                Settings.Save();
             }
         }
 
@@ -328,11 +328,11 @@ namespace DyDesktopWinForms
             toolStripMenuItem12.Checked = !toolStripMenuItem12.Checked;
             if (toolStripMenuItem12.Checked)
             {
-                DSHelper.StToggleStartOnBoot();
+                Helper.StToggleStartOnBoot();
             }
             else
             {
-                DSHelper.DelToggleStartOnBoot();
+                Helper.DelToggleStartOnBoot();
             }
         }
 
@@ -389,7 +389,7 @@ namespace DyDesktopWinForms
             idx = (int)((ToolStripMenuItem)sender).Tag;
             _screen = Screen.AllScreens[idx];
 
-            DSPInvoke.reWall();
+            PInvoke.reWall();
             videoWindow?.SetPosition(_screen.Bounds);
         }
 
@@ -398,14 +398,14 @@ namespace DyDesktopWinForms
         {
             toolStripMenuItem16.DropDownItems.Clear();
 
-            string[] vs = Directory.GetFiles(DSHelper.met());
+            string[] vs = Directory.GetFiles(Helper.met());
             foreach (string item in vs)
             {
                 string v2 = Path.GetFileName(item);
                 string[] vs1 = v2.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
                 if (int.TryParse(vs1[0], System.Globalization.NumberStyles.HexNumber, null, out int val))
                 {
-                    bool v = DSPInvoke.IsWindowVisible((IntPtr)val);
+                    bool v = PInvoke.IsWindowVisible((IntPtr)val);
                     ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1] + (v ? "" : " (Invalidate)"));
                     toolStripMenuItem.Enabled = v;
                     toolStripMenuItem.Checked = hhw == val;
@@ -438,10 +438,10 @@ namespace DyDesktopWinForms
                     item.Checked = false;
                 }
 
-                DSPInvoke.reLastPos();
+                PInvoke.reLastPos();
                 IntPtr ptr = (IntPtr)hhw;
-                DSPInvoke.setPos(ptr, _screen.Bounds.ToRECT());
-                DSPInvoke.SetParent(ptr, workerWindowHandle);
+                PInvoke.setPos(ptr, _screen.Bounds.ToRECT());
+                PInvoke.SetParent(ptr, workerWindowHandle);
             }
             else
             {
@@ -460,7 +460,7 @@ namespace DyDesktopWinForms
         int pauseCount;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (DSPInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
+            if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
             {
                 xplayMethod();
                 return;
@@ -484,7 +484,7 @@ namespace DyDesktopWinForms
                 return;
             }
 
-            if (DSPInvoke.getA() > 500)
+            if (PInvoke.getA() > 500)
             {
                 pauseCount = 0;
                 ++playCount;
@@ -542,7 +542,7 @@ namespace DyDesktopWinForms
                     webWindow.SetPosition(_screen.Bounds);
                     webWindow.Show();
 
-                    DSPInvoke.SetParent(webWindow.GetHandle(), workerWindowHandle);
+                    PInvoke.SetParent(webWindow.GetHandle(), workerWindowHandle);
                 }
                 webWindow.Source = new Uri(inputDialog.URL);
             }

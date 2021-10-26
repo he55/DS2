@@ -2,7 +2,7 @@
 
 namespace DyDesktopWinForms
 {
-    public static class Class1
+    public static class RectangleExtensions
     {
         public static RECT ToRECT(this Rectangle @this)
         {

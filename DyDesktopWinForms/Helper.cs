@@ -5,7 +5,7 @@ using Microsoft.Win32;
 
 namespace DyDesktopWinForms
 {
-    public static class DSHelper
+    public static class Helper
     {
         const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
         static string str;

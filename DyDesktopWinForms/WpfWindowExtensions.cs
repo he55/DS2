@@ -5,7 +5,7 @@ using System.Windows.Interop;
 
 namespace DyDesktopWinForms
 {
-    public static class DSWindowExtensions
+    public static class WpfWindowExtensions
     {
         public static IntPtr GetHandle(this Window @this)
         {
