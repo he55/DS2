@@ -18,6 +18,8 @@ namespace DreamScene2
         PerformanceCounter _performanceCounter;
         Settings _settings = Settings.Load();
         Screen _screen = Screen.PrimaryScreen;
+        int _screenIndex;
+        int _windowHandle;
 
         public MainDialog()
         {
@@ -359,7 +361,6 @@ namespace DreamScene2
             aboutDialog.Show();
         }
 
-        int _screenIndex;
         private void toolStripMenuItem10_DropDownOpening(object sender, EventArgs e)
         {
             toolStripMenuItem10.DropDownItems.Clear();
@@ -394,7 +395,6 @@ namespace DreamScene2
             _videoWindow?.SetPosition(_screen.Bounds);
         }
 
-        int _windowHandle;
         private void toolStripMenuItem16_DropDownOpening(object sender, EventArgs e)
         {
             toolStripMenuItem16.DropDownItems.Clear();
@@ -429,10 +429,10 @@ namespace DreamScene2
                 CloseVideo();
             }
 
-            int hw = (int)((ToolStripMenuItem)sender).Tag;
-            if (_windowHandle != hw)
+            int hWnd = (int)((ToolStripMenuItem)sender).Tag;
+            if (_windowHandle != hWnd)
             {
-                _windowHandle = hw;
+                _windowHandle = hWnd;
 
                 foreach (ToolStripMenuItem item in toolStripMenuItem16.DropDownItems)
                 {
