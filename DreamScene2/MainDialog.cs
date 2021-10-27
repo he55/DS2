@@ -130,7 +130,7 @@ namespace DreamScene2
 
         private void RestoreDesktop()
         {
-            hhw = 0;
+            _windowHandle = 0;
             PInvoke.reLastPos();
             PInvoke.reWall();
         }
@@ -359,7 +359,7 @@ namespace DreamScene2
             aboutDialog.Show();
         }
 
-        int idx;
+        int _screenIndex;
         private void toolStripMenuItem10_DropDownOpening(object sender, EventArgs e)
         {
             toolStripMenuItem10.DropDownItems.Clear();
@@ -368,7 +368,7 @@ namespace DreamScene2
             for (int i = 0; i < allScreens.Length; i++)
             {
                 ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary ? allScreens[i].DeviceName + " - Primary" : allScreens[i].DeviceName);
-                toolStripMenuItem.Checked = idx == i;
+                toolStripMenuItem.Checked = _screenIndex == i;
                 toolStripMenuItem.Tag = i;
                 toolStripMenuItem.Click += ToolStripMenuItem2_Click;
                 toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
@@ -387,14 +387,14 @@ namespace DreamScene2
                 item.Checked = false;
             }
 
-            idx = (int)((ToolStripMenuItem)sender).Tag;
-            _screen = Screen.AllScreens[idx];
+            _screenIndex = (int)((ToolStripMenuItem)sender).Tag;
+            _screen = Screen.AllScreens[_screenIndex];
 
             PInvoke.reWall();
             _videoWindow?.SetPosition(_screen.Bounds);
         }
 
-        int hhw;
+        int _windowHandle;
         private void toolStripMenuItem16_DropDownOpening(object sender, EventArgs e)
         {
             toolStripMenuItem16.DropDownItems.Clear();
@@ -406,10 +406,10 @@ namespace DreamScene2
                 string[] arr = fileName.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
                 if (int.TryParse(arr[0], System.Globalization.NumberStyles.HexNumber, null, out int val))
                 {
-                    bool v = PInvoke.IsWindowVisible((IntPtr)val);
-                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(arr[1] + (v ? "" : " (Invalidate)"));
-                    toolStripMenuItem.Enabled = v;
-                    toolStripMenuItem.Checked = hhw == val;
+                    bool b = PInvoke.IsWindowVisible((IntPtr)val);
+                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(arr[1] + (b ? "" : " (Invalidate)"));
+                    toolStripMenuItem.Enabled = b;
+                    toolStripMenuItem.Checked = _windowHandle == val;
                     toolStripMenuItem.Tag = val;
                     toolStripMenuItem.Click += ToolStripMenuItem23_Click;
                     toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem);
@@ -430,9 +430,9 @@ namespace DreamScene2
             }
 
             int hw = (int)((ToolStripMenuItem)sender).Tag;
-            if (hhw != hw)
+            if (_windowHandle != hw)
             {
-                hhw = hw;
+                _windowHandle = hw;
 
                 foreach (ToolStripMenuItem item in toolStripMenuItem16.DropDownItems)
                 {
@@ -440,7 +440,7 @@ namespace DreamScene2
                 }
 
                 PInvoke.reLastPos();
-                IntPtr ptr = (IntPtr)hhw;
+                IntPtr ptr = (IntPtr)_windowHandle;
                 PInvoke.setPos(ptr, _screen.Bounds.ToRECT());
                 PInvoke.SetParent(ptr, _desktopWindowHandle);
             }
@@ -532,7 +532,7 @@ namespace DreamScene2
                     CloseVideo();
                 }
 
-                if (hhw != 0)
+                if (_windowHandle != 0)
                 {
                     RestoreDesktop();
                 }
