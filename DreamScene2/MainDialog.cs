@@ -296,10 +296,10 @@ namespace DreamScene2
             toolStripMenuItem7.DropDownItems.Clear();
             for (int i = 0; i < _recentFiles.Count; i++)
             {
-                string item = _recentFiles[i];
-                string v = Path.GetFileName(item);
-                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem($"{i + 1}. {v}");
-                toolStripMenuItem.Tag = item;
+                string filePath = _recentFiles[i];
+                string fileName = Path.GetFileName(filePath);
+                ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem($"{i + 1}. {fileName}");
+                toolStripMenuItem.Tag = filePath;
                 toolStripMenuItem.Click += ToolStripMenuItem_Click;
                 toolStripMenuItem7.DropDownItems.Add(toolStripMenuItem);
             }
@@ -399,15 +399,15 @@ namespace DreamScene2
         {
             toolStripMenuItem16.DropDownItems.Clear();
 
-            string[] vs = Directory.GetFiles(Helper.ExtPath());
-            foreach (string item in vs)
+            string[] files = Directory.GetFiles(Helper.ExtPath());
+            foreach (string filePath in files)
             {
-                string v2 = Path.GetFileName(item);
-                string[] vs1 = v2.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
-                if (int.TryParse(vs1[0], System.Globalization.NumberStyles.HexNumber, null, out int val))
+                string fileName = Path.GetFileName(filePath);
+                string[] arr = fileName.Split(new string[] { "-" }, StringSplitOptions.RemoveEmptyEntries);
+                if (int.TryParse(arr[0], System.Globalization.NumberStyles.HexNumber, null, out int val))
                 {
                     bool v = PInvoke.IsWindowVisible((IntPtr)val);
-                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(vs1[1] + (v ? "" : " (Invalidate)"));
+                    ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(arr[1] + (v ? "" : " (Invalidate)"));
                     toolStripMenuItem.Enabled = v;
                     toolStripMenuItem.Checked = hhw == val;
                     toolStripMenuItem.Tag = val;
@@ -416,7 +416,7 @@ namespace DreamScene2
                 }
             }
 
-            if (vs.Length == 0)
+            if (files.Length == 0)
             {
                 toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem17);
             }
