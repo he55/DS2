@@ -99,6 +99,15 @@ namespace DreamScene2
             PInvoke.reWall();
         }
 
+        private void closeweb()
+        {
+            _webWindow.Close();
+            _webWindow = null;
+            GC.Collect();
+
+            PInvoke.reWall();
+        }
+
         private void SaveRecent(string path)
         {
             if (_recentFiles.Count == 0 || _recentFiles[0] != path)
@@ -114,6 +123,19 @@ namespace DreamScene2
         }
 
         private void OpenFile(string path)
+        {
+            Uri uri = new Uri(path);
+            if (uri.Scheme == "file")
+            {
+                openvideo(path);
+            }
+            else
+            {
+                openweb(path);
+            }
+        }
+
+        private void openvideo(string path)
         {
             RestoreDesktop();
             timer1.Enabled = false;
