@@ -527,26 +527,33 @@ namespace DreamScene2
             InputDialog inputDialog = new InputDialog();
             if (inputDialog.ShowDialog() == DialogResult.OK)
             {
-                if (_videoWindow != null)
-                {
-                    CloseVideo();
-                }
-
-                if (_windowHandle != 0)
-                {
-                    RestoreDesktop();
-                }
-
-                if (_webWindow == null)
-                {
-                    _webWindow = new WebWindow();
-                    _webWindow.SetPosition(_screen.Bounds);
-                    _webWindow.Show();
-
-                    PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
-                }
-                _webWindow.Source = new Uri(inputDialog.URL);
+                string url = inputDialog.URL;
+                SaveRecent(url);
+                openweb(url);
             }
+        }
+
+        private void openweb(string url)
+        {
+            if (_videoWindow != null)
+            {
+                CloseVideo();
+            }
+
+            if (_windowHandle != 0)
+            {
+                RestoreDesktop();
+            }
+
+            if (_webWindow == null)
+            {
+                _webWindow = new WebWindow();
+                _webWindow.SetPosition(_screen.Bounds);
+                _webWindow.Show();
+
+                PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
+            }
+            _webWindow.Source = new Uri(url);
         }
     }
 }
