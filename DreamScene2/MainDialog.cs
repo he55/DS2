@@ -122,21 +122,33 @@ namespace DreamScene2
             }
         }
 
-        private void OpenFile(string path)
+        private void OpenFile(string filepath)
         {
-            Uri uri = new Uri(path);
-            if (uri.Scheme == "file")
+            Uri uri = new Uri(filepath);
+            if (uri.Scheme == "file" && File.Exists(filepath))
             {
-                openvideo(path);
+                if (Path.GetExtension(filepath) == ".html")
+                {
+                    openweb(filepath);
+                }
+                else
+                {
+                    openvideo(filepath);
+                }
             }
             else
             {
-                openweb(path);
+                openweb(filepath);
             }
         }
 
         private void openvideo(string path)
         {
+            if (_webWindow != null)
+            {
+                closeweb();
+            }
+
             RestoreDesktop();
             timer1.Enabled = false;
             SaveRecent(path);
@@ -192,7 +204,7 @@ namespace DreamScene2
                 checkBox2.Checked = true;
                 toolStripMenuItem6.Checked = true;
 
-                if (_recentFiles.Count != 0 && File.Exists(_recentFiles[0]))
+                if (_recentFiles.Count != 0)
                 {
                     OpenFile(_recentFiles[0]);
                 }
@@ -236,7 +248,7 @@ namespace DreamScene2
             openFileDialog.Filter = "Video Files (*.mp4;*.mov)|*.mp4;*.mov";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                OpenFile(openFileDialog.FileName);
+                openvideo(openFileDialog.FileName);
             }
         }
 
@@ -549,14 +561,14 @@ namespace DreamScene2
             InputDialog inputDialog = new InputDialog();
             if (inputDialog.ShowDialog() == DialogResult.OK)
             {
-                string url = inputDialog.URL;
-                SaveRecent(url);
-                openweb(url);
+                openweb(inputDialog.URL);
             }
         }
 
         private void openweb(string url)
         {
+            SaveRecent(url);
+
             if (_videoWindow != null)
             {
                 CloseVideo();
