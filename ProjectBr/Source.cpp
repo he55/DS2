@@ -77,9 +77,9 @@ void __stdcall getD(void) {
         IDesktopWallpaper* p;
         nRet = CoCreateInstance(CLSID_DesktopWallpaper, 0, CLSCTX_LOCAL_SERVER, IID_IDesktopWallpaper, (void**)&p);
         if (SUCCEEDED(nRet)) {
-            LPWSTR str;
+            LPWSTR str=NULL;
             p->GetWallpaper(NULL, &str);
-            if (wcslen(str)) {
+            if (str&&wcslen(str)) {
                 p->SetWallpaper(NULL, str);
             }
             else {
