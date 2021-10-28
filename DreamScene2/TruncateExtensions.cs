@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Humanizer
+﻿namespace DreamScene2
 {
     /// <summary>
     /// Allow strings to be truncated
@@ -19,7 +17,7 @@ namespace Humanizer
         {
             if (input.Length > length)
             {
-                if (from== TruncateFrom.Left)
+                if (from == TruncateFrom.Left)
                 {
                     string v = input.Substring(0, length - truncationString.Length);
                     return v + truncationString;
@@ -31,7 +29,7 @@ namespace Humanizer
                     string v2 = input.Substring(input.Length - v, v);
                     return v1 + truncationString + v2;
                 }
-                else if (from== TruncateFrom.Right)
+                else if (from == TruncateFrom.Right)
                 {
                     string v = input.Substring(input.Length - length + truncationString.Length, length - truncationString.Length);
                     return truncationString + v;
