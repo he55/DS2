@@ -17,7 +17,27 @@ namespace Humanizer
         /// <returns>The truncated string</returns>
         public static string Truncate(this string input, int length, string truncationString = "…", TruncateFrom from = TruncateFrom.Right)
         {
-            return "";
+            if (input.Length > length)
+            {
+                if (from== TruncateFrom.Left)
+                {
+                    string v = input.Substring(0, length - truncationString.Length);
+                    return v + truncationString;
+                }
+                else if (from == 0)
+                {
+                    int v = (length - truncationString.Length) / 2;
+                    string v1 = input.Substring(0, v);
+                    string v2 = input.Substring(input.Length - v, v);
+                    return v1 + truncationString + v2;
+                }
+                else if (from== TruncateFrom.Right)
+                {
+                    string v = input.Substring(input.Length - length + truncationString.Length, length - truncationString.Length);
+                    return truncationString + v;
+                }
+            }
+            return input;
         }
     }
 
