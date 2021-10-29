@@ -459,6 +459,11 @@ namespace DreamScene2
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
             int hWnd = (int)((ToolStripMenuItem)sender).Tag;
+            NewMethod(hWnd);
+        }
+
+        private void NewMethod(int hWnd)
+        {
             if (_windowHandle != hWnd)
             {
                 _windowHandle = hWnd;
