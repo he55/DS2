@@ -19,8 +19,8 @@
             {
                 if (from == TruncateFrom.Left)
                 {
-                    string str = input.Substring(0, length - truncationString.Length);
-                    return str + truncationString;
+                    string str = input.Substring(input.Length + truncationString.Length - length, length - truncationString.Length);
+                    return truncationString + str;
                 }
                 else if (from == TruncateFrom.Middle)
                 {
@@ -31,8 +31,8 @@
                 }
                 else if (from == TruncateFrom.Right)
                 {
-                    string str = input.Substring(input.Length - length + truncationString.Length, length - truncationString.Length);
-                    return truncationString + str;
+                    string str = input.Substring(0, length - truncationString.Length);
+                    return str + truncationString;
                 }
             }
             return input;
