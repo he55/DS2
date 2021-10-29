@@ -365,11 +365,11 @@ namespace DreamScene2
             toolStripMenuItem12.Checked = !toolStripMenuItem12.Checked;
             if (toolStripMenuItem12.Checked)
             {
-                Helper.StToggleStartOnBoot();
+                Helper.SetStartOnBoot();
             }
             else
             {
-                Helper.DelToggleStartOnBoot();
+                Helper.RemoveStartOnBoot();
             }
         }
 

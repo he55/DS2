@@ -16,9 +16,8 @@ namespace DreamScene2
         {
             if (s_extPath == null)
             {
-                s_extPath = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                    $".{projectName}");
+                s_extPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                                         $".{projectName}");
             }
             return s_extPath;
         }
@@ -31,14 +30,14 @@ namespace DreamScene2
             return startOnBoot;
         }
 
-        public static void StToggleStartOnBoot()
+        public static void SetStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
             startupKey.SetValue(projectName, $"{Application.ExecutablePath} {cmd}");
             startupKey.Close();
         }
 
-        public static void DelToggleStartOnBoot()
+        public static void RemoveStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
             startupKey.DeleteValue(projectName);
