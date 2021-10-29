@@ -417,10 +417,10 @@ namespace DreamScene2
 
         private void ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            foreach (ToolStripMenuItem item in toolStripMenuItem10.DropDownItems)
-            {
-                item.Checked = false;
-            }
+            //foreach (ToolStripMenuItem item in toolStripMenuItem10.DropDownItems)
+            //{
+            //    item.Checked = false;
+            //}
 
             _screenIndex = (int)((ToolStripMenuItem)sender).Tag;
             _screen = Screen.AllScreens[_screenIndex];
@@ -458,20 +458,20 @@ namespace DreamScene2
 
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
-            if (_videoWindow != null)
-            {
-                CloseVideo();
-            }
-
             int hWnd = (int)((ToolStripMenuItem)sender).Tag;
             if (_windowHandle != hWnd)
             {
                 _windowHandle = hWnd;
 
-                foreach (ToolStripMenuItem item in toolStripMenuItem16.DropDownItems)
+                if (_videoWindow != null)
                 {
-                    item.Checked = false;
+                    CloseVideo();
                 }
+
+                //foreach (ToolStripMenuItem item in toolStripMenuItem16.DropDownItems)
+                //{
+                //    item.Checked = false;
+                //}
 
                 PInvoke.reLastPos();
                 IntPtr ptr = (IntPtr)_windowHandle;
