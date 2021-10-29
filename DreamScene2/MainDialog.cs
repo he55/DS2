@@ -469,6 +469,11 @@ namespace DreamScene2
                     CloseVideo();
                 }
 
+                if (_webWindow != null)
+                {
+                    closeweb();
+                }
+
                 PInvoke.reLastPos();
                 PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
                 PInvoke.SetParent(hWnd, _desktopWindowHandle);
