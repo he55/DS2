@@ -459,10 +459,10 @@ namespace DreamScene2
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
             int hWnd = (int)((ToolStripMenuItem)sender).Tag;
-            NewMethod(hWnd);
+            setwindow(hWnd);
         }
 
-        private void NewMethod(int hWnd)
+        private void setwindow(int hWnd)
         {
             if (_windowHandle != hWnd)
             {
@@ -593,6 +593,16 @@ namespace DreamScene2
                 PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
             }
             _webWindow.Source = new Uri(url);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == (0x0400+1001))
+            {
+                setwindow((int)m.WParam);
+                return;
+            }
+            base.WndProc(ref m);
         }
     }
 }
