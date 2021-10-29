@@ -333,7 +333,8 @@ namespace DreamScene2
             for (int i = 0; i < _recentFiles.Count; i++)
             {
                 string filePath = _recentFiles[i];
-                string fileName = Path.GetFileName(filePath);
+                //string fileName = Path.GetFileName(filePath);
+                string fileName =filePath.Truncate(50);
                 ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem($"{i + 1}. {fileName}");
                 toolStripMenuItem.Tag = filePath;
                 toolStripMenuItem.Click += ToolStripMenuItem_Click;
