@@ -99,6 +99,31 @@ namespace DreamScene2
             PInvoke.reWall();
         }
 
+        private void openweb(string url)
+        {
+            SaveRecent(url);
+
+            if (_videoWindow != null)
+            {
+                CloseVideo();
+            }
+
+            if (_windowHandle != IntPtr.Zero)
+            {
+                RestoreDesktop();
+            }
+
+            if (_webWindow == null)
+            {
+                _webWindow = new WebWindow();
+                _webWindow.SetPosition(_screen.Bounds);
+                _webWindow.Show();
+
+                PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
+            }
+            _webWindow.Source = new Uri(url);
+        }
+
         private void closeweb()
         {
             _webWindow.Close();
@@ -162,6 +187,32 @@ namespace DreamScene2
             button4.Text = "暂停";
             toolStripMenuItem2.Text = "暂停";
             timer1.Enabled = _settings.AutoPause;
+        }
+
+        private void setwindow(IntPtr hWnd)
+        {
+            if (_windowHandle != hWnd)
+            {
+                _windowHandle = hWnd;
+
+                if (_videoWindow != null)
+                {
+                    CloseVideo();
+                }
+
+                if (_webWindow != null)
+                {
+                    closeweb();
+                }
+
+                PInvoke.reLastPos();
+                PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
+                PInvoke.SetParent(hWnd, _desktopWindowHandle);
+            }
+            else
+            {
+                RestoreDesktop();
+            }
         }
 
         private void RestoreDesktop()
@@ -400,6 +451,12 @@ namespace DreamScene2
             toolStripMenuItem10.DropDownItems.Clear();
 
             Screen[] allScreens = Screen.AllScreens;
+            if (allScreens.Length == 0)
+            {
+                toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem11);
+                return;
+            }
+
             for (int i = 0; i < allScreens.Length; i++)
             {
                 ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary ? allScreens[i].DeviceName + " - Primary" : allScreens[i].DeviceName);
@@ -407,11 +464,6 @@ namespace DreamScene2
                 toolStripMenuItem.Tag = i;
                 toolStripMenuItem.Click += ToolStripMenuItem2_Click;
                 toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
-            }
-
-            if (allScreens.Length == 0)
-            {
-                toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem11);
             }
         }
 
@@ -429,6 +481,12 @@ namespace DreamScene2
             toolStripMenuItem16.DropDownItems.Clear();
 
             string[] files = Directory.GetFiles(Helper.ExtPath());
+            if (files.Length == 0)
+            {
+                toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem17);
+                return;
+            }
+
             foreach (string filePath in files)
             {
                 string fileName = Path.GetFileName(filePath);
@@ -445,43 +503,12 @@ namespace DreamScene2
                     toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem);
                 }
             }
-
-            if (files.Length == 0)
-            {
-                toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem17);
-            }
         }
 
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
             int hWnd = (int)((ToolStripMenuItem)sender).Tag;
             setwindow((IntPtr)hWnd);
-        }
-
-        private void setwindow(IntPtr hWnd)
-        {
-            if (_windowHandle != hWnd)
-            {
-                _windowHandle = hWnd;
-
-                if (_videoWindow != null)
-                {
-                    CloseVideo();
-                }
-
-                if (_webWindow != null)
-                {
-                    closeweb();
-                }
-
-                PInvoke.reLastPos();
-                PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
-                PInvoke.SetParent(hWnd, _desktopWindowHandle);
-            }
-            else
-            {
-                RestoreDesktop();
-            }
         }
 
         #endregion
@@ -563,31 +590,6 @@ namespace DreamScene2
             {
                 openweb(inputDialog.URL);
             }
-        }
-
-        private void openweb(string url)
-        {
-            SaveRecent(url);
-
-            if (_videoWindow != null)
-            {
-                CloseVideo();
-            }
-
-            if (_windowHandle != IntPtr.Zero)
-            {
-                RestoreDesktop();
-            }
-
-            if (_webWindow == null)
-            {
-                _webWindow = new WebWindow();
-                _webWindow.SetPosition(_screen.Bounds);
-                _webWindow.Show();
-
-                PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
-            }
-            _webWindow.Source = new Uri(url);
         }
 
         protected override void WndProc(ref Message m)
