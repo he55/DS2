@@ -14,7 +14,7 @@ ULONGLONG __stdcall getA(void) {
 extern "C"
 _declspec(dllexport)
 int __stdcall getB2(RECT rc) {
-    static HWND gg;
+    static HWND gg=NULL;
 
     if (!gg) {
         EnumWindows([](HWND h, LPARAM l) {
@@ -54,7 +54,7 @@ int __stdcall getB2(RECT rc) {
 extern "C"
 _declspec(dllexport)
 HWND __stdcall getC(void) {
-    static HWND gc;
+    static HWND gc=NULL;
 
     HWND ph = FindWindow("Progman", NULL);
     SendMessageTimeout(ph, 0x052c, NULL, NULL, SMTO_NORMAL, 1000, NULL);
@@ -74,7 +74,7 @@ _declspec(dllexport)
 void __stdcall getD(void) {
     HRESULT nRet = CoInitialize(NULL);
     if (SUCCEEDED(nRet)) {
-        IDesktopWallpaper* p;
+        IDesktopWallpaper* p=NULL;
         nRet = CoCreateInstance(CLSID_DesktopWallpaper, 0, CLSCTX_LOCAL_SERVER, IID_IDesktopWallpaper, (void**)&p);
         if (SUCCEEDED(nRet)) {
             LPWSTR str=NULL;
