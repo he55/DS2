@@ -154,7 +154,7 @@ namespace DreamScene2
             {
                 if (Path.GetExtension(filepath) == ".html")
                 {
-                    openweb(filepath);
+                    openweb(uri.AbsoluteUri);
                 }
                 else
                 {
@@ -169,14 +169,15 @@ namespace DreamScene2
 
         private void openvideo(string path)
         {
+            timer1.Enabled = false;
+            SaveRecent(path);
+
             if (_webWindow != null)
             {
                 closeweb();
             }
 
             RestoreDesktop();
-            timer1.Enabled = false;
-            SaveRecent(path);
 
             CreateVideoWindow();
 
