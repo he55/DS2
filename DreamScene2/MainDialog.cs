@@ -200,12 +200,13 @@ namespace DreamScene2
 
         enum xclosetype
         {
+            none,
             video,
             window,
             web
         }
 
-        xclosetype xc = xclosetype.video;
+        xclosetype xc;
 
         private void closefunc()
         {
@@ -245,6 +246,7 @@ namespace DreamScene2
                 PInvoke.reLastPos();
                 PInvoke.reWall();
             }
+            xc = xclosetype.none;
         }
 
         private void setwindow(IntPtr hWnd)
