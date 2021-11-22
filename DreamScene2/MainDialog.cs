@@ -207,17 +207,6 @@ namespace DreamScene2
 
                 xc = xclosetype.window;
             }
-            else
-            {
-                PInvoke.reWall();
-            }
-        }
-
-        private void RestoreDesktop()
-        {
-            _windowHandle = IntPtr.Zero;
-            PInvoke.reLastPos();
-            PInvoke.reWall();
         }
 
         #endregion
@@ -277,11 +266,7 @@ namespace DreamScene2
             }
             else
             {
-                timer1.Enabled = false;
-                _videoWindow?.Close();
-                _webWindow?.Close();
-                RestoreDesktop();
-
+                closefunc();
                 Settings.Save();
             }
         }
