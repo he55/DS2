@@ -187,6 +187,7 @@ namespace DreamScene2
             }
 
             lxc = xc;
+            xc = xclosetype.none;
 
             GC.Collect();
             PInvoke.reWall();
