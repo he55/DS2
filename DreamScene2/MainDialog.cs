@@ -511,6 +511,20 @@ namespace DreamScene2
             setwindow((IntPtr)hWnd);
         }
 
+        private void toolStripMenuItem19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem20_Click(object sender, EventArgs e)
+        {
+            InputDialog inputDialog = new InputDialog();
+            if (inputDialog.ShowDialog() == DialogResult.OK)
+            {
+                openweb(inputDialog.URL);
+            }
+        }
+
         #endregion
 
 
@@ -582,15 +596,6 @@ namespace DreamScene2
         }
 
         #endregion
-
-        private void toolStripMenuItem18_Click(object sender, EventArgs e)
-        {
-            InputDialog inputDialog = new InputDialog();
-            if (inputDialog.ShowDialog() == DialogResult.OK)
-            {
-                openweb(inputDialog.URL);
-            }
-        }
 
         protected override void WndProc(ref Message m)
         {

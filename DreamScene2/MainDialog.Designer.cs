@@ -62,6 +62,8 @@ namespace DreamScene2
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripMenuItem19 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -144,6 +146,7 @@ namespace DreamScene2
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem15,
             this.toolStripMenuItem9,
+            this.toolStripMenuItem18,
             this.toolStripMenuItem7,
             this.toolStripSeparator4,
             this.toolStripMenuItem12,
@@ -159,10 +162,9 @@ namespace DreamScene2
             this.toolStripMenuItem1,
             this.toolStripMenuItem14,
             this.toolStripSeparator3,
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem18});
+            this.toolStripMenuItem4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(200, 358);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(200, 380);
             // 
             // toolStripMenuItem15
             // 
@@ -315,10 +317,12 @@ namespace DreamScene2
             // 
             // toolStripMenuItem18
             // 
+            this.toolStripMenuItem18.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem19,
+            this.toolStripMenuItem20});
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
             this.toolStripMenuItem18.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem18.Text = "toolStripMenuItem18";
-            this.toolStripMenuItem18.Click += new System.EventHandler(this.toolStripMenuItem18_Click);
             // 
             // checkBox2
             // 
@@ -335,6 +339,20 @@ namespace DreamScene2
             // 
             this.timer1.Interval = 2000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // toolStripMenuItem19
+            // 
+            this.toolStripMenuItem19.Name = "toolStripMenuItem19";
+            this.toolStripMenuItem19.Size = new System.Drawing.Size(199, 22);
+            this.toolStripMenuItem19.Text = "toolStripMenuItem19";
+            this.toolStripMenuItem19.Click += new System.EventHandler(this.toolStripMenuItem19_Click);
+            // 
+            // toolStripMenuItem20
+            // 
+            this.toolStripMenuItem20.Name = "toolStripMenuItem20";
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(199, 22);
+            this.toolStripMenuItem20.Text = "toolStripMenuItem20";
+            this.toolStripMenuItem20.Click += new System.EventHandler(this.toolStripMenuItem20_Click);
             // 
             // MainDialog
             // 
@@ -396,6 +414,8 @@ namespace DreamScene2
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem18;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem19;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem20;
     }
 }
 
