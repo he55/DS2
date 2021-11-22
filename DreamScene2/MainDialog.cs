@@ -92,13 +92,16 @@ namespace DreamScene2
             timer1.Enabled = false;
             SaveRecent(path);
 
+            closefunc();
+
+            /*
             if (_webWindow != null)
             {
                 closeweb();
             }
 
             RestoreDesktop();
-
+            */
 
             if (_videoWindow == null)
             {
@@ -136,6 +139,9 @@ namespace DreamScene2
         {
             SaveRecent(url);
 
+            closefunc();
+
+            /*
             if (_videoWindow != null)
             {
                 CloseVideo();
@@ -145,6 +151,7 @@ namespace DreamScene2
             {
                 RestoreDesktop();
             }
+            */
 
             if (_webWindow == null)
             {
@@ -246,6 +253,9 @@ namespace DreamScene2
             {
                 _windowHandle = hWnd;
 
+                closefunc();
+
+                /*
                 if (_videoWindow != null)
                 {
                     CloseVideo();
@@ -255,6 +265,7 @@ namespace DreamScene2
                 {
                     closeweb();
                 }
+                */
 
                 PInvoke.reLastPos();
                 PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
