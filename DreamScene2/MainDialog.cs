@@ -128,6 +128,8 @@ namespace DreamScene2
             button4.Text = "暂停";
             toolStripMenuItem2.Text = "暂停";
             timer1.Enabled = _settings.AutoPause;
+
+            xc = xclosetype.video;
         }
 
         private void openweb(string url)
@@ -153,6 +155,8 @@ namespace DreamScene2
                 PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
             }
             _webWindow.Source = new Uri(url);
+
+            xc = xclosetype.web;
         }
 
         private void CloseVideo()
@@ -187,6 +191,55 @@ namespace DreamScene2
             //PInvoke.reWall();
         }
 
+        enum xclosetype
+        {
+            video,
+            window,
+            web
+        }
+
+        xclosetype xc = xclosetype.video;
+
+        private void closefunc()
+        {
+            if (xc == xclosetype.video)
+            {
+                timer1.Enabled = false;
+                _videoWindow.Close();
+                _videoWindow = null;
+                GC.Collect();
+
+                _isPlaying = false;
+                button4.Text = "播放";
+                toolStripMenuItem2.Text = "播放";
+
+                button4.Enabled = false;
+                button5.Enabled = false;
+                checkBox1.Enabled = false;
+                trackBar1.Enabled = false;
+
+                toolStripMenuItem2.Enabled = false;
+                toolStripMenuItem3.Enabled = false;
+                toolStripMenuItem5.Enabled = false;
+
+                PInvoke.reWall();
+            }
+            else if (xc == xclosetype.web)
+            {
+                _webWindow.Close();
+                _webWindow = null;
+                GC.Collect();
+
+                //PInvoke.reWall();
+            }
+            else if(xc == xclosetype.window)
+            {
+                _windowHandle = IntPtr.Zero;
+                PInvoke.reLastPos();
+                PInvoke.reWall();
+            }
+        }
+
         private void setwindow(IntPtr hWnd)
         {
             if (_windowHandle != hWnd)
@@ -206,6 +259,8 @@ namespace DreamScene2
                 PInvoke.reLastPos();
                 PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
                 PInvoke.SetParent(hWnd, _desktopWindowHandle);
+
+                xc = xclosetype.window;
             }
             else
             {
