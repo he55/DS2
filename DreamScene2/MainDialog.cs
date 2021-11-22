@@ -35,29 +35,6 @@ namespace DreamScene2
 
         #region MyRegion
 
-        private void CreateVideoWindow()
-        {
-            if (_videoWindow == null)
-            {
-                _videoWindow = new VideoWindow();
-                _videoWindow.IsMuted = _settings.IsMuted;
-                _videoWindow.Volume = _settings.Volume / 10.0;
-                _videoWindow.SetPosition(_screen.Bounds);
-                _videoWindow.Show();
-
-                PInvoke.SetParent(_videoWindow.GetHandle(), _desktopWindowHandle);
-
-                button4.Enabled = true;
-                button5.Enabled = true;
-                checkBox1.Enabled = true;
-                trackBar1.Enabled = !_settings.IsMuted;
-
-                toolStripMenuItem2.Enabled = true;
-                toolStripMenuItem3.Enabled = true;
-                toolStripMenuItem5.Enabled = true;
-            }
-        }
-
         private void PlayOrPauseVideo()
         {
             if (_isPlaying)
@@ -74,63 +51,6 @@ namespace DreamScene2
                 button4.Text = "暂停";
                 toolStripMenuItem2.Text = "暂停";
             }
-        }
-
-        private void CloseVideo()
-        {
-            timer1.Enabled = false;
-            _videoWindow.Close();
-            _videoWindow = null;
-            GC.Collect();
-
-            _isPlaying = false;
-            button4.Text = "播放";
-            toolStripMenuItem2.Text = "播放";
-
-            button4.Enabled = false;
-            button5.Enabled = false;
-            checkBox1.Enabled = false;
-            trackBar1.Enabled = false;
-
-            toolStripMenuItem2.Enabled = false;
-            toolStripMenuItem3.Enabled = false;
-            toolStripMenuItem5.Enabled = false;
-
-            PInvoke.reWall();
-        }
-
-        private void openweb(string url)
-        {
-            SaveRecent(url);
-
-            if (_videoWindow != null)
-            {
-                CloseVideo();
-            }
-
-            if (_windowHandle != IntPtr.Zero)
-            {
-                RestoreDesktop();
-            }
-
-            if (_webWindow == null)
-            {
-                _webWindow = new WebWindow();
-                _webWindow.SetPosition(_screen.Bounds);
-                _webWindow.Show();
-
-                PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
-            }
-            _webWindow.Source = new Uri(url);
-        }
-
-        private void closeweb()
-        {
-            _webWindow.Close();
-            _webWindow = null;
-            GC.Collect();
-
-            PInvoke.reWall();
         }
 
         private void SaveRecent(string path)
@@ -179,7 +99,27 @@ namespace DreamScene2
 
             RestoreDesktop();
 
-            CreateVideoWindow();
+
+            if (_videoWindow == null)
+            {
+                _videoWindow = new VideoWindow();
+                _videoWindow.IsMuted = _settings.IsMuted;
+                _videoWindow.Volume = _settings.Volume / 10.0;
+                _videoWindow.SetPosition(_screen.Bounds);
+                _videoWindow.Show();
+
+                PInvoke.SetParent(_videoWindow.GetHandle(), _desktopWindowHandle);
+
+                button4.Enabled = true;
+                button5.Enabled = true;
+                checkBox1.Enabled = true;
+                trackBar1.Enabled = !_settings.IsMuted;
+
+                toolStripMenuItem2.Enabled = true;
+                toolStripMenuItem3.Enabled = true;
+                toolStripMenuItem5.Enabled = true;
+            }
+
 
             _videoWindow.Source = new Uri(path, UriKind.Absolute);
             _videoWindow.Play();
@@ -188,6 +128,63 @@ namespace DreamScene2
             button4.Text = "暂停";
             toolStripMenuItem2.Text = "暂停";
             timer1.Enabled = _settings.AutoPause;
+        }
+
+        private void openweb(string url)
+        {
+            SaveRecent(url);
+
+            if (_videoWindow != null)
+            {
+                CloseVideo();
+            }
+
+            if (_windowHandle != IntPtr.Zero)
+            {
+                RestoreDesktop();
+            }
+
+            if (_webWindow == null)
+            {
+                _webWindow = new WebWindow();
+                _webWindow.SetPosition(_screen.Bounds);
+                _webWindow.Show();
+
+                PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
+            }
+            _webWindow.Source = new Uri(url);
+        }
+
+        private void CloseVideo()
+        {
+            timer1.Enabled = false;
+            _videoWindow.Close();
+            _videoWindow = null;
+            GC.Collect();
+
+            _isPlaying = false;
+            button4.Text = "播放";
+            toolStripMenuItem2.Text = "播放";
+
+            button4.Enabled = false;
+            button5.Enabled = false;
+            checkBox1.Enabled = false;
+            trackBar1.Enabled = false;
+
+            toolStripMenuItem2.Enabled = false;
+            toolStripMenuItem3.Enabled = false;
+            toolStripMenuItem5.Enabled = false;
+
+            PInvoke.reWall();
+        }
+
+        private void closeweb()
+        {
+            _webWindow.Close();
+            _webWindow = null;
+            GC.Collect();
+
+            PInvoke.reWall();
         }
 
         private void setwindow(IntPtr hWnd)
