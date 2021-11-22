@@ -184,7 +184,7 @@ namespace DreamScene2
             _webWindow = null;
             GC.Collect();
 
-            PInvoke.reWall();
+            //PInvoke.reWall();
         }
 
         private void setwindow(IntPtr hWnd)
