@@ -395,7 +395,7 @@ namespace DreamScene2
 
         private void button5_Click(object sender, EventArgs e)
         {
-            CloseVideo();
+            closefunc();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -433,7 +433,7 @@ namespace DreamScene2
 
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
-            CloseVideo();
+            button5_Click(null, null);
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
