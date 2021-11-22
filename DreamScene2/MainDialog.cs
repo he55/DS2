@@ -92,8 +92,7 @@ namespace DreamScene2
             timer1.Enabled = false;
             SaveRecent(path);
 
-            xc = xclosetype.video;
-            closefunc();
+            closefunc(xclosetype.video);
 
             if (_videoWindow == null)
             {
@@ -129,8 +128,7 @@ namespace DreamScene2
         {
             SaveRecent(url);
 
-            xc = xclosetype.web;
-            closefunc();
+            closefunc(xclosetype.web);
 
             if (_webWindow == null)
             {
@@ -151,10 +149,9 @@ namespace DreamScene2
             web
         }
 
-        xclosetype xc;
         xclosetype lxc;
 
-        private void closefunc()
+        private void closefunc(xclosetype xc)
         {
             if (lxc == xclosetype.video&&lxc!=xc)
             {
@@ -187,7 +184,6 @@ namespace DreamScene2
             }
 
             lxc = xc;
-            xc = xclosetype.none;
 
             GC.Collect();
             PInvoke.reWall();
@@ -195,8 +191,7 @@ namespace DreamScene2
 
         private void setwindow(IntPtr hWnd)
         {
-            xc = xclosetype.window;
-            closefunc();
+            closefunc(xclosetype.window);
 
             if (_windowHandle != hWnd)
             {
@@ -204,8 +199,6 @@ namespace DreamScene2
 
                 PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
                 PInvoke.SetParent(hWnd, _desktopWindowHandle);
-
-                xc = xclosetype.window;
             }
         }
 
@@ -266,7 +259,7 @@ namespace DreamScene2
             }
             else
             {
-                closefunc();
+                closefunc(xclosetype.none);
                 Settings.Save();
             }
         }
@@ -314,7 +307,7 @@ namespace DreamScene2
 
         private void button5_Click(object sender, EventArgs e)
         {
-            closefunc();
+            closefunc(xclosetype.none);
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
