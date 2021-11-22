@@ -35,22 +35,20 @@ namespace DreamScene2
 
         #region MyRegion
 
-        private void PlayOrPauseVideo()
+        private void cplay()
         {
-            if (_isPlaying)
-            {
-                _isPlaying = false;
-                _videoWindow.Pause();
-                button4.Text = "播放";
-                toolStripMenuItem2.Text = "播放";
-            }
-            else
-            {
-                _isPlaying = true;
-                _videoWindow.Play();
-                button4.Text = "暂停";
-                toolStripMenuItem2.Text = "暂停";
-            }
+            _isPlaying = true;
+            _videoWindow.Play();
+            button4.Text = "暂停";
+            toolStripMenuItem2.Text = "暂停";
+        }
+
+        private void cpause()
+        {
+            _isPlaying = false;
+            _videoWindow.Pause();
+            button4.Text = "播放";
+            toolStripMenuItem2.Text = "播放";
         }
 
         private void SaveRecent(string path)
@@ -278,7 +276,15 @@ namespace DreamScene2
 
         private void button4_Click(object sender, EventArgs e)
         {
-            PlayOrPauseVideo();
+            if (_isPlaying)
+            {
+                cpause();
+            }
+            else
+            {
+                cplay();
+            }
+
             timer1.Enabled = _settings.AutoPause && _isPlaying;
         }
 
@@ -325,8 +331,7 @@ namespace DreamScene2
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            PlayOrPauseVideo();
-            timer1.Enabled = _settings.AutoPause && _isPlaying;
+          button4_Click(null, null);
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -401,18 +406,11 @@ namespace DreamScene2
         {
             _settings.AutoPause = !toolStripMenuItem13.Checked;
             toolStripMenuItem13.Checked = _settings.AutoPause;
-            timer1.Enabled = _settings.AutoPause;
+            timer1.Enabled = _settings.AutoPause && _isPlaying;
 
-            if(_videoWindow != null)
+            if(_videoWindow != null&&!_isPlaying)
             {
-                if (!_isPlaying)
-                {
-                    PlayOrPauseVideo();
-                }
-                else
-                {
-                    timer1.Enabled = true;
-                }
+                cplay();
             }
         }
 
@@ -514,7 +512,7 @@ namespace DreamScene2
         {
             if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
             {
-                xplayMethod();
+                xpauseMethod(true);
                 return;
             }
 
@@ -532,7 +530,7 @@ namespace DreamScene2
 
             if (cpauseCount > 4)
             {
-                xplayMethod();
+                xpauseMethod(true);
                 return;
             }
 
@@ -549,25 +547,30 @@ namespace DreamScene2
 
             if (pauseCount > 4)
             {
-                xplayMethod();
+                xpauseMethod(true);
                 return;
             }
 
             if (cplayCount > 4 && playCount > 4)
             {
-                xplayMethod();
+                xpauseMethod(false);
             }
         }
 
-        private void xplayMethod()
+        private void xpauseMethod(bool ispa)
         {
             cplayCount = 0;
             cpauseCount = 0;
             playCount = 0;
             pauseCount = 0;
-            if (!_isPlaying)
+
+            if (ispa)
             {
-                PlayOrPauseVideo();
+                cpause();
+            }
+            else
+            {
+                cplay();
             }
         }
 
