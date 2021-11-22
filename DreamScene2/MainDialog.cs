@@ -12,8 +12,8 @@ namespace DreamScene2
         VideoWindow _videoWindow;
         WebWindow _webWindow;
         IntPtr _desktopWindowHandle;
-        string _recentPath;
-        List<string> _recentFiles;
+        string _recentPath=Helper.GetPath("recent.txt");
+        List<string> _recentFiles=new List<string>();
         bool _isPlaying;
         PerformanceCounter _performanceCounter;
         Settings _settings = Settings.Load();
@@ -221,9 +221,6 @@ namespace DreamScene2
                 label1.Visible = true;
             }
 
-            _recentFiles = new List<string>();
-            //_recentPath = Path.Combine(Application.UserAppDataPath, "recent.txt");
-            _recentPath = "recent.txt";
             if (File.Exists(_recentPath))
             {
                 string[] paths = File.ReadAllLines(_recentPath);
@@ -406,13 +403,16 @@ namespace DreamScene2
             toolStripMenuItem13.Checked = _settings.AutoPause;
             timer1.Enabled = _settings.AutoPause;
 
-            if (!_isPlaying)
+            if(_videoWindow != null)
             {
-                PlayOrPauseVideo();
-            }
-            else
-            {
-                timer1.Enabled = true;
+                if (!_isPlaying)
+                {
+                    PlayOrPauseVideo();
+                }
+                else
+                {
+                    timer1.Enabled = true;
+                }
             }
         }
 

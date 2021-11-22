@@ -5,7 +5,7 @@ namespace DreamScene2
 {
     public class Settings
     {
-        const string settingsFilePath = "settings.xml";
+        static string settingsFilePath = Helper.GetPath("settings.xml");
         static Settings s_settings;
 
         private Settings()

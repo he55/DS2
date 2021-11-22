@@ -12,6 +12,11 @@ namespace DreamScene2
         public const string cmd = "-c";
         static string s_extPath;
 
+        public static string GetPath(string str)
+        {
+            return Path.Combine(Application.UserAppDataPath, str);
+        }
+
         public static string ExtPath()
         {
             if (s_extPath == null)
