@@ -12,8 +12,8 @@ namespace DreamScene2
         VideoWindow _videoWindow;
         WebWindow _webWindow;
         IntPtr _desktopWindowHandle;
-        string _recentPath=Helper.GetPath("recent.txt");
-        List<string> _recentFiles=new List<string>();
+        string _recentPath = Helper.GetPath("recent.txt");
+        List<string> _recentFiles = new List<string>();
         bool _isPlaying;
         PerformanceCounter _performanceCounter;
         Settings _settings = Settings.Load();
@@ -68,7 +68,13 @@ namespace DreamScene2
         private void OpenFile(string filepath)
         {
             Uri uri = new Uri(filepath);
-            if (uri.Scheme == "file" && File.Exists(filepath))
+            SaveRecent(filepath);
+
+            if (uri.Scheme == "http" || uri.Scheme == "https")
+            {
+                openweb(filepath);
+            }
+            else if (uri.Scheme == "file" && File.Exists(filepath))
             {
                 if (Path.GetExtension(filepath) == ".html")
                 {
@@ -79,17 +85,10 @@ namespace DreamScene2
                     openvideo(filepath);
                 }
             }
-            else
-            {
-                openweb(filepath);
-            }
         }
 
         private void openvideo(string path)
         {
-            timer1.Enabled = false;
-            SaveRecent(path);
-
             closefunc(xclosetype.video);
 
             if (_videoWindow == null)
@@ -124,8 +123,6 @@ namespace DreamScene2
 
         private void openweb(string url)
         {
-            SaveRecent(url);
-
             closefunc(xclosetype.web);
 
             if (_webWindow == null)
@@ -137,6 +134,19 @@ namespace DreamScene2
                 PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
             }
             _webWindow.Source = new Uri(url);
+        }
+
+        private void setwindow(IntPtr hWnd)
+        {
+            closefunc(xclosetype.window);
+
+            if (_windowHandle != hWnd)
+            {
+                _windowHandle = hWnd;
+
+                PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
+                PInvoke.SetParent(hWnd, _desktopWindowHandle);
+            }
         }
 
         enum xclosetype
@@ -151,7 +161,7 @@ namespace DreamScene2
 
         private void closefunc(xclosetype xc)
         {
-            if (lxc == xclosetype.video&&lxc!=xc)
+            if (lxc == xclosetype.video && lxc != xc)
             {
                 timer1.Enabled = false;
                 _videoWindow.Close();
@@ -175,7 +185,7 @@ namespace DreamScene2
                 _webWindow.Close();
                 _webWindow = null;
             }
-            else if(lxc == xclosetype.window)
+            else if (lxc == xclosetype.window)
             {
                 _windowHandle = IntPtr.Zero;
                 PInvoke.reLastPos();
@@ -185,19 +195,6 @@ namespace DreamScene2
 
             GC.Collect();
             PInvoke.reWall();
-        }
-
-        private void setwindow(IntPtr hWnd)
-        {
-            closefunc(xclosetype.window);
-
-            if (_windowHandle != hWnd)
-            {
-                _windowHandle = hWnd;
-
-                PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
-                PInvoke.SetParent(hWnd, _desktopWindowHandle);
-            }
         }
 
         #endregion
@@ -270,7 +267,7 @@ namespace DreamScene2
             openFileDialog.Filter = "Video Files (*.mp4;*.mov)|*.mp4;*.mov";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                openvideo(openFileDialog.FileName);
+                OpenFile(openFileDialog.FileName);
             }
         }
 
@@ -331,7 +328,7 @@ namespace DreamScene2
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-          button4_Click(null, null);
+            button4_Click(null, null);
         }
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
@@ -408,7 +405,7 @@ namespace DreamScene2
             toolStripMenuItem13.Checked = _settings.AutoPause;
             timer1.Enabled = _settings.AutoPause && _isPlaying;
 
-            if(_videoWindow != null&&!_isPlaying)
+            if (_videoWindow != null && !_isPlaying)
             {
                 cplay();
             }
@@ -495,7 +492,7 @@ namespace DreamScene2
             InputDialog inputDialog = new InputDialog();
             if (inputDialog.ShowDialog() == DialogResult.OK)
             {
-                openweb(inputDialog.URL);
+                OpenFile(inputDialog.URL);
             }
         }
 
