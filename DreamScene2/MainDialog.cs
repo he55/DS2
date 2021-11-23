@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Web.WebView2.Core;
 
 namespace DreamScene2
 {
@@ -480,6 +481,32 @@ namespace DreamScene2
         {
             int hWnd = (int)((ToolStripMenuItem)sender).Tag;
             setwindow((IntPtr)hWnd);
+        }
+
+        private void toolStripMenuItem18_DropDownOpening(object sender, EventArgs e)
+        {
+            toolStripMenuItem18.DropDownItems.Clear();
+
+            string version;
+            try
+            {
+                version = CoreWebView2Environment.GetAvailableBrowserVersionString();
+            }
+            catch
+            {
+                version = "";
+            }
+
+            if (string.IsNullOrEmpty(version))
+            {
+                toolStripMenuItem18.DropDownItems.Add(toolStripMenuItem19);
+            }
+            else
+            {
+                toolStripMenuItem21.Text = $"WebView2 {version}";
+                toolStripMenuItem18.DropDownItems.Add(toolStripMenuItem21);
+                toolStripMenuItem18.DropDownItems.Add(toolStripMenuItem20);
+            }
         }
 
         private void toolStripMenuItem19_Click(object sender, EventArgs e)
