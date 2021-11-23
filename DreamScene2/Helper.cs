@@ -11,10 +11,19 @@ namespace DreamScene2
         const string projectName = "DreamScene2";
         public const string cmd = "-c";
         static string s_extPath;
+        static string s_appPath;
 
         public static string GetPath(string str)
         {
-            return Path.Combine(Application.UserAppDataPath, str);
+            if(s_appPath == null)
+            {
+                s_appPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DreamScene2");
+                if (!Directory.Exists(s_appPath))
+                {
+                    Directory.CreateDirectory(s_appPath);
+                }
+            }
+            return Path.Combine(s_appPath, str);
         }
 
         public static string ExtPath()
