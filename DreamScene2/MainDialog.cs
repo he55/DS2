@@ -511,7 +511,7 @@ namespace DreamScene2
 
         private void toolStripMenuItem19_Click(object sender, EventArgs e)
         {
-
+            Helper.OpenUrl("https://developer.microsoft.com/en-us/microsoft-edge/webview2/consumer/");
         }
 
         private void toolStripMenuItem20_Click(object sender, EventArgs e)

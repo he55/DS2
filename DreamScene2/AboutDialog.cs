@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace DreamScene2
@@ -19,7 +18,7 @@ namespace DreamScene2
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://github.com/he55");
+            Helper.OpenUrl("https://github.com/he55");
         }
     }
 }

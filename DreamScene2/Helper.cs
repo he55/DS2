@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -12,6 +13,15 @@ namespace DreamScene2
         public const string cmd = "-c";
         static string s_extPath;
         static string s_appPath;
+
+        public static void OpenUrl(string str)
+        {
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            processStartInfo.FileName = str;
+            processStartInfo.UseShellExecute = true;
+
+            Process.Start(processStartInfo);
+        }
 
         public static string GetPath(string str)
         {
