@@ -17,8 +17,19 @@ namespace DreamScene2
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
             {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                bool flag = false;
+                try
+                {
+                    _ = new Uri(textBox1.Text);
+                    flag = true;
+                }
+                catch { }
+
+                if (flag)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
         }
     }

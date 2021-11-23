@@ -487,15 +487,12 @@ namespace DreamScene2
         {
             toolStripMenuItem18.DropDownItems.Clear();
 
-            string version;
+            string version="";
             try
             {
                 version = CoreWebView2Environment.GetAvailableBrowserVersionString();
             }
-            catch
-            {
-                version = "";
-            }
+            catch { }
 
             if (string.IsNullOrEmpty(version))
             {
