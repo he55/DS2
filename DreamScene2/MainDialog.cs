@@ -36,7 +36,7 @@ namespace DreamScene2
 
         #region 私有方法
 
-        void cplay()
+        void PlayVideo()
         {
             _isPlaying = true;
             _videoWindow.Play();
@@ -44,7 +44,7 @@ namespace DreamScene2
             toolStripMenuItem2.Text = "暂停";
         }
 
-        void cpause()
+        void PauseVideo()
         {
             _isPlaying = false;
             _videoWindow.Pause();
@@ -66,29 +66,29 @@ namespace DreamScene2
             }
         }
 
-        void OpenFile(string filepath)
+        void OpenFile(string path)
         {
-            Uri uri = new Uri(filepath);
-            SaveRecent(filepath);
+            Uri uri = new Uri(path);
+            SaveRecent(path);
 
             if (uri.Scheme == "http" || uri.Scheme == "https")
             {
-                openweb(filepath);
+                OpenWeb(path);
             }
-            else if (uri.Scheme == "file" && File.Exists(filepath))
+            else if (uri.Scheme == "file" && File.Exists(path))
             {
-                if (Path.GetExtension(filepath) == ".html")
+                if (Path.GetExtension(path) == ".html")
                 {
-                    openweb(uri.AbsoluteUri);
+                    OpenWeb(uri.AbsoluteUri);
                 }
                 else
                 {
-                    openvideo(filepath);
+                    OpenVideo(path);
                 }
             }
         }
 
-        void openvideo(string path)
+        void OpenVideo(string path)
         {
             closefunc(xclosetype.video);
 
@@ -122,7 +122,7 @@ namespace DreamScene2
             timer1.Enabled = _settings.AutoPause;
         }
 
-        void openweb(string url)
+        void OpenWeb(string url)
         {
             closefunc(xclosetype.web);
 
@@ -137,7 +137,7 @@ namespace DreamScene2
             _webWindow.Source = new Uri(url);
         }
 
-        void setwindow(IntPtr hWnd)
+        void SetWindow(IntPtr hWnd)
         {
             closefunc(xclosetype.window);
 
@@ -271,11 +271,11 @@ namespace DreamScene2
         {
             if (_isPlaying)
             {
-                cpause();
+                PauseVideo();
             }
             else
             {
-                cplay();
+                PlayVideo();
             }
 
             timer1.Enabled = _settings.AutoPause && _isPlaying;
@@ -374,11 +374,11 @@ namespace DreamScene2
 
             if (ispa)
             {
-                cpause();
+                PauseVideo();
             }
             else
             {
-                cplay();
+                PlayVideo();
             }
         }
 
@@ -473,7 +473,7 @@ namespace DreamScene2
 
             if (_videoWindow != null && !_isPlaying)
             {
-                cplay();
+                PlayVideo();
             }
         }
 
@@ -545,7 +545,7 @@ namespace DreamScene2
         private void ToolStripMenuItem23_Click(object sender, EventArgs e)
         {
             int hWnd = (int)((ToolStripMenuItem)sender).Tag;
-            setwindow((IntPtr)hWnd);
+            SetWindow((IntPtr)hWnd);
         }
 
         private void toolStripMenuItem18_DropDownOpening(object sender, EventArgs e)
@@ -592,7 +592,7 @@ namespace DreamScene2
         {
             if (m.Msg == (0x0400 + 1001))
             {
-                setwindow(m.WParam);
+                SetWindow(m.WParam);
                 return;
             }
             base.WndProc(ref m);
