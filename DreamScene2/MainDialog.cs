@@ -34,7 +34,7 @@ namespace DreamScene2
         }
 
 
-        #region MyRegion
+        #region 私有方法
 
         private void cplay()
         {
@@ -201,7 +201,7 @@ namespace DreamScene2
         #endregion
 
 
-        #region MyRegion
+        #region 控件事件
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -385,7 +385,7 @@ namespace DreamScene2
         #endregion
 
 
-        #region MyRegion
+        #region 菜单事件
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
