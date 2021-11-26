@@ -31,6 +31,11 @@ namespace DreamScene2
                     Directory.CreateDirectory(s_appPath);
                 }
             }
+
+            if (string.IsNullOrEmpty(str))
+            {
+                return s_appPath;
+            }
             return Path.Combine(s_appPath, str);
         }
 

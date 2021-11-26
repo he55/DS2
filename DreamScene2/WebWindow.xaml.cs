@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Microsoft.Web.WebView2.Core;
 
 namespace DreamScene2
 {
@@ -11,6 +12,13 @@ namespace DreamScene2
         public WebWindow()
         {
             InitializeComponent();
+            WebView2EnvironmentInit();
+        }
+
+        async void WebView2EnvironmentInit()
+        {
+            var webView2Environment = await CoreWebView2Environment.CreateAsync(null, Helper.GetPath(""));
+            await webView2.EnsureCoreWebView2Async(webView2Environment);
         }
 
         public Uri Source
