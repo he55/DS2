@@ -365,7 +365,7 @@ namespace DreamScene2
             }
         }
 
-         void RequestPauseVideo(bool pause)
+        void RequestPauseVideo(bool pause)
         {
             cplayCount = 0;
             cpauseCount = 0;
