@@ -90,7 +90,7 @@ namespace DreamScene2
 
         void OpenVideo(string path)
         {
-            closefunc(xclosetype.video);
+            CloseWindow(WindowType.Video);
 
             if (_videoWindow == null)
             {
@@ -124,7 +124,7 @@ namespace DreamScene2
 
         void OpenWeb(string url)
         {
-            closefunc(xclosetype.web);
+            CloseWindow(WindowType.Web);
 
             if (_webWindow == null)
             {
@@ -139,7 +139,7 @@ namespace DreamScene2
 
         void SetWindow(IntPtr hWnd)
         {
-            closefunc(xclosetype.window);
+            CloseWindow(WindowType.Window);
 
             if (_windowHandle != hWnd)
             {
@@ -150,19 +150,19 @@ namespace DreamScene2
             }
         }
 
-        enum xclosetype
+        enum WindowType
         {
-            none,
-            video,
-            window,
-            web
+            None,
+            Video,
+            Web,
+            Window
         }
 
-        xclosetype lxc;
+        WindowType lxc;
 
-        void closefunc(xclosetype xc)
+        void CloseWindow(WindowType xc)
         {
-            if (lxc == xclosetype.video && lxc != xc)
+            if (lxc == WindowType.Video && lxc != xc)
             {
                 timer1.Enabled = false;
                 _videoWindow.Close();
@@ -181,12 +181,12 @@ namespace DreamScene2
                 toolStripMenuItem3.Enabled = false;
                 toolStripMenuItem5.Enabled = false;
             }
-            else if (lxc == xclosetype.web && lxc != xc)
+            else if (lxc == WindowType.Web && lxc != xc)
             {
                 _webWindow.Close();
                 _webWindow = null;
             }
-            else if (lxc == xclosetype.window)
+            else if (lxc == WindowType.Window)
             {
                 _windowHandle = IntPtr.Zero;
                 PInvoke.reLastPos();
@@ -252,7 +252,7 @@ namespace DreamScene2
             }
             else
             {
-                closefunc(xclosetype.none);
+                CloseWindow(WindowType.None);
                 Settings.Save();
             }
         }
@@ -303,7 +303,7 @@ namespace DreamScene2
 
         private void button5_Click(object sender, EventArgs e)
         {
-            closefunc(xclosetype.none);
+            CloseWindow(WindowType.None);
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -320,7 +320,7 @@ namespace DreamScene2
         {
             if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
             {
-                xpauseMethod(true);
+                RequestPauseVideo(true);
                 return;
             }
 
@@ -338,7 +338,7 @@ namespace DreamScene2
 
             if (cpauseCount > 4)
             {
-                xpauseMethod(true);
+                RequestPauseVideo(true);
                 return;
             }
 
@@ -355,24 +355,24 @@ namespace DreamScene2
 
             if (pauseCount > 4)
             {
-                xpauseMethod(true);
+                RequestPauseVideo(true);
                 return;
             }
 
             if (cplayCount > 4 && playCount > 4)
             {
-                xpauseMethod(false);
+                RequestPauseVideo(false);
             }
         }
 
-        private void xpauseMethod(bool ispa)
+         void RequestPauseVideo(bool pause)
         {
             cplayCount = 0;
             cpauseCount = 0;
             playCount = 0;
             pauseCount = 0;
 
-            if (ispa)
+            if (pause)
             {
                 PauseVideo();
             }
