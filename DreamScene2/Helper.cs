@@ -6,12 +6,6 @@ using Microsoft.Win32;
 
 namespace DreamScene2
 {
-    public static class he5
-    {
-        public const string projectName = "DreamScene2";
-        public const string cmd = "-c";
-    }
-
     public static class Helper
     {
         const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
@@ -31,7 +25,7 @@ namespace DreamScene2
         {
             if (s_appPath == null)
             {
-                s_appPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), he5.projectName);
+                s_appPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Constant.projectName);
                 if (!Directory.Exists(s_appPath))
                 {
                     Directory.CreateDirectory(s_appPath);
@@ -45,7 +39,7 @@ namespace DreamScene2
             if (s_extPath == null)
             {
                 s_extPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                                         $".{he5.projectName}");
+                                         $".{Constant.projectName}");
             }
             return s_extPath;
         }
@@ -53,7 +47,7 @@ namespace DreamScene2
         public static bool CheckStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation);
-            bool startOnBoot = startupKey.GetValue(he5.projectName) != null;
+            bool startOnBoot = startupKey.GetValue(Constant.projectName) != null;
             startupKey.Close();
             return startOnBoot;
         }
@@ -61,14 +55,14 @@ namespace DreamScene2
         public static void SetStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
-            startupKey.SetValue(he5.projectName, $"{Application.ExecutablePath} {he5.cmd}");
+            startupKey.SetValue(Constant.projectName, $"{Application.ExecutablePath} {Constant.cmd}");
             startupKey.Close();
         }
 
         public static void RemoveStartOnBoot()
         {
             RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(registryStartupLocation, true);
-            startupKey.DeleteValue(he5.projectName);
+            startupKey.DeleteValue(Constant.projectName);
             startupKey.Close();
         }
     }
