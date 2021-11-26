@@ -257,11 +257,6 @@ namespace DreamScene2
             }
         }
 
-        #endregion
-
-
-        #region MyRegion
-
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -315,6 +310,76 @@ namespace DreamScene2
         {
             this.Show();
             this.Activate();
+        }
+
+        int cplayCount;
+        int cpauseCount;
+        int playCount;
+        int pauseCount;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
+            {
+                xpauseMethod(true);
+                return;
+            }
+
+            float val = _performanceCounter?.NextValue() ?? 0;
+            if (val > 15.0)
+            {
+                cplayCount = 0;
+                ++cpauseCount;
+            }
+            else
+            {
+                cpauseCount = 0;
+                ++cplayCount;
+            }
+
+            if (cpauseCount > 4)
+            {
+                xpauseMethod(true);
+                return;
+            }
+
+            if (PInvoke.getA() > 500)
+            {
+                pauseCount = 0;
+                ++playCount;
+            }
+            else
+            {
+                playCount = 0;
+                ++pauseCount;
+            }
+
+            if (pauseCount > 4)
+            {
+                xpauseMethod(true);
+                return;
+            }
+
+            if (cplayCount > 4 && playCount > 4)
+            {
+                xpauseMethod(false);
+            }
+        }
+
+        private void xpauseMethod(bool ispa)
+        {
+            cplayCount = 0;
+            cpauseCount = 0;
+            playCount = 0;
+            pauseCount = 0;
+
+            if (ispa)
+            {
+                cpause();
+            }
+            else
+            {
+                cplay();
+            }
         }
 
         #endregion
@@ -522,80 +587,6 @@ namespace DreamScene2
 
         #endregion
 
-
-        #region MyRegion
-
-        int cplayCount;
-        int cpauseCount;
-        int playCount;
-        int pauseCount;
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
-            {
-                xpauseMethod(true);
-                return;
-            }
-
-            float val = _performanceCounter?.NextValue() ?? 0;
-            if (val > 15.0)
-            {
-                cplayCount = 0;
-                ++cpauseCount;
-            }
-            else
-            {
-                cpauseCount = 0;
-                ++cplayCount;
-            }
-
-            if (cpauseCount > 4)
-            {
-                xpauseMethod(true);
-                return;
-            }
-
-            if (PInvoke.getA() > 500)
-            {
-                pauseCount = 0;
-                ++playCount;
-            }
-            else
-            {
-                playCount = 0;
-                ++pauseCount;
-            }
-
-            if (pauseCount > 4)
-            {
-                xpauseMethod(true);
-                return;
-            }
-
-            if (cplayCount > 4 && playCount > 4)
-            {
-                xpauseMethod(false);
-            }
-        }
-
-        private void xpauseMethod(bool ispa)
-        {
-            cplayCount = 0;
-            cpauseCount = 0;
-            playCount = 0;
-            pauseCount = 0;
-
-            if (ispa)
-            {
-                cpause();
-            }
-            else
-            {
-                cplay();
-            }
-        }
-
-        #endregion
 
         protected override void WndProc(ref Message m)
         {
