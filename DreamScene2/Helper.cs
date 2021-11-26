@@ -25,9 +25,9 @@ namespace DreamScene2
 
         public static string GetPath(string str)
         {
-            if(s_appPath == null)
+            if (s_appPath == null)
             {
-                s_appPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),projectName);
+                s_appPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), projectName);
                 if (!Directory.Exists(s_appPath))
                 {
                     Directory.CreateDirectory(s_appPath);

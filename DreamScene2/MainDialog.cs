@@ -36,7 +36,7 @@ namespace DreamScene2
 
         #region 私有方法
 
-        private void cplay()
+        void cplay()
         {
             _isPlaying = true;
             _videoWindow.Play();
@@ -44,7 +44,7 @@ namespace DreamScene2
             toolStripMenuItem2.Text = "暂停";
         }
 
-        private void cpause()
+        void cpause()
         {
             _isPlaying = false;
             _videoWindow.Pause();
@@ -52,7 +52,7 @@ namespace DreamScene2
             toolStripMenuItem2.Text = "播放";
         }
 
-        private void SaveRecent(string path)
+        void SaveRecent(string path)
         {
             if (_recentFiles.Count == 0 || _recentFiles[0] != path)
             {
@@ -66,7 +66,7 @@ namespace DreamScene2
             }
         }
 
-        private void OpenFile(string filepath)
+        void OpenFile(string filepath)
         {
             Uri uri = new Uri(filepath);
             SaveRecent(filepath);
@@ -88,7 +88,7 @@ namespace DreamScene2
             }
         }
 
-        private void openvideo(string path)
+        void openvideo(string path)
         {
             closefunc(xclosetype.video);
 
@@ -122,7 +122,7 @@ namespace DreamScene2
             timer1.Enabled = _settings.AutoPause;
         }
 
-        private void openweb(string url)
+        void openweb(string url)
         {
             closefunc(xclosetype.web);
 
@@ -137,7 +137,7 @@ namespace DreamScene2
             _webWindow.Source = new Uri(url);
         }
 
-        private void setwindow(IntPtr hWnd)
+        void setwindow(IntPtr hWnd)
         {
             closefunc(xclosetype.window);
 
@@ -160,7 +160,7 @@ namespace DreamScene2
 
         xclosetype lxc;
 
-        private void closefunc(xclosetype xc)
+        void closefunc(xclosetype xc)
         {
             if (lxc == xclosetype.video && lxc != xc)
             {
@@ -552,7 +552,7 @@ namespace DreamScene2
         {
             toolStripMenuItem18.DropDownItems.Clear();
 
-            string version="";
+            string version = "";
             try
             {
                 version = CoreWebView2Environment.GetAvailableBrowserVersionString();
