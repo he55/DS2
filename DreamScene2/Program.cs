@@ -13,7 +13,7 @@ namespace DreamScene2
         [STAThread]
         static void Main(string[] args)
         {
-            _ = new Mutex(true, "DreamScene2", out bool isNew);
+            _ = new Mutex(true, he5.projectName, out bool isNew);
             if (!isNew)
             {
                 return;
@@ -33,7 +33,7 @@ namespace DreamScene2
             MainDialog mainDialog = new MainDialog();
             mainDialog.Show();
 
-            if (args.Length != 0 && args[0] == Helper.cmd)
+            if (args.Length != 0 && args[0] == he5.cmd)
             {
                 mainDialog.Hide();
             }
