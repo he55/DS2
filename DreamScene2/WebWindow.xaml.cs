@@ -26,5 +26,12 @@ namespace DreamScene2
             get => webView2.Source;
             set => webView2.Source = value;
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            webView2.Dispose();
+            webView2 = null;
+            base.OnClosed(e);
+        }
     }
 }

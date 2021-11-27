@@ -40,7 +40,7 @@ namespace DreamScene2
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(105, 16);
+            this.label1.Location = new System.Drawing.Point(105, 14);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 1;
@@ -49,7 +49,7 @@ namespace DreamScene2
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(105, 77);
+            this.linkLabel1.Location = new System.Drawing.Point(105, 56);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(41, 12);
             this.linkLabel1.TabIndex = 2;
@@ -79,7 +79,7 @@ namespace DreamScene2
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(105, 43);
+            this.label2.Location = new System.Drawing.Point(105, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(23, 12);
             this.label2.TabIndex = 4;

@@ -52,7 +52,7 @@ namespace DreamScene2
             toolStripMenuItem2.Text = "播放";
         }
 
-        void SaveRecent(string path)
+        void SaveRecentFile(string path)
         {
             if (_recentFiles.Count == 0 || _recentFiles[0] != path)
             {
@@ -69,7 +69,7 @@ namespace DreamScene2
         void OpenFile(string path)
         {
             Uri uri = new Uri(path);
-            SaveRecent(path);
+            SaveRecentFile(path);
 
             if (uri.Scheme == "http" || uri.Scheme == "https")
             {
@@ -101,20 +101,19 @@ namespace DreamScene2
                 _videoWindow.Show();
 
                 PInvoke.SetParent(_videoWindow.GetHandle(), _desktopWindowHandle);
-
-                button4.Enabled = true;
-                button5.Enabled = true;
-                checkBox1.Enabled = true;
-                trackBar1.Enabled = !_settings.IsMuted;
-
-                toolStripMenuItem2.Enabled = true;
-                toolStripMenuItem3.Enabled = true;
-                toolStripMenuItem5.Enabled = true;
             }
-
 
             _videoWindow.Source = new Uri(path, UriKind.Absolute);
             _videoWindow.Play();
+
+            button4.Enabled = true;
+            button5.Enabled = true;
+            checkBox1.Enabled = true;
+            trackBar1.Enabled = !_settings.IsMuted;
+
+            toolStripMenuItem2.Enabled = true;
+            toolStripMenuItem3.Enabled = true;
+            toolStripMenuItem5.Enabled = true;
 
             _isPlaying = true;
             button4.Text = "暂停";
@@ -134,7 +133,10 @@ namespace DreamScene2
 
                 PInvoke.SetParent(_webWindow.GetHandle(), _desktopWindowHandle);
             }
+
             _webWindow.Source = new Uri(url);
+            button5.Enabled = true;
+            toolStripMenuItem5.Enabled = true;
         }
 
         void SetWindow(IntPtr hWnd)
@@ -148,6 +150,9 @@ namespace DreamScene2
                 PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
                 PInvoke.SetParent(hWnd, _desktopWindowHandle);
             }
+
+            button5.Enabled = true;
+            toolStripMenuItem5.Enabled = true;
         }
 
         enum WindowType
@@ -162,24 +167,25 @@ namespace DreamScene2
 
         void CloseWindow(WindowType xc)
         {
+            button5.Enabled = false;
+            toolStripMenuItem5.Enabled = false;
+
             if (lxc == WindowType.Video && lxc != xc)
             {
                 timer1.Enabled = false;
-                _videoWindow.Close();
-                _videoWindow = null;
-
                 _isPlaying = false;
                 button4.Text = "播放";
                 toolStripMenuItem2.Text = "播放";
 
                 button4.Enabled = false;
-                button5.Enabled = false;
                 checkBox1.Enabled = false;
                 trackBar1.Enabled = false;
 
                 toolStripMenuItem2.Enabled = false;
                 toolStripMenuItem3.Enabled = false;
-                toolStripMenuItem5.Enabled = false;
+
+                _videoWindow.Close();
+                _videoWindow = null;
             }
             else if (lxc == WindowType.Web && lxc != xc)
             {
@@ -573,7 +579,7 @@ namespace DreamScene2
 
         private void toolStripMenuItem19_Click(object sender, EventArgs e)
         {
-            Helper.OpenUrl("https://developer.microsoft.com/en-us/microsoft-edge/webview2/consumer/");
+            Helper.OpenLink("https://developer.microsoft.com/en-us/microsoft-edge/webview2/consumer/");
         }
 
         private void toolStripMenuItem20_Click(object sender, EventArgs e)
