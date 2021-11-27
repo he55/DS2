@@ -52,7 +52,7 @@ namespace DreamScene2
             toolStripMenuItem2.Text = "播放";
         }
 
-        void SaveRecent(string path)
+        void SaveRecentFile(string path)
         {
             if (_recentFiles.Count == 0 || _recentFiles[0] != path)
             {
@@ -69,7 +69,7 @@ namespace DreamScene2
         void OpenFile(string path)
         {
             Uri uri = new Uri(path);
-            SaveRecent(path);
+            SaveRecentFile(path);
 
             if (uri.Scheme == "http" || uri.Scheme == "https")
             {
@@ -579,7 +579,7 @@ namespace DreamScene2
 
         private void toolStripMenuItem19_Click(object sender, EventArgs e)
         {
-            Helper.OpenUrl("https://developer.microsoft.com/en-us/microsoft-edge/webview2/consumer/");
+            Helper.OpenLink("https://developer.microsoft.com/en-us/microsoft-edge/webview2/consumer/");
         }
 
         private void toolStripMenuItem20_Click(object sender, EventArgs e)

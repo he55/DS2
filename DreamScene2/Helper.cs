@@ -9,19 +9,18 @@ namespace DreamScene2
     public static class Helper
     {
         const string registryStartupLocation = @"Software\Microsoft\Windows\CurrentVersion\Run";
-        static string s_extPath;
         static string s_appPath;
 
-        public static void OpenUrl(string str)
+        public static void OpenLink(string link)
         {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo();
-            processStartInfo.FileName = str;
-            processStartInfo.UseShellExecute = true;
-
-            Process.Start(processStartInfo);
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = link,
+                UseShellExecute = true
+            });
         }
 
-        public static string GetPath(string str)
+        public static string GetPath(string subPath)
         {
             if (s_appPath == null)
             {
@@ -32,21 +31,16 @@ namespace DreamScene2
                 }
             }
 
-            if (string.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(subPath))
             {
                 return s_appPath;
             }
-            return Path.Combine(s_appPath, str);
+            return Path.Combine(s_appPath, subPath);
         }
 
         public static string ExtPath()
         {
-            if (s_extPath == null)
-            {
-                s_extPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                                         $".{Constant.projectName}");
-            }
-            return s_extPath;
+            return GetPath($".{Constant.projectName}");
         }
 
         public static bool CheckStartOnBoot()
