@@ -40,5 +40,12 @@ namespace DreamScene2
             mediaElement.Position = TimeSpan.Zero;
             mediaElement.Play();
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            mediaElement.Close();
+            mediaElement = null;
+            base.OnClosed(e);
+        }
     }
 }
