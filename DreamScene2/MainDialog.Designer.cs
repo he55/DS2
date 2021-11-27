@@ -71,7 +71,7 @@ namespace DreamScene2
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(19, 21);
+            this.button2.Location = new System.Drawing.Point(12, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -82,7 +82,7 @@ namespace DreamScene2
             // button4
             // 
             this.button4.Enabled = false;
-            this.button4.Location = new System.Drawing.Point(19, 71);
+            this.button4.Location = new System.Drawing.Point(12, 49);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -94,7 +94,7 @@ namespace DreamScene2
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(19, 111);
+            this.checkBox1.Location = new System.Drawing.Point(14, 88);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(48, 16);
             this.checkBox1.TabIndex = 4;
@@ -106,9 +106,9 @@ namespace DreamScene2
             // 
             this.trackBar1.Enabled = false;
             this.trackBar1.LargeChange = 1;
-            this.trackBar1.Location = new System.Drawing.Point(97, 111);
+            this.trackBar1.Location = new System.Drawing.Point(69, 80);
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(128, 45);
+            this.trackBar1.Size = new System.Drawing.Size(113, 45);
             this.trackBar1.TabIndex = 5;
             this.trackBar1.Value = 5;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -116,7 +116,7 @@ namespace DreamScene2
             // button5
             // 
             this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(129, 71);
+            this.button5.Location = new System.Drawing.Point(100, 49);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 7;
@@ -128,7 +128,7 @@ namespace DreamScene2
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(110, 26);
+            this.label1.Location = new System.Drawing.Point(100, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 12);
             this.label1.TabIndex = 8;
@@ -210,7 +210,7 @@ namespace DreamScene2
             // 
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
             this.toolStripMenuItem20.Size = new System.Drawing.Size(199, 22);
-            this.toolStripMenuItem20.Text = "打开...";
+            this.toolStripMenuItem20.Text = "打开网页...";
             this.toolStripMenuItem20.Click += new System.EventHandler(this.toolStripMenuItem20_Click);
             // 
             // toolStripMenuItem7
@@ -351,7 +351,7 @@ namespace DreamScene2
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(19, 153);
+            this.checkBox2.Location = new System.Drawing.Point(14, 118);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(108, 16);
             this.checkBox2.TabIndex = 9;
@@ -368,7 +368,7 @@ namespace DreamScene2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 185);
+            this.ClientSize = new System.Drawing.Size(207, 144);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button5);
