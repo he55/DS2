@@ -9,6 +9,7 @@ namespace DreamScene2
         {
             InitializeComponent();
             this.Icon = DreamScene2.Properties.Resources.ico3;
+            label2.Text = "";
         }
 
         public string URL => textBox1.Text;
@@ -17,19 +18,22 @@ namespace DreamScene2
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
             {
-                bool flag = false;
                 try
                 {
                     _ = new Uri(textBox1.Text);
-                    flag = true;
                 }
-                catch { }
-
-                if (flag)
+                catch
                 {
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    label2.Text = "输入的 URL 无效";
+                    return;
                 }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                label2.Text = "输入不能为空";
             }
         }
     }
