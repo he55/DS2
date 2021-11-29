@@ -606,17 +606,33 @@ namespace DreamScene2
 
         private void toolStripMenuItem23_Click_1(object sender, EventArgs e)
         {
+            _settings.AutoPause1 = !toolStripMenuItem23.Checked;
+            toolStripMenuItem23.Checked = _settings.AutoPause1;
+            NewMethod();
+        }
 
+        private void NewMethod()
+        {
+            timer1.Enabled = (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3) && _isPlaying;
+
+            if ((!_settings.AutoPause1 && !_settings.AutoPause2 && !_settings.AutoPause3) && _videoWindow != null && !_isPlaying)
+            {
+                PlayVideo();
+            }
         }
 
         private void toolStripMenuItem24_Click(object sender, EventArgs e)
         {
-
+            _settings.AutoPause2 = !toolStripMenuItem24.Checked;
+            toolStripMenuItem24.Checked = _settings.AutoPause2;
+            NewMethod();
         }
 
         private void toolStripMenuItem25_Click(object sender, EventArgs e)
         {
-
+            _settings.AutoPause3 = !toolStripMenuItem25.Checked;
+            toolStripMenuItem25.Checked = _settings.AutoPause3;
+            NewMethod();
         }
     }
 }
