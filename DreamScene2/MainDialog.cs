@@ -320,6 +320,28 @@ namespace DreamScene2
             this.Activate();
         }
 
+        int[] cpuarr = new int[5];
+        int[] parr = new int[5];
+
+        void arrpush(int[] arr, int val)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                arr[i] = arr[i + 1];
+            }
+            arr[arr.Length - 1] = val;
+        }
+
+        int arrsum(int[] arr)
+        {
+            int sum = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                sum += arr[i];
+            }
+            return sum;
+        }
+
         int cplayCount;
         int cpauseCount;
         int playCount;
