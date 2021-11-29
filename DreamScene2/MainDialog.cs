@@ -320,9 +320,6 @@ namespace DreamScene2
             this.Activate();
         }
 
-        int[] cpuarr = new int[5];
-        int[] parr = new int[5];
-
         void arrpush(int[] arr, int val)
         {
             for (int i = 0; i < arr.Length - 1; i++)
@@ -342,71 +339,63 @@ namespace DreamScene2
             return sum;
         }
 
-        int cplayCount;
-        int cpauseCount;
-        int playCount;
-        int pauseCount;
-        private void timer1_Tick(object sender, EventArgs e)
+        bool arrpr(int[] arr)
         {
-            if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
+            for (int i = 0; i < arr.Length; i++)
             {
-                RequestPauseVideo(true);
-                return;
+                if (arr[i] == 0)
+                {
+                    return false;
+                }
             }
 
-            float val = _performanceCounter?.NextValue() ?? 0;
-            if (val > 15.0)
+            for (int i = 0; i < arr.Length; i++)
             {
-                cplayCount = 0;
-                ++cpauseCount;
-            }
-            else
-            {
-                cpauseCount = 0;
-                ++cplayCount;
+                arr[i] = 0;
             }
 
-            if (cpauseCount > 4)
-            {
-                RequestPauseVideo(true);
-                return;
-            }
-
-            if (PInvoke.getA() > 500)
-            {
-                pauseCount = 0;
-                ++playCount;
-            }
-            else
-            {
-                playCount = 0;
-                ++pauseCount;
-            }
-
-            if (pauseCount > 4)
-            {
-                RequestPauseVideo(true);
-                return;
-            }
-
-            if (cplayCount > 4 && playCount > 4)
-            {
-                RequestPauseVideo(false);
-            }
+            return true;
         }
 
-        void RequestPauseVideo(bool pause)
-        {
-            cplayCount = 0;
-            cpauseCount = 0;
-            playCount = 0;
-            pauseCount = 0;
+        int[] cpuarr = new int[5];
+        int[] parr = new int[5];
 
-            if (pause)
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (_settings.AutoPause3)
             {
-                PauseVideo();
+                if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
+                {
+                    PauseVideo();
+                    return;
+                }
             }
-            else
+
+            if (_settings.AutoPause2)
+            {
+                float val = _performanceCounter?.NextValue() ?? 0;
+                arrpush(cpuarr, val > 15.0 ? 1 : 0);
+
+                if (arrpr(cpuarr))
+                {
+                    PauseVideo();
+                    return;
+                }
+            }
+
+            if (_settings.AutoPause1)
+            {
+                bool bv = PInvoke.getA() > 500;
+                arrpush(parr, bv ? 1 : 0);
+
+                if (arrpr(parr))
+                {
+                    PauseVideo();
+                    return;
+                }
+            }
+
+            if (arrsum(cpuarr) == 0 && arrsum(parr) == 0)
             {
                 PlayVideo();
             }
