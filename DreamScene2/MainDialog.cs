@@ -353,16 +353,22 @@ namespace DreamScene2
 
         int[] cpuarr = new int[5];
         int[] parr = new int[5];
+        bool fullscr;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (_settings.AutoPause3)
             {
-                if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
+                fullscr = PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0;
+                if (fullscr)
                 {
                     if (_isPlaying) PauseVideo();
                     return;
                 }
+            }
+            else
+            {
+                fullscr = false;
             }
 
             if (_settings.AutoPause2)
@@ -376,6 +382,10 @@ namespace DreamScene2
                     return;
                 }
             }
+            else
+            {
+                arrpush(cpuarr, 0);
+            }
 
             if (_settings.AutoPause1)
             {
@@ -384,12 +394,16 @@ namespace DreamScene2
 
                 if (arrpr(parr))
                 {
-                    if(_isPlaying) PauseVideo();
+                    if (_isPlaying) PauseVideo();
                     return;
                 }
             }
+            else
+            {
+                arrpush(parr, 0);
+            }
 
-            if (!_isPlaying && arrsum(cpuarr) == 0 && arrsum(parr) == 0)
+            if (!fullscr && !_isPlaying && arrsum(cpuarr) == 0 && arrsum(parr) == 0)
             {
                 PlayVideo();
             }
@@ -622,7 +636,7 @@ namespace DreamScene2
 
         private void NewMethod()
         {
-            timer1.Enabled = (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3) && _isPlaying;
+            timer1.Enabled = (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3) && _videoWindow != null;
 
             if ((!_settings.AutoPause1 && !_settings.AutoPause2 && !_settings.AutoPause3) && _videoWindow != null && !_isPlaying)
             {
