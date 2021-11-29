@@ -477,7 +477,7 @@ namespace DreamScene2
             toolStripMenuItem13.Checked = _settings.AutoPause;
             timer1.Enabled = _settings.AutoPause && _isPlaying;
 
-            if (_videoWindow != null && !_isPlaying)
+            if (!_settings.AutoPause&&_videoWindow != null && !_isPlaying)
             {
                 PlayVideo();
             }
@@ -602,6 +602,21 @@ namespace DreamScene2
                 return;
             }
             base.WndProc(ref m);
+        }
+
+        private void toolStripMenuItem23_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem24_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem25_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
