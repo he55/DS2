@@ -14,7 +14,11 @@ namespace DreamScene2
 
         public bool FirstRun { get; set; } = true;
         public bool AutoPlay { get; set; }
-        public bool AutoPause { get; set; }
+
+        public bool AutoPause1 { get; set; }
+        public bool AutoPause2 { get; set; }
+        public bool AutoPause3 { get; set; } = true;
+
         public bool IsMuted { get; set; }
         public int Volume { get; set; } = 3;
 

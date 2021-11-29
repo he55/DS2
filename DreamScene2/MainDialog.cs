@@ -28,7 +28,9 @@ namespace DreamScene2
             this.Icon = DreamScene2.Properties.Resources.ico3;
             notifyIcon1.Icon = this.Icon;
             trackBar1.Value = _settings.Volume;
-            toolStripMenuItem13.Checked = _settings.AutoPause;
+            toolStripMenuItem23.Checked = _settings.AutoPause1;
+            toolStripMenuItem24.Checked = _settings.AutoPause2;
+            toolStripMenuItem25.Checked = _settings.AutoPause3;
             checkBox1.Checked = _settings.IsMuted;
             toolStripMenuItem3.Checked = _settings.IsMuted;
         }
@@ -118,7 +120,7 @@ namespace DreamScene2
             _isPlaying = true;
             button4.Text = "暂停";
             toolStripMenuItem2.Text = "暂停";
-            timer1.Enabled = _settings.AutoPause;
+            timer1.Enabled = _settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3;
         }
 
         void OpenWeb(string url)
@@ -284,7 +286,7 @@ namespace DreamScene2
                 PlayVideo();
             }
 
-            timer1.Enabled = _settings.AutoPause && _isPlaying;
+            timer1.Enabled = (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3) && _isPlaying;
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -318,71 +320,90 @@ namespace DreamScene2
             this.Activate();
         }
 
-        int cplayCount;
-        int cpauseCount;
-        int playCount;
-        int pauseCount;
-        private void timer1_Tick(object sender, EventArgs e)
+        void arrpush(int[] arr, int val)
         {
-            if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
+            for (int i = 0; i < arr.Length - 1; i++)
             {
-                RequestPauseVideo(true);
-                return;
+                arr[i] = arr[i + 1];
             }
-
-            float val = _performanceCounter?.NextValue() ?? 0;
-            if (val > 15.0)
-            {
-                cplayCount = 0;
-                ++cpauseCount;
-            }
-            else
-            {
-                cpauseCount = 0;
-                ++cplayCount;
-            }
-
-            if (cpauseCount > 4)
-            {
-                RequestPauseVideo(true);
-                return;
-            }
-
-            if (PInvoke.getA() > 500)
-            {
-                pauseCount = 0;
-                ++playCount;
-            }
-            else
-            {
-                playCount = 0;
-                ++pauseCount;
-            }
-
-            if (pauseCount > 4)
-            {
-                RequestPauseVideo(true);
-                return;
-            }
-
-            if (cplayCount > 4 && playCount > 4)
-            {
-                RequestPauseVideo(false);
-            }
+            arr[arr.Length - 1] = val;
         }
 
-        void RequestPauseVideo(bool pause)
+        int arrsum(int[] arr)
         {
-            cplayCount = 0;
-            cpauseCount = 0;
-            playCount = 0;
-            pauseCount = 0;
-
-            if (pause)
+            int sum = 0;
+            for (int i = 0; i < arr.Length; i++)
             {
-                PauseVideo();
+                sum += arr[i];
+            }
+            return sum;
+        }
+
+        bool arrpr(int[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        int[] cpuarr = new int[5];
+        int[] parr = new int[5];
+        bool fullscr;
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (_settings.AutoPause3)
+            {
+                fullscr = PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0;
+                if (fullscr)
+                {
+                    if (_isPlaying) PauseVideo();
+                    return;
+                }
             }
             else
+            {
+                fullscr = false;
+            }
+
+            if (_settings.AutoPause2)
+            {
+                float val = _performanceCounter?.NextValue() ?? 0;
+                arrpush(cpuarr, val > 15.0 ? 1 : 0);
+
+                if (arrpr(cpuarr))
+                {
+                    if (_isPlaying) PauseVideo();
+                    return;
+                }
+            }
+            else
+            {
+                arrpush(cpuarr, 0);
+            }
+
+            if (_settings.AutoPause1)
+            {
+                bool bv = PInvoke.getA() < 500;
+                arrpush(parr, bv ? 1 : 0);
+
+                if (arrpr(parr))
+                {
+                    if (_isPlaying) PauseVideo();
+                    return;
+                }
+            }
+            else
+            {
+                arrpush(parr, 0);
+            }
+
+            if (!fullscr && !_isPlaying && arrsum(cpuarr) == 0 && arrsum(parr) == 0)
             {
                 PlayVideo();
             }
@@ -434,7 +455,7 @@ namespace DreamScene2
                 //string v = filePath.Truncate(50);
                 ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem($"{i + 1}. {filePath}");
                 toolStripMenuItem.Tag = filePath;
-                toolStripMenuItem.Click += ToolStripMenuItem_Click;
+                toolStripMenuItem.Click += ToolStripMenuItem_Click1;
                 toolStripMenuItem7.DropDownItems.Add(toolStripMenuItem);
             }
 
@@ -442,7 +463,7 @@ namespace DreamScene2
             toolStripMenuItem7.DropDownItems.Add(toolStripMenuItem8);
         }
 
-        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_Click1(object sender, EventArgs e)
         {
             OpenFile((string)((ToolStripMenuItem)sender).Tag);
         }
@@ -471,18 +492,6 @@ namespace DreamScene2
             }
         }
 
-        private void toolStripMenuItem13_Click(object sender, EventArgs e)
-        {
-            _settings.AutoPause = !toolStripMenuItem13.Checked;
-            toolStripMenuItem13.Checked = _settings.AutoPause;
-            timer1.Enabled = _settings.AutoPause && _isPlaying;
-
-            if (_videoWindow != null && !_isPlaying)
-            {
-                PlayVideo();
-            }
-        }
-
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
         {
             AboutDialog aboutDialog = new AboutDialog();
@@ -505,12 +514,12 @@ namespace DreamScene2
                 ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem(allScreens[i].Primary ? allScreens[i].DeviceName + " - Primary" : allScreens[i].DeviceName);
                 toolStripMenuItem.Checked = _screenIndex == i;
                 toolStripMenuItem.Tag = i;
-                toolStripMenuItem.Click += ToolStripMenuItem2_Click;
+                toolStripMenuItem.Click += ToolStripMenuItem_Click2;
                 toolStripMenuItem10.DropDownItems.Add(toolStripMenuItem);
             }
         }
 
-        private void ToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_Click2(object sender, EventArgs e)
         {
             _screenIndex = (int)((ToolStripMenuItem)sender).Tag;
             _screen = Screen.AllScreens[_screenIndex];
@@ -542,13 +551,13 @@ namespace DreamScene2
                     toolStripMenuItem.Enabled = b;
                     toolStripMenuItem.Checked = _windowHandle == ptr;
                     toolStripMenuItem.Tag = val;
-                    toolStripMenuItem.Click += ToolStripMenuItem23_Click;
+                    toolStripMenuItem.Click += ToolStripMenuItem_Click3;
                     toolStripMenuItem16.DropDownItems.Add(toolStripMenuItem);
                 }
             }
         }
 
-        private void ToolStripMenuItem23_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_Click3(object sender, EventArgs e)
         {
             int hWnd = (int)((ToolStripMenuItem)sender).Tag;
             SetWindow((IntPtr)hWnd);
@@ -602,6 +611,37 @@ namespace DreamScene2
                 return;
             }
             base.WndProc(ref m);
+        }
+
+        private void toolStripMenuItem23_Click(object sender, EventArgs e)
+        {
+            _settings.AutoPause1 = !toolStripMenuItem23.Checked;
+            toolStripMenuItem23.Checked = _settings.AutoPause1;
+            NewMethod();
+        }
+
+        private void toolStripMenuItem24_Click(object sender, EventArgs e)
+        {
+            _settings.AutoPause2 = !toolStripMenuItem24.Checked;
+            toolStripMenuItem24.Checked = _settings.AutoPause2;
+            NewMethod();
+        }
+
+        private void toolStripMenuItem25_Click(object sender, EventArgs e)
+        {
+            _settings.AutoPause3 = !toolStripMenuItem25.Checked;
+            toolStripMenuItem25.Checked = _settings.AutoPause3;
+            NewMethod();
+        }
+
+        private void NewMethod()
+        {
+            timer1.Enabled = (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3) && _videoWindow != null;
+
+            if ((!_settings.AutoPause1 && !_settings.AutoPause2 && !_settings.AutoPause3) && _videoWindow != null && !_isPlaying)
+            {
+                PlayVideo();
+            }
         }
     }
 }
