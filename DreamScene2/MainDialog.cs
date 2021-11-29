@@ -348,12 +348,6 @@ namespace DreamScene2
                     return false;
                 }
             }
-
-            for (int i = 0; i < arr.Length; i++)
-            {
-                arr[i] = 0;
-            }
-
             return true;
         }
 
@@ -366,10 +360,7 @@ namespace DreamScene2
             {
                 if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
                 {
-                    if (_isPlaying)
-                    {
-                        PauseVideo();
-                    }
+                    if (_isPlaying) PauseVideo();
                     return;
                 }
             }
@@ -381,25 +372,19 @@ namespace DreamScene2
 
                 if (arrpr(cpuarr))
                 {
-                    if (_isPlaying)
-                    {
-                        PauseVideo();
-                    }
+                    if (_isPlaying) PauseVideo();
                     return;
                 }
             }
 
             if (_settings.AutoPause1)
             {
-                bool bv = PInvoke.getA() > 500;
+                bool bv = PInvoke.getA() < 500;
                 arrpush(parr, bv ? 1 : 0);
 
                 if (arrpr(parr))
                 {
-                    if (_isPlaying)
-                    {
-                        PauseVideo();
-                    }
+                    if(_isPlaying) PauseVideo();
                     return;
                 }
             }
