@@ -49,7 +49,6 @@ namespace DreamScene2
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem24 = new System.Windows.Forms.ToolStripMenuItem();
@@ -156,7 +155,6 @@ namespace DreamScene2
             this.toolStripSeparator4,
             this.toolStripMenuItem12,
             this.toolStripMenuItem6,
-            this.toolStripMenuItem13,
             this.toolStripMenuItem22,
             this.toolStripMenuItem10,
             this.toolStripSeparator2,
@@ -170,7 +168,7 @@ namespace DreamScene2
             this.toolStripSeparator3,
             this.toolStripMenuItem4});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(200, 402);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(200, 358);
             // 
             // toolStripMenuItem15
             // 
@@ -253,13 +251,6 @@ namespace DreamScene2
             this.toolStripMenuItem6.Size = new System.Drawing.Size(199, 22);
             this.toolStripMenuItem6.Text = "启动后自动播放";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
-            // 
-            // toolStripMenuItem13
-            // 
-            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(199, 22);
-            this.toolStripMenuItem13.Text = "有操作时暂停播放";
-            this.toolStripMenuItem13.Click += new System.EventHandler(this.toolStripMenuItem13_Click);
             // 
             // toolStripMenuItem22
             // 
@@ -450,7 +441,6 @@ namespace DreamScene2
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;

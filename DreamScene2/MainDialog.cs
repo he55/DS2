@@ -28,7 +28,9 @@ namespace DreamScene2
             this.Icon = DreamScene2.Properties.Resources.ico3;
             notifyIcon1.Icon = this.Icon;
             trackBar1.Value = _settings.Volume;
-            toolStripMenuItem13.Checked = _settings.AutoPause;
+            toolStripMenuItem23.Checked = _settings.AutoPause1;
+            toolStripMenuItem24.Checked = _settings.AutoPause2;
+            toolStripMenuItem25.Checked = _settings.AutoPause3;
             checkBox1.Checked = _settings.IsMuted;
             toolStripMenuItem3.Checked = _settings.IsMuted;
         }
@@ -118,7 +120,7 @@ namespace DreamScene2
             _isPlaying = true;
             button4.Text = "暂停";
             toolStripMenuItem2.Text = "暂停";
-            timer1.Enabled = _settings.AutoPause;
+            timer1.Enabled = _settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3;
         }
 
         void OpenWeb(string url)
@@ -284,7 +286,7 @@ namespace DreamScene2
                 PlayVideo();
             }
 
-            timer1.Enabled = _settings.AutoPause && _isPlaying;
+            timer1.Enabled = (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3) && _isPlaying;
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -468,18 +470,6 @@ namespace DreamScene2
             else
             {
                 Helper.RemoveStartOnBoot();
-            }
-        }
-
-        private void toolStripMenuItem13_Click(object sender, EventArgs e)
-        {
-            _settings.AutoPause = !toolStripMenuItem13.Checked;
-            toolStripMenuItem13.Checked = _settings.AutoPause;
-            timer1.Enabled = _settings.AutoPause && _isPlaying;
-
-            if (!_settings.AutoPause&&_videoWindow != null && !_isPlaying)
-            {
-                PlayVideo();
             }
         }
 
