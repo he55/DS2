@@ -366,7 +366,10 @@ namespace DreamScene2
             {
                 if (PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0)
                 {
-                    PauseVideo();
+                    if (_isPlaying)
+                    {
+                        PauseVideo();
+                    }
                     return;
                 }
             }
@@ -378,7 +381,10 @@ namespace DreamScene2
 
                 if (arrpr(cpuarr))
                 {
-                    PauseVideo();
+                    if (_isPlaying)
+                    {
+                        PauseVideo();
+                    }
                     return;
                 }
             }
@@ -390,12 +396,15 @@ namespace DreamScene2
 
                 if (arrpr(parr))
                 {
-                    PauseVideo();
+                    if (_isPlaying)
+                    {
+                        PauseVideo();
+                    }
                     return;
                 }
             }
 
-            if (arrsum(cpuarr) == 0 && arrsum(parr) == 0)
+            if (!_isPlaying && arrsum(cpuarr) == 0 && arrsum(parr) == 0)
             {
                 PlayVideo();
             }
