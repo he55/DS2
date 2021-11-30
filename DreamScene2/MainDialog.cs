@@ -18,7 +18,7 @@ namespace DreamScene2
         bool _isPlaying;
         PerformanceCounter _performanceCounter;
         Settings _settings = Settings.Load();
-        Screen _screen = Screen.PrimaryScreen;
+        Screen _screen;
         int _screenIndex;
         IntPtr _windowHandle;
 
@@ -217,6 +217,8 @@ namespace DreamScene2
             {
                 _performanceCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             });
+
+            _screen = Screen.PrimaryScreen;
 
             _desktopWindowHandle = PInvoke.getC();
             if (_desktopWindowHandle == IntPtr.Zero)
@@ -602,27 +604,22 @@ namespace DreamScene2
 
         private void toolStripMenuItem23_Click(object sender, EventArgs e)
         {
-            _settings.AutoPause1 = !toolStripMenuItem23.Checked;
-            toolStripMenuItem23.Checked = _settings.AutoPause1;
-            NewMethod();
-        }
+            if (sender == toolStripMenuItem23)
+            {
+                _settings.AutoPause1 = !toolStripMenuItem23.Checked;
+                toolStripMenuItem23.Checked = _settings.AutoPause1;
+            }
+            else if (sender == toolStripMenuItem24)
+            {
+                _settings.AutoPause2 = !toolStripMenuItem24.Checked;
+                toolStripMenuItem24.Checked = _settings.AutoPause2;
+            }
+            else if (sender == toolStripMenuItem25)
+            {
+                _settings.AutoPause3 = !toolStripMenuItem25.Checked;
+                toolStripMenuItem25.Checked = _settings.AutoPause3;
+            }
 
-        private void toolStripMenuItem24_Click(object sender, EventArgs e)
-        {
-            _settings.AutoPause2 = !toolStripMenuItem24.Checked;
-            toolStripMenuItem24.Checked = _settings.AutoPause2;
-            NewMethod();
-        }
-
-        private void toolStripMenuItem25_Click(object sender, EventArgs e)
-        {
-            _settings.AutoPause3 = !toolStripMenuItem25.Checked;
-            toolStripMenuItem25.Checked = _settings.AutoPause3;
-            NewMethod();
-        }
-
-        private void NewMethod()
-        {
             if (_videoWindow != null)
             {
                 if (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3)
