@@ -635,10 +635,6 @@ namespace DreamScene2
                     if (!_isPlaying) PlayVideo();
                 }
             }
-            else
-            {
-                timer1.Enabled = false;
-            }
         }
 
         #endregion
