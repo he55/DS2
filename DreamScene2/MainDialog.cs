@@ -279,14 +279,14 @@ namespace DreamScene2
         {
             if (_isPlaying)
             {
+                timer1.Enabled = false;
                 PauseVideo();
             }
             else
             {
                 PlayVideo();
+                timer1.Enabled = _settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3;
             }
-
-            timer1.Enabled = (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3) && _isPlaying;
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -600,19 +600,6 @@ namespace DreamScene2
             }
         }
 
-        #endregion
-
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == (0x0400 + 1001))
-            {
-                SetWindow(m.WParam);
-                return;
-            }
-            base.WndProc(ref m);
-        }
-
         private void toolStripMenuItem23_Click(object sender, EventArgs e)
         {
             _settings.AutoPause1 = !toolStripMenuItem23.Checked;
@@ -636,12 +623,35 @@ namespace DreamScene2
 
         private void NewMethod()
         {
-            timer1.Enabled = (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3) && _videoWindow != null;
-
-            if ((!_settings.AutoPause1 && !_settings.AutoPause2 && !_settings.AutoPause3) && _videoWindow != null && !_isPlaying)
+            if (_videoWindow != null)
             {
-                PlayVideo();
+                if (_settings.AutoPause1 || _settings.AutoPause2 || _settings.AutoPause3)
+                {
+                    timer1.Enabled = true;
+                }
+                else
+                {
+                    timer1.Enabled = false;
+                    if (!_isPlaying) PlayVideo();
+                }
             }
+            else
+            {
+                timer1.Enabled = false;
+            }
+        }
+
+        #endregion
+
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == (0x0400 + 1001))
+            {
+                SetWindow(m.WParam);
+                return;
+            }
+            base.WndProc(ref m);
         }
     }
 }
