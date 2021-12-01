@@ -391,8 +391,8 @@ namespace DreamScene2
 
             if (_settings.AutoPause1)
             {
-                bool bv = PInvoke.getA() < 500;
-                array_push(parr, bv ? 1 : 0);
+                bool val = PInvoke.getA() < 500;
+                array_push(parr, val ? 1 : 0);
 
                 if (array_is_max(parr))
                 {
