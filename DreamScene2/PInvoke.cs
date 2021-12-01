@@ -13,22 +13,22 @@ namespace DreamScene2
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("ProjectBr.dll")]
-        public static extern ulong getA();
+        public static extern ulong GetLastInputTick();
 
         [DllImport("ProjectBr.dll")]
-        public static extern int getB2(RECT rc);
+        public static extern int TestScreen(RECT rc);
 
         [DllImport("ProjectBr.dll")]
-        public static extern IntPtr getC();
+        public static extern IntPtr GetDesktopWindowHandle();
 
         [DllImport("ProjectBr.dll")]
-        public static extern void reWall();
+        public static extern void RefreshDesktop();
 
         [DllImport("ProjectBr.dll")]
-        public static extern void setPos(IntPtr ptr, RECT r);
+        public static extern void SetWindowPosition(IntPtr ptr, RECT r);
 
         [DllImport("ProjectBr.dll")]
-        public static extern void reLastPos();
+        public static extern void RestoreLastWindowPosition();
     }
 
     public struct RECT

@@ -149,7 +149,7 @@ namespace DreamScene2
             {
                 _windowHandle = hWnd;
 
-                PInvoke.setPos(hWnd, _screen.Bounds.ToRECT());
+                PInvoke.SetWindowPosition(hWnd, _screen.Bounds.ToRECT());
                 PInvoke.SetParent(hWnd, _desktopWindowHandle);
             }
 
@@ -197,13 +197,13 @@ namespace DreamScene2
             else if (lxc == WindowType.Window)
             {
                 _windowHandle = IntPtr.Zero;
-                PInvoke.reLastPos();
+                PInvoke.RestoreLastWindowPosition();
             }
 
             lxc = xc;
 
             GC.Collect();
-            PInvoke.reWall();
+            PInvoke.RefreshDesktop();
         }
 
         #endregion
@@ -220,7 +220,7 @@ namespace DreamScene2
 
             _screen = Screen.PrimaryScreen;
 
-            _desktopWindowHandle = PInvoke.getC();
+            _desktopWindowHandle = PInvoke.GetDesktopWindowHandle();
             if (_desktopWindowHandle == IntPtr.Zero)
             {
                 button2.Enabled = false;
@@ -361,7 +361,7 @@ namespace DreamScene2
             bool fullScreen;
             if (_settings.AutoPause3)
             {
-                fullScreen = PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0;
+                fullScreen = PInvoke.TestScreen(_screen.WorkingArea.ToRECT()) == 0;
                 if (fullScreen)
                 {
                     if (_isPlaying) PauseVideo();
@@ -391,7 +391,7 @@ namespace DreamScene2
 
             if (_settings.AutoPause1)
             {
-                bool val = PInvoke.getA() < 500;
+                bool val = PInvoke.GetLastInputTick() < 500;
                 array_push(parr, val ? 1 : 0);
 
                 if (array_is_max(parr))
@@ -526,7 +526,7 @@ namespace DreamScene2
             _screenIndex = (int)((ToolStripMenuItem)sender).Tag;
             _screen = Screen.AllScreens[_screenIndex];
 
-            PInvoke.reWall();
+            PInvoke.RefreshDesktop();
             _videoWindow?.SetPosition(_screen.Bounds);
         }
 
