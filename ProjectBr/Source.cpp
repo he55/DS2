@@ -56,7 +56,14 @@ HWND __stdcall GetDesktopWindowHandle(void) {
     static HWND gc=NULL;
     HWND ph = FindWindow("Progman", NULL);
 
-    SendMessageTimeout(ph, 0x052c, NULL, NULL, SMTO_NORMAL, 1000, NULL);
+    SendMessageTimeout(ph,
+        0x052c,
+        NULL,
+        NULL,
+        SMTO_NORMAL,
+        1000,
+        NULL);
+
     EnumWindows([](HWND h, LPARAM l) {
         HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
         if (p) {
@@ -65,6 +72,7 @@ HWND __stdcall GetDesktopWindowHandle(void) {
         }
         return TRUE;
     }, NULL);
+
     return gc;
 }
 
@@ -99,7 +107,13 @@ void __stdcall SetWindowPosition(HWND hw, RECT rc) {
     mys = { hw,pa,orc,st };
 
     SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
-    SetWindowPos(hw, HWND_TOP, rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top, SWP_SHOWWINDOW);
+    SetWindowPos(hw,
+        HWND_TOP,
+        rc.left,
+        rc.top,
+        rc.right-rc.left,
+        rc.bottom-rc.top,
+        SWP_SHOWWINDOW);
 }
 
 
@@ -108,7 +122,13 @@ void __stdcall RestoreLastWindowPosition() {
     if (mys.hw) {
         SetParent(mys.hw, mys.pa);
         SetWindowLong(mys.hw, GWL_STYLE, mys.st);
-        SetWindowPos(mys.hw, HWND_TOP, mys.rc.left, mys.rc.top, mys.rc.right-mys.rc.left, mys.rc.bottom-mys.rc.top, SWP_SHOWWINDOW);
+        SetWindowPos(mys.hw,
+            HWND_TOP,
+            mys.rc.left,
+            mys.rc.top,
+            mys.rc.right-mys.rc.left,
+            mys.rc.bottom-mys.rc.top,
+            SWP_SHOWWINDOW);
     }
     mys = { 0 };
 }
