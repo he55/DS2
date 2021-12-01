@@ -133,7 +133,7 @@ void __stdcall RefreshDesktop(void) {
 
 
 __HW_DLLEXPORT
-void __stdcall getD(void) {
+void __stdcall RefreshDesktop2(void) {
     HRESULT nRet = CoInitialize(NULL);
     if (SUCCEEDED(nRet)) {
         IDesktopWallpaper* pDesktopWallpaper = NULL;
