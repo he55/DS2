@@ -15,7 +15,6 @@ extern "C"
 _declspec(dllexport)
 int __stdcall TestScreen(RECT rc) {
     static HWND gg=NULL;
-
     if (!gg) {
         EnumWindows([](HWND h, LPARAM l) {
             HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
@@ -24,7 +23,7 @@ int __stdcall TestScreen(RECT rc) {
                 return FALSE;
             }
             return TRUE;
-            }, NULL);
+        }, NULL);
     }
 
     const int offset = 4;
@@ -33,6 +32,7 @@ int __stdcall TestScreen(RECT rc) {
     int y = rc.top+offset;
     int w = rc.right-rc.left-offset*2;
     int h = rc.bottom-rc.top-offset*2;
+
     POINT ps[9] = {
         {x,y},      {x+(w/2),y},      {x+w,y},
         {x,y+(h/2)},{x+(w/2),y+(h/2)},{x+w,y+(h/2)},
@@ -46,7 +46,6 @@ int __stdcall TestScreen(RECT rc) {
             ++ic;
         }
     }
-
     return ic;
 }
 
@@ -55,8 +54,8 @@ extern "C"
 _declspec(dllexport)
 HWND __stdcall GetDesktopWindowHandle(void) {
     static HWND gc=NULL;
-
     HWND ph = FindWindow("Progman", NULL);
+
     SendMessageTimeout(ph, 0x052c, NULL, NULL, SMTO_NORMAL, 1000, NULL);
     EnumWindows([](HWND h, LPARAM l) {
         HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
@@ -65,7 +64,7 @@ HWND __stdcall GetDesktopWindowHandle(void) {
             return FALSE;
         }
         return TRUE;
-        }, NULL);
+    }, NULL);
     return gc;
 }
 
@@ -137,7 +136,6 @@ void __stdcall getD(void) {
             }
             p->Release();
         }
-
         CoUninitialize();
     }
 }
