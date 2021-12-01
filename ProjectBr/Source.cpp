@@ -81,20 +81,20 @@ typedef struct {
     HWND hWndParent;
     RECT rect;
     LONG dwStyle;
-} LastWindowInfo;
+} LASTWINDOWINFO;
 
-LastWindowInfo s_lwi;
+LASTWINDOWINFO s_lwi;
 
 
 __HW_DLLEXPORT
 void __stdcall SetWindowPosition(HWND hWnd, RECT rect) {
     ShowWindow(hWnd, SW_RESTORE);
 
-    RECT orect;
-    GetWindowRect(hWnd, &orect);
+    RECT rect2;
+    GetWindowRect(hWnd, &rect2);
     LONG dwStyle = GetWindowLong(hWnd, GWL_STYLE);
     HWND hWndParent = GetParent(hWnd);
-    s_lwi = { hWnd,hWndParent,orect,dwStyle };
+    s_lwi = { hWnd,hWndParent,rect2,dwStyle };
 
     SetWindowLong(hWnd, GWL_STYLE, dwStyle & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
     SetWindowPos(hWnd,
