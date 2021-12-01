@@ -16,19 +16,19 @@ namespace DreamScene2
         public static extern ulong GetLastInputTickCount();
 
         [DllImport("ProjectBr.dll")]
-        public static extern int TestScreen(RECT rect);
-
-        [DllImport("ProjectBr.dll")]
         public static extern IntPtr GetDesktopWindowHandle();
 
         [DllImport("ProjectBr.dll")]
-        public static extern void RefreshDesktop();
+        public static extern int TestScreen(RECT rect);
 
         [DllImport("ProjectBr.dll")]
         public static extern void SetWindowPosition(IntPtr hWnd, RECT rect);
 
         [DllImport("ProjectBr.dll")]
         public static extern void RestoreLastWindowPosition();
+
+        [DllImport("ProjectBr.dll")]
+        public static extern void RefreshDesktop();
     }
 
     public struct RECT

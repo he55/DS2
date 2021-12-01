@@ -14,44 +14,6 @@ ULONGLONG __stdcall GetLastInputTickCount(void) {
 
 
 __HW_DLLEXPORT
-int __stdcall TestScreen(RECT rect) {
-    static HWND g_hWnd=NULL;
-    if (!g_hWnd) {
-        EnumWindows([](HWND hWnd, LPARAM) {
-            HWND hWnd1 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
-            if (hWnd1) {
-                g_hWnd = FindWindowEx(hWnd1, NULL, "SysListView32", NULL);
-                return FALSE;
-            }
-            return TRUE;
-        }, NULL);
-    }
-
-    const int offset = 4;
-    int ic = 0;
-    int x = rect.left+offset;
-    int y = rect.top+offset;
-    int w = rect.right-rect.left-offset*2;
-    int h = rect.bottom-rect.top-offset*2;
-
-    POINT ps[9] = {
-        {x,y},      {x+(w/2),y},      {x+w,y},
-        {x,y+(h/2)},{x+(w/2),y+(h/2)},{x+w,y+(h/2)},
-        {x,y+h},    {x+(w/2),y+h},    {x+w,y+h}
-    };
-
-    for (size_t i = 0; i < 9; i++)
-    {
-        HWND hWnd2 = WindowFromPoint(ps[i]);
-        if (hWnd2 == g_hWnd) {
-            ++ic;
-        }
-    }
-    return ic;
-}
-
-
-__HW_DLLEXPORT
 HWND __stdcall GetDesktopWindowHandle(void) {
     HWND hWnd1 = FindWindow("Progman", NULL);
     SendMessageTimeout(hWnd1,
@@ -77,15 +39,44 @@ HWND __stdcall GetDesktopWindowHandle(void) {
 
 
 __HW_DLLEXPORT
-void __stdcall RefreshDesktop() {
-    char path[MAX_PATH + 1] = { 0 };
-    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &path, 0);
-    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, 0);
+int __stdcall TestScreen(RECT rect) {
+    static HWND g_hWnd = NULL;
+    if (!g_hWnd) {
+        EnumWindows([](HWND hWnd, LPARAM) {
+            HWND hWnd1 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
+            if (hWnd1) {
+                g_hWnd = FindWindowEx(hWnd1, NULL, "SysListView32", NULL);
+                return FALSE;
+            }
+            return TRUE;
+            }, NULL);
+    }
+
+    const int offset = 4;
+    int ic = 0;
+    int x = rect.left + offset;
+    int y = rect.top + offset;
+    int w = rect.right - rect.left - offset * 2;
+    int h = rect.bottom - rect.top - offset * 2;
+
+    POINT ps[9] = {
+        {x,y},      {x + (w / 2),y},      {x + w,y},
+        {x,y + (h / 2)},{x + (w / 2),y + (h / 2)},{x + w,y + (h / 2)},
+        {x,y + h},    {x + (w / 2),y + h},    {x + w,y + h}
+    };
+
+    for (size_t i = 0; i < 9; i++)
+    {
+        HWND hWnd2 = WindowFromPoint(ps[i]);
+        if (hWnd2 == g_hWnd) {
+            ++ic;
+        }
+    }
+    return ic;
 }
 
 
-typedef struct LastWindowInfo
-{
+typedef struct {
     HWND hWnd;
     HWND hWndParent;
     RECT rect;
@@ -117,7 +108,7 @@ void __stdcall SetWindowPosition(HWND hWnd, RECT rect) {
 
 
 __HW_DLLEXPORT
-void __stdcall RestoreLastWindowPosition() {
+void __stdcall RestoreLastWindowPosition(void) {
     if (s_lwi.hWnd) {
         SetParent(s_lwi.hWnd, s_lwi.hWndParent);
         SetWindowLong(s_lwi.hWnd, GWL_STYLE, s_lwi.dwStyle);
@@ -130,6 +121,14 @@ void __stdcall RestoreLastWindowPosition() {
             SWP_SHOWWINDOW);
     }
     s_lwi = { 0 };
+}
+
+
+__HW_DLLEXPORT
+void __stdcall RefreshDesktop(void) {
+    char path[MAX_PATH + 1] = { 0 };
+    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &path, 0);
+    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, 0);
 }
 
 
