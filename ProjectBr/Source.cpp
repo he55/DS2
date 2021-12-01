@@ -1,8 +1,10 @@
 #include <Windows.h>
 #include <ShlObj.h>
 
-extern "C"
-_declspec(dllexport)
+#define __HW_DLLEXPORT extern "C" _declspec(dllexport)
+
+
+__HW_DLLEXPORT
 ULONGLONG __stdcall GetLastInputTickCount(void) {
     LASTINPUTINFO lii = { sizeof(LASTINPUTINFO),0 };
     GetLastInputInfo(&lii);
@@ -11,8 +13,7 @@ ULONGLONG __stdcall GetLastInputTickCount(void) {
 }
 
 
-extern "C"
-_declspec(dllexport)
+__HW_DLLEXPORT
 int __stdcall TestScreen(RECT rc) {
     static HWND gg=NULL;
     if (!gg) {
@@ -50,8 +51,7 @@ int __stdcall TestScreen(RECT rc) {
 }
 
 
-extern "C"
-_declspec(dllexport)
+__HW_DLLEXPORT
 HWND __stdcall GetDesktopWindowHandle(void) {
     static HWND gc=NULL;
     HWND ph = FindWindow("Progman", NULL);
@@ -69,8 +69,7 @@ HWND __stdcall GetDesktopWindowHandle(void) {
 }
 
 
-extern "C"
-_declspec(dllexport)
+__HW_DLLEXPORT
 void __stdcall RefreshDesktop() {
     char str[MAX_PATH + 1] = { 0 };
     SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &str, 0);
@@ -88,8 +87,8 @@ typedef struct MyStruct
 
 MyStruct mys;
 
-extern "C"
-_declspec(dllexport)
+
+__HW_DLLEXPORT
 void __stdcall SetWindowPosition(HWND hw, RECT rc) {
     ShowWindow(hw, SW_RESTORE);
 
@@ -104,8 +103,7 @@ void __stdcall SetWindowPosition(HWND hw, RECT rc) {
 }
 
 
-extern "C"
-_declspec(dllexport)
+__HW_DLLEXPORT
 void __stdcall RestoreLastWindowPosition() {
     if (mys.hw) {
         SetParent(mys.hw, mys.pa);
@@ -116,8 +114,7 @@ void __stdcall RestoreLastWindowPosition() {
 }
 
 
-extern "C"
-_declspec(dllexport)
+__HW_DLLEXPORT
 void __stdcall getD(void) {
     HRESULT nRet = CoInitialize(NULL);
     if (SUCCEEDED(nRet)) {
