@@ -138,20 +138,20 @@ __HW_DLLEXPORT
 void __stdcall getD(void) {
     HRESULT nRet = CoInitialize(NULL);
     if (SUCCEEDED(nRet)) {
-        IDesktopWallpaper* p = NULL;
-        nRet = CoCreateInstance(CLSID_DesktopWallpaper, 0, CLSCTX_LOCAL_SERVER, IID_IDesktopWallpaper, (void**)&p);
+        IDesktopWallpaper* pDesktopWallpaper = NULL;
+        nRet = CoCreateInstance(CLSID_DesktopWallpaper, 0, CLSCTX_LOCAL_SERVER, IID_IDesktopWallpaper, (void**)&pDesktopWallpaper);
         if (SUCCEEDED(nRet)) {
             LPWSTR str = NULL;
-            p->GetWallpaper(NULL, &str);
+            pDesktopWallpaper->GetWallpaper(NULL, &str);
             if (str && wcslen(str)) {
-                p->SetWallpaper(NULL, str);
+                pDesktopWallpaper->SetWallpaper(NULL, str);
             }
             else {
                 COLORREF c;
-                p->GetBackgroundColor(&c);
-                p->SetBackgroundColor(c);
+                pDesktopWallpaper->GetBackgroundColor(&c);
+                pDesktopWallpaper->SetBackgroundColor(c);
             }
-            p->Release();
+            pDesktopWallpaper->Release();
         }
         CoUninitialize();
     }
