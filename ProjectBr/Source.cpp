@@ -15,12 +15,12 @@ ULONGLONG __stdcall GetLastInputTickCount(void) {
 
 __HW_DLLEXPORT
 int __stdcall TestScreen(RECT rect) {
-    static HWND gg=NULL;
-    if (!gg) {
+    static HWND g_hWnd=NULL;
+    if (!g_hWnd) {
         EnumWindows([](HWND hWnd, LPARAM) {
-            HWND p1 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
-            if (p1) {
-                gg = FindWindowEx(p1, NULL, "SysListView32", NULL);
+            HWND hWnd1 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
+            if (hWnd1) {
+                g_hWnd = FindWindowEx(hWnd1, NULL, "SysListView32", NULL);
                 return FALSE;
             }
             return TRUE;
@@ -43,7 +43,7 @@ int __stdcall TestScreen(RECT rect) {
     for (size_t i = 0; i < 9; i++)
     {
         HWND ww = WindowFromPoint(ps[i]);
-        if (ww == gg) {
+        if (ww == g_hWnd) {
             ++ic;
         }
     }
@@ -53,10 +53,10 @@ int __stdcall TestScreen(RECT rect) {
 
 __HW_DLLEXPORT
 HWND __stdcall GetDesktopWindowHandle(void) {
-    static HWND gc=NULL;
-    HWND p1 = FindWindow("Progman", NULL);
+    static HWND g_hWnd=NULL;
+    HWND hWnd1 = FindWindow("Progman", NULL);
 
-    SendMessageTimeout(p1,
+    SendMessageTimeout(hWnd1,
         0x052c,
         NULL,
         NULL,
@@ -65,15 +65,15 @@ HWND __stdcall GetDesktopWindowHandle(void) {
         NULL);
 
     EnumWindows([](HWND hWnd, LPARAM) {
-        HWND p2 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
-        if (p2) {
-            gc = FindWindowEx(NULL, hWnd, "WorkerW", NULL);
+        HWND hWnd2 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
+        if (hWnd2) {
+            g_hWnd = FindWindowEx(NULL, hWnd, "WorkerW", NULL);
             return FALSE;
         }
         return TRUE;
     }, NULL);
 
-    return gc;
+    return g_hWnd;
 }
 
 
