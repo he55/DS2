@@ -42,8 +42,8 @@ int __stdcall TestScreen(RECT rect) {
 
     for (size_t i = 0; i < 9; i++)
     {
-        HWND ww = WindowFromPoint(ps[i]);
-        if (ww == g_hWnd) {
+        HWND hWnd2 = WindowFromPoint(ps[i]);
+        if (hWnd2 == g_hWnd) {
             ++ic;
         }
     }
