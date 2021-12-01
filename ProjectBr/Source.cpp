@@ -69,31 +69,6 @@ HWND __stdcall GetDesktopWindowHandle(void) {
     return gc;
 }
 
-extern "C"
-_declspec(dllexport)
-void __stdcall getD(void) {
-    HRESULT nRet = CoInitialize(NULL);
-    if (SUCCEEDED(nRet)) {
-        IDesktopWallpaper* p=NULL;
-        nRet = CoCreateInstance(CLSID_DesktopWallpaper, 0, CLSCTX_LOCAL_SERVER, IID_IDesktopWallpaper, (void**)&p);
-        if (SUCCEEDED(nRet)) {
-            LPWSTR str=NULL;
-            p->GetWallpaper(NULL, &str);
-            if (str&&wcslen(str)) {
-                p->SetWallpaper(NULL, str);
-            }
-            else {
-                COLORREF c;
-                p->GetBackgroundColor(&c);
-                p->SetBackgroundColor(c);
-            }
-            p->Release();
-        }
-
-        CoUninitialize();
-    }
-}
-
 
 extern "C"
 _declspec(dllexport)
@@ -139,4 +114,30 @@ void __stdcall RestoreLastWindowPosition() {
         SetWindowPos(mys.hw, HWND_TOP, mys.rc.left, mys.rc.top, mys.rc.right-mys.rc.left, mys.rc.bottom-mys.rc.top, SWP_SHOWWINDOW);
     }
     mys = { 0 };
+}
+
+
+extern "C"
+_declspec(dllexport)
+void __stdcall getD(void) {
+    HRESULT nRet = CoInitialize(NULL);
+    if (SUCCEEDED(nRet)) {
+        IDesktopWallpaper* p = NULL;
+        nRet = CoCreateInstance(CLSID_DesktopWallpaper, 0, CLSCTX_LOCAL_SERVER, IID_IDesktopWallpaper, (void**)&p);
+        if (SUCCEEDED(nRet)) {
+            LPWSTR str = NULL;
+            p->GetWallpaper(NULL, &str);
+            if (str && wcslen(str)) {
+                p->SetWallpaper(NULL, str);
+            }
+            else {
+                COLORREF c;
+                p->GetBackgroundColor(&c);
+                p->SetBackgroundColor(c);
+            }
+            p->Release();
+        }
+
+        CoUninitialize();
+    }
 }
