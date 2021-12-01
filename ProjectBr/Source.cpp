@@ -90,7 +90,7 @@ typedef struct MyStruct
     HWND hWnd;
     HWND hWndParent;
     RECT rect;
-    LONG st;
+    LONG dwStyle;
 } MyStruct;
 
 MyStruct mys;
@@ -102,11 +102,11 @@ void __stdcall SetWindowPosition(HWND hWnd, RECT rect) {
 
     RECT orect;
     GetWindowRect(hWnd, &orect);
-    LONG st = GetWindowLong(hWnd, GWL_STYLE);
+    LONG dwStyle = GetWindowLong(hWnd, GWL_STYLE);
     HWND hWndParent = GetParent(hWnd);
-    mys = { hWnd,hWndParent,orect,st };
+    mys = { hWnd,hWndParent,orect,dwStyle };
 
-    SetWindowLong(hWnd, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
+    SetWindowLong(hWnd, GWL_STYLE, dwStyle & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
     SetWindowPos(hWnd,
         HWND_TOP,
         rect.left,
@@ -121,7 +121,7 @@ __HW_DLLEXPORT
 void __stdcall RestoreLastWindowPosition() {
     if (mys.hWnd) {
         SetParent(mys.hWnd, mys.hWndParent);
-        SetWindowLong(mys.hWnd, GWL_STYLE, mys.st);
+        SetWindowLong(mys.hWnd, GWL_STYLE, mys.dwStyle);
         SetWindowPos(mys.hWnd,
             HWND_TOP,
             mys.rect.left,
