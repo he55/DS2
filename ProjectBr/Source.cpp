@@ -53,9 +53,7 @@ int __stdcall TestScreen(RECT rect) {
 
 __HW_DLLEXPORT
 HWND __stdcall GetDesktopWindowHandle(void) {
-    static HWND g_hWnd=NULL;
     HWND hWnd1 = FindWindow("Progman", NULL);
-
     SendMessageTimeout(hWnd1,
         0x052c,
         NULL,
@@ -64,6 +62,7 @@ HWND __stdcall GetDesktopWindowHandle(void) {
         1000,
         NULL);
 
+    static HWND g_hWnd = NULL;
     EnumWindows([](HWND hWnd, LPARAM) {
         HWND hWnd2 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
         if (hWnd2) {
@@ -79,21 +78,21 @@ HWND __stdcall GetDesktopWindowHandle(void) {
 
 __HW_DLLEXPORT
 void __stdcall RefreshDesktop() {
-    char str[MAX_PATH + 1] = { 0 };
-    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &str, 0);
-    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, str, 0);
+    char path[MAX_PATH + 1] = { 0 };
+    SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &path, 0);
+    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, path, 0);
 }
 
 
-typedef struct MyStruct
+typedef struct LastWindowInfo
 {
     HWND hWnd;
     HWND hWndParent;
     RECT rect;
     LONG dwStyle;
-} MyStruct;
+} LastWindowInfo;
 
-MyStruct mys;
+LastWindowInfo s_lwi;
 
 
 __HW_DLLEXPORT
@@ -104,7 +103,7 @@ void __stdcall SetWindowPosition(HWND hWnd, RECT rect) {
     GetWindowRect(hWnd, &orect);
     LONG dwStyle = GetWindowLong(hWnd, GWL_STYLE);
     HWND hWndParent = GetParent(hWnd);
-    mys = { hWnd,hWndParent,orect,dwStyle };
+    s_lwi = { hWnd,hWndParent,orect,dwStyle };
 
     SetWindowLong(hWnd, GWL_STYLE, dwStyle & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
     SetWindowPos(hWnd,
@@ -119,18 +118,18 @@ void __stdcall SetWindowPosition(HWND hWnd, RECT rect) {
 
 __HW_DLLEXPORT
 void __stdcall RestoreLastWindowPosition() {
-    if (mys.hWnd) {
-        SetParent(mys.hWnd, mys.hWndParent);
-        SetWindowLong(mys.hWnd, GWL_STYLE, mys.dwStyle);
-        SetWindowPos(mys.hWnd,
+    if (s_lwi.hWnd) {
+        SetParent(s_lwi.hWnd, s_lwi.hWndParent);
+        SetWindowLong(s_lwi.hWnd, GWL_STYLE, s_lwi.dwStyle);
+        SetWindowPos(s_lwi.hWnd,
             HWND_TOP,
-            mys.rect.left,
-            mys.rect.top,
-            mys.rect.right-mys.rect.left,
-            mys.rect.bottom-mys.rect.top,
+            s_lwi.rect.left,
+            s_lwi.rect.top,
+            s_lwi.rect.right-s_lwi.rect.left,
+            s_lwi.rect.bottom-s_lwi.rect.top,
             SWP_SHOWWINDOW);
     }
-    mys = { 0 };
+    s_lwi = { 0 };
 }
 
 
@@ -141,15 +140,15 @@ void __stdcall getD(void) {
         IDesktopWallpaper* pDesktopWallpaper = NULL;
         nRet = CoCreateInstance(CLSID_DesktopWallpaper, 0, CLSCTX_LOCAL_SERVER, IID_IDesktopWallpaper, (void**)&pDesktopWallpaper);
         if (SUCCEEDED(nRet)) {
-            LPWSTR str = NULL;
-            pDesktopWallpaper->GetWallpaper(NULL, &str);
-            if (str && wcslen(str)) {
-                pDesktopWallpaper->SetWallpaper(NULL, str);
+            LPWSTR path = NULL;
+            pDesktopWallpaper->GetWallpaper(NULL, &path);
+            if (path && wcslen(path)) {
+                pDesktopWallpaper->SetWallpaper(NULL, path);
             }
             else {
-                COLORREF c;
-                pDesktopWallpaper->GetBackgroundColor(&c);
-                pDesktopWallpaper->SetBackgroundColor(c);
+                COLORREF color;
+                pDesktopWallpaper->GetBackgroundColor(&color);
+                pDesktopWallpaper->SetBackgroundColor(color);
             }
             pDesktopWallpaper->Release();
         }
