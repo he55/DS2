@@ -322,7 +322,7 @@ namespace DreamScene2
             this.Activate();
         }
 
-        void arrpush(int[] arr, int val)
+        void array_push(int[] arr, int val)
         {
             for (int i = 0; i < arr.Length - 1; i++)
             {
@@ -331,7 +331,7 @@ namespace DreamScene2
             arr[arr.Length - 1] = val;
         }
 
-        int arrsum(int[] arr)
+        int array_sum(int[] arr)
         {
             int sum = 0;
             for (int i = 0; i < arr.Length; i++)
@@ -341,7 +341,7 @@ namespace DreamScene2
             return sum;
         }
 
-        bool arrpr(int[] arr)
+        bool array_is_max(int[] arr)
         {
             for (int i = 0; i < arr.Length; i++)
             {
@@ -355,14 +355,14 @@ namespace DreamScene2
 
         int[] cpuarr = new int[5];
         int[] parr = new int[5];
-        bool fullscr;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            bool fullScreen;
             if (_settings.AutoPause3)
             {
-                fullscr = PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0;
-                if (fullscr)
+                fullScreen = PInvoke.getB2(_screen.WorkingArea.ToRECT()) == 0;
+                if (fullScreen)
                 {
                     if (_isPlaying) PauseVideo();
                     return;
@@ -370,15 +370,15 @@ namespace DreamScene2
             }
             else
             {
-                fullscr = false;
+                fullScreen = false;
             }
 
             if (_settings.AutoPause2)
             {
                 float val = _performanceCounter?.NextValue() ?? 0;
-                arrpush(cpuarr, val > 15.0 ? 1 : 0);
+                array_push(cpuarr, val > 15.0 ? 1 : 0);
 
-                if (arrpr(cpuarr))
+                if (array_is_max(cpuarr))
                 {
                     if (_isPlaying) PauseVideo();
                     return;
@@ -386,15 +386,15 @@ namespace DreamScene2
             }
             else
             {
-                arrpush(cpuarr, 0);
+                array_push(cpuarr, 0);
             }
 
             if (_settings.AutoPause1)
             {
                 bool bv = PInvoke.getA() < 500;
-                arrpush(parr, bv ? 1 : 0);
+                array_push(parr, bv ? 1 : 0);
 
-                if (arrpr(parr))
+                if (array_is_max(parr))
                 {
                     if (_isPlaying) PauseVideo();
                     return;
@@ -402,10 +402,10 @@ namespace DreamScene2
             }
             else
             {
-                arrpush(parr, 0);
+                array_push(parr, 0);
             }
 
-            if (!fullscr && !_isPlaying && arrsum(cpuarr) == 0 && arrsum(parr) == 0)
+            if (!fullScreen && !_isPlaying && array_sum(cpuarr) == 0 && array_sum(parr) == 0)
             {
                 PlayVideo();
             }
