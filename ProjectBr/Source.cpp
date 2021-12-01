@@ -8,19 +8,19 @@ __HW_DLLEXPORT
 ULONGLONG __stdcall GetLastInputTickCount(void) {
     LASTINPUTINFO lii = { sizeof(LASTINPUTINFO),0 };
     GetLastInputInfo(&lii);
-    ULONGLONG v = GetTickCount64();
-    return v - lii.dwTime;
+    ULONGLONG tick = GetTickCount64();
+    return tick - lii.dwTime;
 }
 
 
 __HW_DLLEXPORT
-int __stdcall TestScreen(RECT rc) {
+int __stdcall TestScreen(RECT rect) {
     static HWND gg=NULL;
     if (!gg) {
-        EnumWindows([](HWND h, LPARAM l) {
-            HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
-            if (p) {
-                gg = FindWindowEx(p, NULL, "SysListView32", NULL);
+        EnumWindows([](HWND hWnd, LPARAM) {
+            HWND p1 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
+            if (p1) {
+                gg = FindWindowEx(p1, NULL, "SysListView32", NULL);
                 return FALSE;
             }
             return TRUE;
@@ -29,10 +29,10 @@ int __stdcall TestScreen(RECT rc) {
 
     const int offset = 4;
     int ic = 0;
-    int x = rc.left+offset;
-    int y = rc.top+offset;
-    int w = rc.right-rc.left-offset*2;
-    int h = rc.bottom-rc.top-offset*2;
+    int x = rect.left+offset;
+    int y = rect.top+offset;
+    int w = rect.right-rect.left-offset*2;
+    int h = rect.bottom-rect.top-offset*2;
 
     POINT ps[9] = {
         {x,y},      {x+(w/2),y},      {x+w,y},
@@ -54,9 +54,9 @@ int __stdcall TestScreen(RECT rc) {
 __HW_DLLEXPORT
 HWND __stdcall GetDesktopWindowHandle(void) {
     static HWND gc=NULL;
-    HWND ph = FindWindow("Progman", NULL);
+    HWND p1 = FindWindow("Progman", NULL);
 
-    SendMessageTimeout(ph,
+    SendMessageTimeout(p1,
         0x052c,
         NULL,
         NULL,
@@ -64,10 +64,10 @@ HWND __stdcall GetDesktopWindowHandle(void) {
         1000,
         NULL);
 
-    EnumWindows([](HWND h, LPARAM l) {
-        HWND p = FindWindowEx(h, NULL, "SHELLDLL_DefView", NULL);
-        if (p) {
-            gc = FindWindowEx(NULL, h, "WorkerW", NULL);
+    EnumWindows([](HWND hWnd, LPARAM) {
+        HWND p2 = FindWindowEx(hWnd, NULL, "SHELLDLL_DefView", NULL);
+        if (p2) {
+            gc = FindWindowEx(NULL, hWnd, "WorkerW", NULL);
             return FALSE;
         }
         return TRUE;
@@ -87,9 +87,9 @@ void __stdcall RefreshDesktop() {
 
 typedef struct MyStruct
 {
-    HWND hw;
-    HWND pa;
-    RECT rc;
+    HWND hWnd;
+    HWND hWndParent;
+    RECT rect;
     LONG st;
 } MyStruct;
 
@@ -97,37 +97,37 @@ MyStruct mys;
 
 
 __HW_DLLEXPORT
-void __stdcall SetWindowPosition(HWND hw, RECT rc) {
-    ShowWindow(hw, SW_RESTORE);
+void __stdcall SetWindowPosition(HWND hWnd, RECT rect) {
+    ShowWindow(hWnd, SW_RESTORE);
 
-    RECT orc;
-    GetWindowRect(hw, &orc);
-    LONG st = GetWindowLong(hw, GWL_STYLE);
-    HWND pa = GetParent(hw);
-    mys = { hw,pa,orc,st };
+    RECT orect;
+    GetWindowRect(hWnd, &orect);
+    LONG st = GetWindowLong(hWnd, GWL_STYLE);
+    HWND hWndParent = GetParent(hWnd);
+    mys = { hWnd,hWndParent,orect,st };
 
-    SetWindowLong(hw, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
-    SetWindowPos(hw,
+    SetWindowLong(hWnd, GWL_STYLE, st & (~WS_CAPTION) & (~WS_SYSMENU) & (~WS_THICKFRAME));
+    SetWindowPos(hWnd,
         HWND_TOP,
-        rc.left,
-        rc.top,
-        rc.right-rc.left,
-        rc.bottom-rc.top,
+        rect.left,
+        rect.top,
+        rect.right-rect.left,
+        rect.bottom-rect.top,
         SWP_SHOWWINDOW);
 }
 
 
 __HW_DLLEXPORT
 void __stdcall RestoreLastWindowPosition() {
-    if (mys.hw) {
-        SetParent(mys.hw, mys.pa);
-        SetWindowLong(mys.hw, GWL_STYLE, mys.st);
-        SetWindowPos(mys.hw,
+    if (mys.hWnd) {
+        SetParent(mys.hWnd, mys.hWndParent);
+        SetWindowLong(mys.hWnd, GWL_STYLE, mys.st);
+        SetWindowPos(mys.hWnd,
             HWND_TOP,
-            mys.rc.left,
-            mys.rc.top,
-            mys.rc.right-mys.rc.left,
-            mys.rc.bottom-mys.rc.top,
+            mys.rect.left,
+            mys.rect.top,
+            mys.rect.right-mys.rect.left,
+            mys.rect.bottom-mys.rect.top,
             SWP_SHOWWINDOW);
     }
     mys = { 0 };
