@@ -3,7 +3,7 @@
 
 extern "C"
 _declspec(dllexport)
-ULONGLONG __stdcall getA(void) {
+ULONGLONG __stdcall GetLastInputTickCount(void) {
     LASTINPUTINFO lii = { sizeof(LASTINPUTINFO),0 };
     GetLastInputInfo(&lii);
     ULONGLONG v = GetTickCount64();
@@ -13,7 +13,7 @@ ULONGLONG __stdcall getA(void) {
 
 extern "C"
 _declspec(dllexport)
-int __stdcall getB2(RECT rc) {
+int __stdcall TestScreen(RECT rc) {
     static HWND gg=NULL;
 
     if (!gg) {
@@ -53,7 +53,7 @@ int __stdcall getB2(RECT rc) {
 
 extern "C"
 _declspec(dllexport)
-HWND __stdcall getC(void) {
+HWND __stdcall GetDesktopWindowHandle(void) {
     static HWND gc=NULL;
 
     HWND ph = FindWindow("Progman", NULL);
@@ -97,7 +97,7 @@ void __stdcall getD(void) {
 
 extern "C"
 _declspec(dllexport)
-void __stdcall reWall() {
+void __stdcall RefreshDesktop() {
     char str[MAX_PATH + 1] = { 0 };
     SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, &str, 0);
     SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, str, 0);
@@ -116,7 +116,7 @@ MyStruct mys;
 
 extern "C"
 _declspec(dllexport)
-void __stdcall setPos(HWND hw, RECT rc) {
+void __stdcall SetWindowPosition(HWND hw, RECT rc) {
     ShowWindow(hw, SW_RESTORE);
 
     RECT orc;
@@ -132,7 +132,7 @@ void __stdcall setPos(HWND hw, RECT rc) {
 
 extern "C"
 _declspec(dllexport)
-void __stdcall reLastPos() {
+void __stdcall RestoreLastWindowPosition() {
     if (mys.hw) {
         SetParent(mys.hw, mys.pa);
         SetWindowLong(mys.hw, GWL_STYLE, mys.st);
