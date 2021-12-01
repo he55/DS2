@@ -13,10 +13,10 @@ namespace DreamScene2
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("ProjectBr.dll")]
-        public static extern ulong GetLastInputTick();
+        public static extern ulong GetLastInputTickCount();
 
         [DllImport("ProjectBr.dll")]
-        public static extern int TestScreen(RECT rc);
+        public static extern int TestScreen(RECT rect);
 
         [DllImport("ProjectBr.dll")]
         public static extern IntPtr GetDesktopWindowHandle();
@@ -25,7 +25,7 @@ namespace DreamScene2
         public static extern void RefreshDesktop();
 
         [DllImport("ProjectBr.dll")]
-        public static extern void SetWindowPosition(IntPtr ptr, RECT r);
+        public static extern void SetWindowPosition(IntPtr hWnd, RECT rect);
 
         [DllImport("ProjectBr.dll")]
         public static extern void RestoreLastWindowPosition();

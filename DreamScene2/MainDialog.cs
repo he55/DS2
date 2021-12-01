@@ -391,7 +391,7 @@ namespace DreamScene2
 
             if (_settings.AutoPause1)
             {
-                bool val = PInvoke.GetLastInputTick() < 500;
+                bool val = PInvoke.GetLastInputTickCount() < 500;
                 array_push(parr, val ? 1 : 0);
 
                 if (array_is_max(parr))
