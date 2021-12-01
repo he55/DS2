@@ -40,7 +40,7 @@ namespace DreamScene2
 
         public static string ExtPath()
         {
-            return GetPath($".{Constant.projectName}");
+            return GetPath("Ext");
         }
 
         public static bool CheckStartOnBoot()
