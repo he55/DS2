@@ -31,8 +31,7 @@ namespace DreamScene2
             toolStripMenuItem23.Checked = _settings.AutoPause1;
             toolStripMenuItem24.Checked = _settings.AutoPause2;
             toolStripMenuItem25.Checked = _settings.AutoPause3;
-            checkBox1.Checked = _settings.IsMuted;
-            toolStripMenuItem3.Checked = _settings.IsMuted;
+            toolStripMenuItem3.Checked = checkBox1.Checked = _settings.IsMuted;
         }
 
 
@@ -293,16 +292,14 @@ namespace DreamScene2
 
         private void checkBox1_Click(object sender, EventArgs e)
         {
-            _settings.IsMuted = checkBox1.Checked;
-            toolStripMenuItem3.Checked = _settings.IsMuted;
+            _settings.IsMuted = toolStripMenuItem3.Checked = checkBox1.Checked;
             trackBar1.Enabled = !_settings.IsMuted;
             _videoWindow.IsMuted = _settings.IsMuted;
         }
 
         private void checkBox2_Click(object sender, EventArgs e)
         {
-            _settings.AutoPlay = checkBox2.Checked;
-            toolStripMenuItem6.Checked = _settings.AutoPlay;
+            _settings.AutoPlay = toolStripMenuItem6.Checked = checkBox2.Checked;
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -345,10 +342,7 @@ namespace DreamScene2
         {
             for (int i = 0; i < arr.Length; i++)
             {
-                if (arr[i] == 0)
-                {
-                    return false;
-                }
+                if (arr[i] == 0) return false;
             }
             return true;
         }
@@ -606,18 +600,15 @@ namespace DreamScene2
         {
             if (sender == toolStripMenuItem23)
             {
-                _settings.AutoPause1 = !toolStripMenuItem23.Checked;
-                toolStripMenuItem23.Checked = _settings.AutoPause1;
+                _settings.AutoPause1 = toolStripMenuItem23.Checked = !toolStripMenuItem23.Checked;
             }
             else if (sender == toolStripMenuItem24)
             {
-                _settings.AutoPause2 = !toolStripMenuItem24.Checked;
-                toolStripMenuItem24.Checked = _settings.AutoPause2;
+                _settings.AutoPause2 = toolStripMenuItem24.Checked = !toolStripMenuItem24.Checked;
             }
             else if (sender == toolStripMenuItem25)
             {
-                _settings.AutoPause3 = !toolStripMenuItem25.Checked;
-                toolStripMenuItem25.Checked = _settings.AutoPause3;
+                _settings.AutoPause3 = toolStripMenuItem25.Checked = !toolStripMenuItem25.Checked;
             }
 
             if (_videoWindow != null)
