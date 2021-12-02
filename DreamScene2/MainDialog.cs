@@ -58,9 +58,7 @@ namespace DreamScene2
             if (_recentFiles.Count == 0 || _recentFiles[0] != path)
             {
                 if (_recentFiles.Contains(path))
-                {
                     _recentFiles.Remove(path);
-                }
                 _recentFiles.Insert(0, path);
 
                 File.WriteAllLines(_recentPath, _recentFiles);
@@ -79,13 +77,9 @@ namespace DreamScene2
             else if (uri.Scheme == "file" && File.Exists(path))
             {
                 if (Path.GetExtension(path) == ".html")
-                {
                     OpenWeb(uri.AbsoluteUri);
-                }
                 else
-                {
                     OpenVideo(path);
-                }
             }
         }
 
@@ -238,9 +232,7 @@ namespace DreamScene2
                 toolStripMenuItem6.Checked = true;
 
                 if (_recentFiles.Count != 0)
-                {
                     OpenFile(_recentFiles[0]);
-                }
             }
 
             toolStripMenuItem12.Checked = Helper.CheckStartOnBoot();
@@ -271,9 +263,7 @@ namespace DreamScene2
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Video Files (*.mp4;*.mov)|*.mp4;*.mov";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
                 OpenFile(openFileDialog.FileName);
-            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -342,7 +332,8 @@ namespace DreamScene2
         {
             for (int i = 0; i < arr.Length; i++)
             {
-                if (arr[i] == 0) return false;
+                if (arr[i] == 0)
+                    return false;
             }
             return true;
         }
@@ -358,7 +349,8 @@ namespace DreamScene2
                 fullScreen = PInvoke.TestScreen(_screen.WorkingArea.ToRECT()) == 0;
                 if (fullScreen)
                 {
-                    if (_isPlaying) PauseVideo();
+                    if (_isPlaying)
+                        PauseVideo();
                     return;
                 }
             }
@@ -374,7 +366,8 @@ namespace DreamScene2
 
                 if (array_is_max(cpuarr))
                 {
-                    if (_isPlaying) PauseVideo();
+                    if (_isPlaying)
+                        PauseVideo();
                     return;
                 }
             }
@@ -390,7 +383,8 @@ namespace DreamScene2
 
                 if (array_is_max(parr))
                 {
-                    if (_isPlaying) PauseVideo();
+                    if (_isPlaying)
+                        PauseVideo();
                     return;
                 }
             }
@@ -479,13 +473,9 @@ namespace DreamScene2
         {
             toolStripMenuItem12.Checked = !toolStripMenuItem12.Checked;
             if (toolStripMenuItem12.Checked)
-            {
                 Helper.SetStartOnBoot();
-            }
             else
-            {
                 Helper.RemoveStartOnBoot();
-            }
         }
 
         private void toolStripMenuItem14_Click(object sender, EventArgs e)
@@ -591,9 +581,7 @@ namespace DreamScene2
         {
             InputDialog inputDialog = new InputDialog();
             if (inputDialog.ShowDialog() == DialogResult.OK)
-            {
                 OpenFile(inputDialog.URL);
-            }
         }
 
         private void toolStripMenuItem23_Click(object sender, EventArgs e)
