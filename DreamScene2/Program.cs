@@ -28,15 +28,16 @@ namespace DreamScene2
                 {
                     string filename = vsName.Substring(Constant.projectName.Length + 1);
                     string pa = Path.Combine(Application.StartupPath, filename);
-                    using (FileStream fileStream = File.Create(pa))
+                    if (!File.Exists(pa))
                     {
-                        Stream stream = assembly.GetManifestResourceStream(vsName);
-                        stream.CopyTo(fileStream);
+                        using (FileStream fileStream = File.Create(pa))
+                        {
+                            Stream stream = assembly.GetManifestResourceStream(vsName);
+                            stream.CopyTo(fileStream);
+                        }
                     }
                 }
             }
-
-            //Directory.SetCurrentDirectory(Application.StartupPath);
 
             string extPath = Helper.ExtPath();
             if (!Directory.Exists(extPath))
