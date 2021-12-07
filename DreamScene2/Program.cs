@@ -14,12 +14,33 @@ namespace DreamScene2
         [STAThread]
         static void Main(string[] args)
         {
-            _ = new Mutex(true, Constant.projectName, out bool isNew);
-            if (!isNew)
+            bool createdNew;
+            Mutex obj = new Mutex(initiallyOwned: true, "Global\\{2EA411F1-BFE2-4EA9-8768-0CFCD6EED87B}", out createdNew);
+            if (createdNew)
             {
-                return;
-            }
+                string extPath = Helper.ExtPath();
+                if (!Directory.Exists(extPath))
+                {
+                    Directory.CreateDirectory(extPath);
+                }
 
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                MainDialog mainDialog = new MainDialog();
+                mainDialog.Show();
+
+                if (args.Length != 0 && args[0] == Constant.cmd)
+                {
+                    mainDialog.Hide();
+                }
+
+                Application.Run();
+            }
+        }
+
+        static void extractRes()
+        {
             Assembly assembly = Assembly.GetExecutingAssembly();
             string[] vs = assembly.GetManifestResourceNames();
             foreach (string vsName in vs)
@@ -38,25 +59,6 @@ namespace DreamScene2
                     }
                 }
             }
-
-            string extPath = Helper.ExtPath();
-            if (!Directory.Exists(extPath))
-            {
-                Directory.CreateDirectory(extPath);
-            }
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            MainDialog mainDialog = new MainDialog();
-            mainDialog.Show();
-
-            if (args.Length != 0 && args[0] == Constant.cmd)
-            {
-                mainDialog.Hide();
-            }
-
-            Application.Run();
         }
     }
 }
