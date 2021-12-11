@@ -47,7 +47,7 @@ namespace DreamScene2
             {
                 if (vsName.EndsWith(".dll"))
                 {
-                    string filename = vsName.Substring(nameof(DreamScene2).Length+1);
+                    string filename = vsName.Substring(nameof(DreamScene2).Length + 1);
                     string pa = Path.Combine(Application.StartupPath, filename);
                     if (!File.Exists(pa))
                     {
