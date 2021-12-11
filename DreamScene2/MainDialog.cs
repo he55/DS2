@@ -25,7 +25,7 @@ namespace DreamScene2
         public MainDialog()
         {
             InitializeComponent();
-            this.Icon = DreamScene2.Properties.Resources.ico3;
+            this.Icon = DreamScene2.Properties.Resources.icon;
             notifyIcon1.Icon = this.Icon;
             trackBar1.Value = _settings.Volume;
             toolStripMenuItem23.Checked = _settings.AutoPause1;

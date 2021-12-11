@@ -8,7 +8,7 @@ namespace DreamScene2
         public AboutDialog()
         {
             InitializeComponent();
-            this.Icon = DreamScene2.Properties.Resources.ico3;
+            this.Icon = DreamScene2.Properties.Resources.icon;
         }
 
         private void button1_Click(object sender, EventArgs e)
