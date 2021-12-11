@@ -261,7 +261,7 @@ namespace DreamScene2
         private void button2_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Video Files (*.mp4;*.mov)|*.mp4;*.mov";
+            openFileDialog.Filter = "Video Files (*.mp4;*.mov)|*.mp4;*.mov|HTML Files (*.html)|*.html";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
                 OpenFile(openFileDialog.FileName);
         }
