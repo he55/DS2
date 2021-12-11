@@ -18,7 +18,7 @@ namespace DreamScene2
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Helper.OpenLink("https://github.com/he55");
+            Helper.OpenLink("https://github.com/he55/DreamScene2");
         }
     }
 }
